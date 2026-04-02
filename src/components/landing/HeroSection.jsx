@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { ArrowRight, ChevronDown, Zap, Shield, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import hero1 from "@/assets/hero1.jpg";
+import hero2 from "@/assets/hero2.jpg";
+import hero3 from "@/assets/hero3.jpg";
+import hero4 from "@/assets/hero4.jpg";
+import hero5 from "@/assets/hero5.jpg";
 
 // Floating icons
 const floatingIcons = [
@@ -13,7 +18,7 @@ const floatingIcons = [
 // Slides content
 const slides = [
   {
-    image: "./src/assets/hero1.jpg",
+    image: {hero1},
     badge: "Digital Experts",
     headline: [
       { text: "Empowering Businesses", className: "text-primary" },
@@ -24,7 +29,7 @@ const slides = [
     cta: ["Get Started", "Our Services"],
   },
   {
-    image: "./src/assets/hero2.jpg",
+    image: {hero2},
     badge: "Software Developers",
     headline: [
       { text: "Building", className: "text-primary" },
@@ -35,7 +40,7 @@ const slides = [
     cta: ["View Portfolio", "Learn More"],
   },
   {
-    image: "./src/assets/hero3.jpg",
+    image: {hero3},
     badge: "IT Installations",
     headline: [
       { text: "Seamless IT", className: "text-primary" },
@@ -46,7 +51,7 @@ const slides = [
     cta: ["Contact Us", "Learn More"],
   },
   {
-    image: "./src/assets/hero4.jpg",
+    image: {hero4},
     badge: "IT Academy",
     headline: [
       { text: "Learn and Upskill", className: "text-primary" },
@@ -57,7 +62,7 @@ const slides = [
     cta: ["Enroll Now", "Explore Courses"],
   },
   {
-    image: "./src/assets/hero5.jpg",
+    image: {hero5},
     badge: "Quick Office & Digital Services",
     headline: [
       { text: "Fast & Reliable" },

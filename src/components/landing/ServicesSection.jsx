@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Headphones, Globe, Code, GraduationCap, Printer, ArrowUpRight, Settings } from "lucide-react";
+import serviceImg from "@/assets/service.png";
 
 const services = [
   {
@@ -82,7 +83,7 @@ export default function ServicesSection() {
           className="relative overflow-hidden mb-10 border border-border/30"
         >
           <img
-            src="./src/assets/service.png"
+            src={serviceImg}
             alt="IT Support Services"
             className="w-full h-48 sm:h-64 object-cover"
           />

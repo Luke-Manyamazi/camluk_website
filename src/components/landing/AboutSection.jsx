@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Target, Eye, Lightbulb, Users } from "lucide-react";
+import teamImg from "@/assets/team.jpg";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
@@ -64,7 +65,7 @@ export default function AboutSection() {
           className="relative overflow-hidden mb-12 border border-border/30"
         >
           <img
-            src="./src/assets/team.jpg"
+            src={teamImg}
             alt="Camluk Technologies team"
             className="w-full h-64 sm:h-80 lg:h-96 object-cover"
           />

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Globe, ArrowUpRight } from "lucide-react";
+import capeTownImg from "@/assets/cpt.png";
 
 const contactItems = [
   {
@@ -64,7 +65,7 @@ export default function ContactSection() {
           className="relative overflow-hidden mb-10 border border-border/30"
         >
           <img
-            src="./src/assets/cpt.png"
+            src={capeTownImg}
             alt="Cape Town South Africa"
             className="w-full h-56 sm:h-72 object-cover"
           />

@@ -12,6 +12,7 @@ import {
   Truck,
   Factory,
 } from "lucide-react";
+import clientImg from "@/assets/client.jpg";
 
 const clientTypes = [
   { Icon: User, label: "Individuals" },
@@ -62,7 +63,7 @@ export default function ClientsSection() {
           className="relative overflow-hidden mb-12 border border-border/30"
         >
           <img
-            src="./src/assets/client.jpg"
+            src={clientImg}
             alt="Global network"
             className="w-full h-48 sm:h-64 object-cover"
           />
