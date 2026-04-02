@@ -6,11 +6,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import logo from "@/assets/camluk_logo.png";
 
 const navLinks = [
-  { label: "Home", path: "/" },
-  { label: "About", path: "/about" },
-  { label: "Services", path: "/services" },
-  { label: "Process", path: "/process" },
-  { label: "Contact", path: "/contact" },
+  { label: "Home", sectionId: "home" },
+  { label: "About", sectionId: "about" },
+  { label: "Services", sectionId: "services" },
+  { label: "Process", sectionId: "process" },
+  { label: "Contact", sectionId: "contact" },
 ];
 
 export default function Navbar() {
@@ -20,21 +20,43 @@ export default function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onWindowScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onWindowScroll);
+    return () => window.removeEventListener("scroll", onWindowScroll);
   }, []);
 
-  const handleNavClick = (path) => {
+  const handleScroll = (sectionId) => {
+    if (location.pathname === "/") {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    } else {
+      navigate("/", { state: { scrollTo: sectionId } });
+    }
+  };
+
+  const handleNavClick = (sectionId) => {
     setMobileOpen(false);
 
-    if (path === "/" && location.pathname === "/") {
-      // On home page → scroll to #home
-      const el = document.querySelector("#home");
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (sectionId === "home") {
+      // Scroll to top always
+      if (location.pathname === "/") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        navigate("/");
+        setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
+      }
     } else {
-      // Navigate to other pages or Home if not on home
-      navigate(path);
+      // Scroll to section
+      if (location.pathname === "/") {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      } else {
+        navigate("/", { state: { scrollTo: sectionId } });
+      }
     }
   };
 
@@ -55,7 +77,7 @@ export default function Navbar() {
           <motion.div
             className="flex items-center gap-2.5 cursor-pointer"
             whileHover={{ scale: 1.02 }}
-            onClick={() => handleNavClick("/")}
+            onClick={() => handleScroll("home")}
           >
             <div className="w-9 h-9 rounded-lg overflow-hidden">
               <img
@@ -78,13 +100,9 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <button
-                key={link.path}
-                onClick={() => handleNavClick(link.path)}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
-                  location.pathname === link.path
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                }`}
+                key={link.sectionId}
+                onClick={() => handleNavClick(link.sectionId)}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors text-muted-foreground hover:text-foreground hover:bg-secondary/50`}
               >
                 {link.label}
               </button>
@@ -96,13 +114,13 @@ export default function Navbar() {
             <Button
               variant="ghost"
               className="text-sm text-muted-foreground hover:text-foreground"
-              onClick={() => handleNavClick("/contact")}
+              onClick={() => navigate("contact")}
             >
               Contact Us
             </Button>
             <Button
               className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-semibold px-6"
-              onClick={() => handleNavClick("/services")}
+              onClick={() => navigate("services")}
             >
               Get Started
             </Button>
@@ -113,7 +131,11 @@ export default function Navbar() {
             className="lg:hidden p-2 text-muted-foreground hover:text-foreground"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </div>
@@ -130,13 +152,9 @@ export default function Navbar() {
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <button
-                  key={link.path}
-                  onClick={() => handleNavClick(link.path)}
-                  className={`block w-full text-left px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                    location.pathname === link.path
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                  }`}
+                  key={link.sectionId}
+                  onClick={() => handleNavClick(link.sectionId)}
+                  className="block w-full text-left px-4 py-3 text-sm font-medium rounded-lg transition-colors text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                 >
                   {link.label}
                 </button>
@@ -144,7 +162,7 @@ export default function Navbar() {
               <div className="pt-3 border-t border-border mt-3">
                 <Button
                   className="w-full bg-primary text-primary-foreground"
-                  onClick={() => handleNavClick("/services")}
+                  onClick={() => navigate("/services")}
                 >
                   Get Started
                 </Button>

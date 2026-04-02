@@ -1,9 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink, Folder } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
-import hero1 from "@/assets/hero1.jpg";
 import Footer from "@/components/landing/Footer";
+import hero1 from "@/assets/hero1.jpg";
 
 // Camluk projects/products
 export const PROJECTS = [
@@ -47,6 +48,8 @@ export const PROJECTS = [
 ];
 
 export default function PortfolioPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Navbar */}
@@ -60,8 +63,7 @@ export default function PortfolioPage() {
         className="relative mt-20 text-center py-32 px-4 sm:px-6 bg-cover bg-center rounded-xl"
         style={{ backgroundImage: `url(${hero1})` }}
       >
-        {/* Overlay for readability */}
-        <div className="absolute inset-0 bg-black/80 rounded-xl"></div>
+        <div className="absolute inset-0 bg-black/70 rounded-xl"></div>
 
         <div className="relative z-10 max-w-2xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4">
@@ -69,14 +71,13 @@ export default function PortfolioPage() {
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed">
             Explore selected products and solutions developed by Camluk. From
-            web platforms to real-time applications, see our expertise in
-            action.
+            web platforms to real-time applications, see our expertise in action.
           </p>
         </div>
       </motion.div>
-    <div><br></br><br></br></div>
+
       {/* Projects Section */}
-      <section className="section-padding container mx-auto px-4 md:px-6 bg-secondary/20">
+      <section className="py-20 container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {PROJECTS.map((project, idx) => (
             <motion.div
@@ -153,7 +154,7 @@ export default function PortfolioPage() {
           Contact Us
         </a>
       </motion.div>
-      <div><br></br><br></br><br></br></div>
+
       <Footer />
     </div>
   );

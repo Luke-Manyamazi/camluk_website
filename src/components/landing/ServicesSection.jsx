@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Headphones, Globe, Code, GraduationCap, Printer, ArrowUpRight, Settings } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import serviceImg from "@/assets/service.png";
 
 const services = [
@@ -17,6 +18,7 @@ const services = [
     subtitle: "Modern & Responsive",
     description:
       "We design and build modern, responsive, and SEO-optimized websites that help businesses grow their online presence.",
+    button: { label: "Learn More", to: "/portfolio" },
   },
   {
     Icon: Code,
@@ -24,6 +26,7 @@ const services = [
     subtitle: "Custom Solutions",
     description:
       "We develop custom software solutions that streamline operations, improve efficiency, and scale with your business.",
+    button: { label: "Explore Software", to: "/portfolio" },
   },
   {
     Icon: GraduationCap,
@@ -31,14 +34,15 @@ const services = [
     subtitle: "Training Programs",
     description:
       "We offer practical, industry-relevant training programs designed to equip individuals with in-demand tech skills.",
+    button: { label: "View Courses", to: "/courses" },
   },
   {
-  Icon: Settings, // you can use any icon that represents installations/setup
-  title: "IT Installations",
-  subtitle: "Setup & Deployment",
-  description:
-    "Professional setup of computers, printers, networks, and office tech — reliable and efficient installations for homes or businesses.",
- },
+    Icon: Settings,
+    title: "IT Installations",
+    subtitle: "Setup & Deployment",
+    description:
+      "Professional setup of computers, printers, networks, and office tech — reliable and efficient installations for homes or businesses.",
+  },
   {
     Icon: Printer,
     title: "Quick Office & Digital Services",
@@ -49,6 +53,17 @@ const services = [
 ];
 
 export default function ServicesSection() {
+  const navigate = useNavigate();
+
+  const handleButtonClick = (button) => {
+    if (button.to) {
+      navigate(button.to);
+    } else if (button.sectionId) {
+      const el = document.getElementById(button.sectionId);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="services" className="relative py-24 lg:py-32">
       <div className="absolute inset-0 pointer-events-none">
@@ -56,6 +71,7 @@ export default function ServicesSection() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,8 +113,9 @@ export default function ServicesSection() {
           </div>
         </motion.div>
 
+        {/* Services grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map(({ Icon, title, subtitle, description }, i) => (
+          {services.map(({ Icon, title, subtitle, description, button }, i) => (
             <motion.div
               key={title}
               initial={{ opacity: 0, y: 40 }}
@@ -123,6 +140,15 @@ export default function ServicesSection() {
                   </p>
                   <h3 className="text-xl font-semibold text-foreground mb-3">{title}</h3>
                   <p className="text-muted-foreground leading-relaxed text-sm">{description}</p>
+
+                  {button && (
+                    <button
+                      onClick={() => handleButtonClick(button)}
+                      className="mt-4 inline-block bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
+                    >
+                      {button.label}
+                    </button>
+                  )}
                 </div>
               </div>
             </motion.div>

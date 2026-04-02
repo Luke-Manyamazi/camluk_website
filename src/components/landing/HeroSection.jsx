@@ -18,7 +18,7 @@ const floatingIcons = [
 // Slides content
 const slides = [
   {
-    image: {hero1},
+    image: hero1,
     badge: "Digital Experts",
     headline: [
       { text: "Empowering Businesses", className: "text-primary" },
@@ -29,7 +29,7 @@ const slides = [
     cta: ["Get Started", "Our Services"],
   },
   {
-    image: {hero2},
+    image: hero2,
     badge: "Software Developers",
     headline: [
       { text: "Building", className: "text-primary" },
@@ -40,7 +40,7 @@ const slides = [
     cta: ["View Portfolio", "Learn More"],
   },
   {
-    image: {hero3},
+    image: hero3,
     badge: "IT Installations",
     headline: [
       { text: "Seamless IT", className: "text-primary" },
@@ -51,7 +51,7 @@ const slides = [
     cta: ["Contact Us", "Learn More"],
   },
   {
-    image: {hero4},
+    image: hero4,
     badge: "IT Academy",
     headline: [
       { text: "Learn and Upskill", className: "text-primary" },
@@ -62,7 +62,7 @@ const slides = [
     cta: ["Enroll Now", "Explore Courses"],
   },
   {
-    image: {hero5},
+    image: hero5,
     badge: "Quick Office & Digital Services",
     headline: [
       { text: "Fast & Reliable" },
