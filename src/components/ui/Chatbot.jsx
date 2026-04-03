@@ -135,7 +135,7 @@ function renderMessage(text) {
         <div key={key++} style={msgStyles.bullet}>
           <span style={msgStyles.bulletDot}>•</span>
           <span>{renderInline(content)}</span>
-        </div>
+        </div>,
       );
       continue;
     }
@@ -145,11 +145,15 @@ function renderMessage(text) {
         <div key={key++} style={msgStyles.bullet}>
           <span style={msgStyles.bulletNum}>{numberedMatch[1]}.</span>
           <span>{renderInline(numberedMatch[2])}</span>
-        </div>
+        </div>,
       );
       continue;
     }
-    elements.push(<div key={key++} style={msgStyles.line}>{renderInline(line)}</div>);
+    elements.push(
+      <div key={key++} style={msgStyles.line}>
+        {renderInline(line)}
+      </div>,
+    );
   }
   return elements;
 }
@@ -158,16 +162,38 @@ function renderInline(text) {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
-      return <strong key={i} style={msgStyles.bold}>{part.slice(2, -2)}</strong>;
+      return (
+        <strong key={i} style={msgStyles.bold}>
+          {part.slice(2, -2)}
+        </strong>
+      );
     }
     return <span key={i}>{part}</span>;
   });
 }
 
 const msgStyles = {
-  bullet: { display: "flex", gap: "0.4rem", alignItems: "flex-start", marginBottom: 3 },
-  bulletDot: { color: "#f5a623", fontWeight: 700, flexShrink: 0, marginTop: 1, fontSize: 13 },
-  bulletNum: { color: "#f5a623", fontWeight: 700, flexShrink: 0, marginTop: 1, fontSize: 12, minWidth: 16 },
+  bullet: {
+    display: "flex",
+    gap: "0.4rem",
+    alignItems: "flex-start",
+    marginBottom: 3,
+  },
+  bulletDot: {
+    color: "#f5a623",
+    fontWeight: 700,
+    flexShrink: 0,
+    marginTop: 1,
+    fontSize: 13,
+  },
+  bulletNum: {
+    color: "#f5a623",
+    fontWeight: 700,
+    flexShrink: 0,
+    marginTop: 1,
+    fontSize: 12,
+    minWidth: 16,
+  },
   line: { marginBottom: 2, lineHeight: 1.55 },
   bold: { fontWeight: 600, color: "#ffffff" },
 };
@@ -179,9 +205,27 @@ function TypingIndicator() {
     <div style={styles.msgRow}>
       <div style={styles.botAvatar}>CL</div>
       <div style={styles.typingBubble}>
-        <span style={{ ...styles.dot, animation: "camluk-bounce 1.4s infinite", animationDelay: "0s" }} />
-        <span style={{ ...styles.dot, animation: "camluk-bounce 1.4s infinite", animationDelay: "0.15s" }} />
-        <span style={{ ...styles.dot, animation: "camluk-bounce 1.4s infinite", animationDelay: "0.3s" }} />
+        <span
+          style={{
+            ...styles.dot,
+            animation: "camluk-bounce 1.4s infinite",
+            animationDelay: "0s",
+          }}
+        />
+        <span
+          style={{
+            ...styles.dot,
+            animation: "camluk-bounce 1.4s infinite",
+            animationDelay: "0.15s",
+          }}
+        />
+        <span
+          style={{
+            ...styles.dot,
+            animation: "camluk-bounce 1.4s infinite",
+            animationDelay: "0.3s",
+          }}
+        />
       </div>
     </div>
   );
@@ -192,10 +236,28 @@ function LeadForm({ onSubmit }) {
   const [email, setEmail] = useState("");
   return (
     <div style={styles.leadForm}>
-      <p style={styles.leadFormText}>Drop your details and our team will get back to you within 24 hours.</p>
-      <input style={styles.leadInput} placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} />
-      <input style={styles.leadInput} placeholder="Email address" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <button style={styles.leadSubmit} onClick={() => { if (name.trim() && email.trim()) onSubmit(name.trim(), email.trim()); }}>
+      <p style={styles.leadFormText}>
+        Drop your details and our team will get back to you within 24 hours.
+      </p>
+      <input
+        style={styles.leadInput}
+        placeholder="Your name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        style={styles.leadInput}
+        placeholder="Email address"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <button
+        style={styles.leadSubmit}
+        onClick={() => {
+          if (name.trim() && email.trim()) onSubmit(name.trim(), email.trim());
+        }}
+      >
         Send my details →
       </button>
     </div>
@@ -224,10 +286,12 @@ export default function Chatbot() {
   useEffect(() => {
     if (isOpen && !initialised.current) {
       initialised.current = true;
-      setMessages([{
-        role: "bot",
-        text: "Hey there! 👋 I'm the **Camluk Technologies** AI assistant.\n\nI can help you with:\n• Questions about our services\n• IT support and installations\n• Web & software development\n• Our Computer Academy\n• Getting a quote\n\nHow can I help you today?",
-      }]);
+      setMessages([
+        {
+          role: "bot",
+          text: "Hey there! 👋 I'm the **Camluk Technologies** AI assistant.\n\nI can help you with:\n• Questions about our services\n• IT support and installations\n• Web & software development\n• Our Computer Academy\n• Getting a quote\n\nHow can I help you today?",
+        },
+      ]);
       setShowQuickReplies(true);
     }
   }, [isOpen]);
@@ -235,7 +299,7 @@ export default function Chatbot() {
   const callClaude = async (userMessage, history) => {
     // UPDATED: Now calls your Afrihost PHP proxy to bypass CORS and hide API key
     const currentHistory = [...history, { role: "user", content: userMessage }];
-    
+
     const res = await fetch("/chat-proxy.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -248,11 +312,12 @@ export default function Chatbot() {
     if (!res.ok) throw new Error("Server error");
 
     const data = await res.json();
-    const reply = data.content?.[0]?.text ?? "I'm having trouble connecting right now.";
+    const reply =
+      data.content?.[0]?.text ?? "I'm having trouble connecting right now.";
 
-    return { 
-      reply, 
-      newHistory: [...currentHistory, { role: "assistant", content: reply }] 
+    return {
+      reply,
+      newHistory: [...currentHistory, { role: "assistant", content: reply }],
     };
   };
 
@@ -268,14 +333,22 @@ export default function Chatbot() {
       setMessages((prev) => [...prev, { role: "bot", text: reply }]);
 
       const lower = (text + reply).toLowerCase();
-      if (!leadCaptured && (lower.includes("quote") || lower.includes("pricing") || lower.includes("cost"))) {
+      if (
+        !leadCaptured &&
+        (lower.includes("quote") ||
+          lower.includes("pricing") ||
+          lower.includes("cost"))
+      ) {
         setShowLeadForm(true);
       }
     } catch {
-      setMessages((prev) => [...prev, {
-        role: "bot",
-        text: "Hmm, I'm having a moment. Please try again or reach us at:\n\n• **Email:** support@camluk.co.za\n• **Phone:** +27 62 107 1140",
-      }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "bot",
+          text: "Hmm, I'm having a moment. Please try again or reach us at:\n\n• **Email:** support@camluk.co.za\n• **Phone:** +27 62 107 1140",
+        },
+      ]);
     }
     setIsTyping(false);
   };
@@ -290,10 +363,13 @@ export default function Chatbot() {
   const handleLeadSubmit = (name, email) => {
     setShowLeadForm(false);
     setLeadCaptured(true);
-    setMessages((prev) => [...prev, {
-      role: "bot",
-      text: `Thanks **${name}**! ✅\n\nWe've got your details and someone from the team will reach out to **${email}** shortly.`,
-    }]);
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "bot",
+        text: `Thanks **${name}**! ✅\n\nWe've got your details and someone from the team will reach out to **${email}** shortly.`,
+      },
+    ]);
   };
 
   return (
@@ -305,10 +381,46 @@ export default function Chatbot() {
         .camluk-msg { animation: camluk-msg-in 0.28s cubic-bezier(0.34,1.3,0.64,1); }
         .camluk-fab:hover { transform:scale(1.09) !important; }
         .camluk-qr:hover { border-color:#f5a623 !important; color:#f5a623 !important; }
+        .camluk-fab svg { transition: transform 0.2s ease-in-out; }
+        .camluk-fab:hover svg { transform: scale(1.1); }
       `}</style>
 
-      <button className="camluk-fab" onClick={() => setIsOpen(o => !o)} style={styles.fab}>
-        {isOpen ? "✕" : "💬"}
+      <button
+        className="camluk-fab"
+        onClick={() => setIsOpen((o) => !o)}
+        style={styles.fab}
+        aria-label="Chat with us"
+      >
+        {isOpen ? (
+          // The "X" Close Icon
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        ) : (
+          // The Professional Message Bubble Icon
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        )}
       </button>
 
       {isOpen && (
@@ -319,22 +431,39 @@ export default function Chatbot() {
               <div style={styles.headerName}>Camluk Technologies</div>
               <div style={styles.headerStatus}>Online</div>
             </div>
-            <button style={styles.closeBtn} onClick={() => setIsOpen(false)}>✕</button>
+            <button style={styles.closeBtn} onClick={() => setIsOpen(false)}>
+              ✕
+            </button>
           </div>
 
           <div style={styles.messages}>
             {messages.map((msg, i) => (
-              <div key={i} className="camluk-msg" style={msg.role === "user" ? styles.userRow : styles.msgRow}>
+              <div
+                key={i}
+                className="camluk-msg"
+                style={msg.role === "user" ? styles.userRow : styles.msgRow}
+              >
                 {msg.role === "bot" && <div style={styles.botAvatar}>CL</div>}
-                <div style={msg.role === "user" ? styles.userBubble : styles.botBubble}>
+                <div
+                  style={
+                    msg.role === "user" ? styles.userBubble : styles.botBubble
+                  }
+                >
                   {msg.role === "bot" ? renderMessage(msg.text) : msg.text}
                 </div>
               </div>
             ))}
             {showQuickReplies && (
               <div style={styles.quickReplies}>
-                {QUICK_REPLIES.map(qr => (
-                  <button key={qr} className="camluk-qr" style={styles.qrBtn} onClick={() => handleUserInput(qr)}>{qr}</button>
+                {QUICK_REPLIES.map((qr) => (
+                  <button
+                    key={qr}
+                    className="camluk-qr"
+                    style={styles.qrBtn}
+                    onClick={() => handleUserInput(qr)}
+                  >
+                    {qr}
+                  </button>
                 ))}
               </div>
             )}
@@ -350,10 +479,21 @@ export default function Chatbot() {
                 rows={1}
                 placeholder="Type your question…"
                 value={input}
-                onChange={e => setInput(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSend();
+                  }
+                }}
               />
-              <button style={styles.sendBtn} onClick={handleSend} disabled={isTyping}>➤</button>
+              <button
+                style={styles.sendBtn}
+                onClick={handleSend}
+                disabled={isTyping}
+              >
+                ➤
+              </button>
             </div>
           </div>
         </div>
@@ -363,29 +503,174 @@ export default function Chatbot() {
 }
 
 const styles = {
-  fab: { position: "fixed", bottom: "1.25rem", right: "1.90rem", width: 56, height: 56, borderRadius: "50%", background: "#f5a623", border: "none", cursor: "pointer", fontSize: "24px", color: "white", zIndex: 9999, transition: "0.3s" },
-  window: { position: "fixed", bottom: "5.25rem", right: "1.75rem", width: 350, height: 500, background: "#111", border: "1px solid #222", borderRadius: 18, display: "flex", flexDirection: "column", overflow: "hidden", zIndex: 9998 },
-  header: { padding: "1rem", background: "#1a1a1a", borderBottom: "1px solid #222", display: "flex", alignItems: "center", gap: "0.75rem" },
-  avatar: { width: 32, height: 32, borderRadius: "50%", background: "#f5a623", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "12px", color: "white" },
+  fab: {
+    position: "fixed",
+    bottom: "1.25rem",
+    right: "1.90rem",
+    width: 56,
+    height: 56,
+    borderRadius: "50%",
+    background: "#f5a623",
+    border: "none",
+    cursor: "pointer",
+    fontSize: "24px",
+    color: "white",
+    zIndex: 9999,
+    transition: "0.3s",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  window: {
+    position: "fixed",
+    bottom: "5.25rem",
+    right: "1.75rem",
+    width: 350,
+    height: 500,
+    background: "#111",
+    border: "1px solid #222",
+    borderRadius: 18,
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    zIndex: 9998,
+  },
+  header: {
+    padding: "1rem",
+    background: "#1a1a1a",
+    borderBottom: "1px solid #222",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.75rem",
+  },
+  avatar: {
+    width: 32,
+    height: 32,
+    borderRadius: "50%",
+    background: "#f5a623",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "bold",
+    fontSize: "12px",
+    color: "white",
+  },
   headerName: { fontSize: "14px", fontWeight: "600", color: "#eee" },
   headerStatus: { fontSize: "11px", color: "#4caf50" },
-  closeBtn: { background: "none", border: "none", color: "#555", cursor: "pointer" },
-  messages: { flex: 1, overflowY: "auto", padding: "1rem", display: "flex", flexDirection: "column", gap: "0.75rem" },
+  closeBtn: {
+    background: "none",
+    border: "none",
+    color: "#555",
+    cursor: "pointer",
+  },
+  messages: {
+    flex: 1,
+    overflowY: "auto",
+    padding: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.75rem",
+  },
   msgRow: { display: "flex", gap: "0.5rem", alignItems: "flex-end" },
-  userRow: { display: "flex", gap: "0.5rem", alignItems: "flex-end", flexDirection: "row-reverse" },
-  botAvatar: { width: 24, height: 24, borderRadius: "50%", background: "#f5a623", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "10px", color: "white" },
-  botBubble: { maxWidth: "80%", padding: "0.75rem", background: "#222", color: "#ccc", borderRadius: "12px", borderBottomLeftRadius: "2px", fontSize: "13.5px" },
-  userBubble: { maxWidth: "80%", padding: "0.75rem", background: "#f5a623", color: "#000", borderRadius: "12px", borderBottomRightRadius: "2px", fontSize: "13.5px" },
-  typingBubble: { padding: "0.75rem", background: "#222", borderRadius: "12px", display: "flex", gap: "4px" },
+  userRow: {
+    display: "flex",
+    gap: "0.5rem",
+    alignItems: "flex-end",
+    flexDirection: "row-reverse",
+  },
+  botAvatar: {
+    width: 24,
+    height: 24,
+    borderRadius: "50%",
+    background: "#f5a623",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "10px",
+    color: "white",
+  },
+  botBubble: {
+    maxWidth: "80%",
+    padding: "0.75rem",
+    background: "#222",
+    color: "#ccc",
+    borderRadius: "12px",
+    borderBottomLeftRadius: "2px",
+    fontSize: "13.5px",
+  },
+  userBubble: {
+    maxWidth: "80%",
+    padding: "0.75rem",
+    background: "#f5a623",
+    color: "#000",
+    borderRadius: "12px",
+    borderBottomRightRadius: "2px",
+    fontSize: "13.5px",
+  },
+  typingBubble: {
+    padding: "0.75rem",
+    background: "#222",
+    borderRadius: "12px",
+    display: "flex",
+    gap: "4px",
+  },
   dot: { width: 6, height: 6, borderRadius: "50%", background: "#555" },
   quickReplies: { display: "flex", flexWrap: "wrap", gap: "6px" },
-  qrBtn: { background: "none", border: "1px solid #333", color: "#888", padding: "6px 12px", borderRadius: "20px", fontSize: "12px", cursor: "pointer" },
-  leadForm: { background: "#1a1a1a", padding: "1rem", borderRadius: "12px", display: "flex", flexDirection: "column", gap: "8px" },
+  qrBtn: {
+    background: "none",
+    border: "1px solid #333",
+    color: "#888",
+    padding: "6px 12px",
+    borderRadius: "20px",
+    fontSize: "12px",
+    cursor: "pointer",
+  },
+  leadForm: {
+    background: "#1a1a1a",
+    padding: "1rem",
+    borderRadius: "12px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+  },
   leadFormText: { fontSize: "12px", color: "#888" },
-  leadInput: { background: "#222", border: "1px solid #333", borderRadius: "6px", padding: "8px", color: "white", fontSize: "13px" },
-  leadSubmit: { background: "#f5a623", border: "none", borderRadius: "6px", padding: "10px", fontWeight: "bold", cursor: "pointer" },
+  leadInput: {
+    background: "#222",
+    border: "1px solid #333",
+    borderRadius: "6px",
+    padding: "8px",
+    color: "white",
+    fontSize: "13px",
+  },
+  leadSubmit: {
+    background: "#f5a623",
+    border: "none",
+    borderRadius: "6px",
+    padding: "10px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  },
   inputArea: { padding: "1rem", borderTop: "1px solid #222" },
-  inputRow: { display: "flex", background: "#222", borderRadius: "10px", padding: "8px" },
-  textarea: { flex: 1, background: "none", border: "none", color: "white", resize: "none", outline: "none", fontSize: "14px" },
-  sendBtn: { background: "none", border: "none", color: "#f5a623", fontSize: "18px", cursor: "pointer" }
+  inputRow: {
+    display: "flex",
+    background: "#222",
+    borderRadius: "10px",
+    padding: "8px",
+  },
+  textarea: {
+    flex: 1,
+    background: "none",
+    border: "none",
+    color: "white",
+    resize: "none",
+    outline: "none",
+    fontSize: "14px",
+  },
+  sendBtn: {
+    background: "none",
+    border: "none",
+    color: "#f5a623",
+    fontSize: "18px",
+    cursor: "pointer",
+  },
 };
