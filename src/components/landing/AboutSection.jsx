@@ -50,9 +50,10 @@ export default function AboutSection() {
             Who We Are
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-muted-foreground text-base sm:text-lg leading-relaxed">
-            Camluk Technologies is a forward-thinking IT solutions company based in Cape Town, South Africa.
-            We specialize in delivering innovative, reliable, and scalable technology services tailored to
-            businesses and individuals.
+            Camluk Technologies is a forward-thinking IT solutions company based
+            in Cape Town, South Africa. We specialize in delivering innovative,
+            reliable, and scalable technology services tailored to businesses
+            and individuals.
           </p>
         </motion.div>
 
@@ -65,15 +66,20 @@ export default function AboutSection() {
           className="relative overflow-hidden mb-12 border border-border/30"
         >
           <img
-            src={teamImg}
+            src={
+              typeof teamImg === "string" ? teamImg : teamImg.default || teamImg
+            }
             alt="Camluk Technologies team"
             className="w-full h-64 sm:h-80 lg:h-96 object-cover"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
           <div className="absolute bottom-6 left-6 right-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/60 backdrop-blur-sm border border-border/60">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-xs font-mono font-medium text-primary">Based in Cape Town, South Africa</span>
+              <span className="text-xs font-mono font-medium text-primary">
+                Based in Cape Town, South Africa
+              </span>
             </div>
           </div>
         </motion.div>
@@ -94,8 +100,12 @@ export default function AboutSection() {
                   <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                     <Icon className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3">{title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{text}</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">
+                    {title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {text}
+                  </p>
                 </div>
               </div>
             </motion.div>
