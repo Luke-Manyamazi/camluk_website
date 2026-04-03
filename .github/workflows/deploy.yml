@@ -38,3 +38,6 @@ jobs:
           # Adding timeout and state-name helps with unstable FTP connections
           timeout: 60000 
           state-name: .ftp-deploy-sync-state.json
+
+          exclude: |
+            **/chat-proxy.php
