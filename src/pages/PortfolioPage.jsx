@@ -71,7 +71,8 @@ export default function PortfolioPage() {
           </h1>
           <p className="text-lg md:text-xl text-white/90 leading-relaxed">
             Explore selected products and solutions developed by Camluk. From
-            web platforms to real-time applications, see our expertise in action.
+            web platforms to real-time applications, see our expertise in
+            action.
           </p>
         </div>
       </motion.div>
@@ -114,9 +115,16 @@ export default function PortfolioPage() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                {project.title}
-              </h3>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary hover:underline transition-all">
+                  {project.title}
+                </h3>
+              </a>
 
               <p className="text-muted-foreground text-sm mb-6 flex-grow leading-relaxed">
                 {project.description}
@@ -154,7 +162,10 @@ export default function PortfolioPage() {
           Contact Us
         </a>
       </motion.div>
-
+      <div>
+        <br></br>
+        <br></br>
+      </div>
       <Footer />
     </div>
   );
