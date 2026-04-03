@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://camluk.co.za/sitemap.xml
