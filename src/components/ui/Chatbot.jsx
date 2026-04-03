@@ -300,7 +300,7 @@ export default function Chatbot() {
     // UPDATED: Now calls your Afrihost PHP proxy to bypass CORS and hide API key
     const currentHistory = [...history, { role: "user", content: userMessage }];
 
-    const res = await fetch("/chat-proxy.php", {
+    const res = await fetch("./chat-proxy.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
