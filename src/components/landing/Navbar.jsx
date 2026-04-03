@@ -99,21 +99,21 @@ export default function Navbar() {
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
-              <Button
+              <button
                 key={link.sectionId}
-                ariaLabel={`Navigate to ${link.label}`}
+                aria-label={`Navigate to ${link.label}`}
                 onClick={() => handleNavClick(link.sectionId)}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors text-muted-foreground hover:text-foreground hover:bg-secondary/50`}
               >
                 {link.label}
-              </Button>
+              </button>
             ))}
           </div>
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
             <Button
-              ariaLabel="Contact Us"
+              aria-label="Contact Us"
               variant="ghost"
               className="text-sm text-muted-foreground hover:text-foreground"
               onClick={() => navigate("contact")}
@@ -121,7 +121,7 @@ export default function Navbar() {
               Contact Us
             </Button>
             <Button
-              ariaLabel="Get Started"
+              aria-label="Get Started"
               className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-semibold px-6"
               onClick={() => navigate("services")}
             >
@@ -131,7 +131,7 @@ export default function Navbar() {
 
           {/* Mobile toggle */}
           <Button
-            ariaLabel="Toggle Menu"
+            aria-label="Toggle Menu"
             className="lg:hidden p-2 text-muted-foreground hover:text-foreground"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
@@ -157,7 +157,7 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <Button
                   key={link.sectionId}
-                  ariaLabel={`Navigate to ${link.label}`}
+                  aria-label={`Navigate to ${link.label}`}
                   onClick={() => handleNavClick(link.sectionId)}
                   className="block w-full text-left px-4 py-3 text-sm font-medium rounded-lg transition-colors text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                 >
@@ -166,7 +166,7 @@ export default function Navbar() {
               ))}
               <div className="pt-3 border-t border-border mt-3">
                 <Button
-                  ariaLabel="Get Started"
+                  aria-label="Get Started"
                   className="w-full bg-primary text-primary-foreground"
                   onClick={() => navigate("#services")}
                 >

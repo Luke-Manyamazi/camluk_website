@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Globe, ArrowUpRight } from "lucide-react";
-import capeTownImg from "@/assets/cpt.png";
+import capeTownImg from "@/assets/cpt.webp";
 
 const contactItems = [
   {

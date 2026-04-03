@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { ArrowRight, ChevronDown, Zap, Shield, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useNavigate } from "react-router-dom";
-import hero1 from "@/assets/hero1.jpg";
-import hero2 from "@/assets/hero2.jpg";
-import hero3 from "@/assets/hero3.jpg";
-import hero4 from "@/assets/hero4.jpg";
-import hero5 from "@/assets/hero5.jpg";
+import hero1 from "@/assets/hero1.webp";
+import hero2 from "@/assets/hero2.webp";
+import hero3 from "@/assets/hero3.webp";
+import hero4 from "@/assets/hero4.webp";
+import hero5 from "@/assets/hero5.webp";
 
 // Floating icons
 const floatingIcons = [

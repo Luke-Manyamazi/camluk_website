@@ -4,7 +4,7 @@ import { Github, ExternalLink, Folder } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
-import hero1 from "@/assets/hero1.jpg";
+import hero1 from "@/assets/hero1.webp";
 
 // Camluk projects/products
 export const PROJECTS = [

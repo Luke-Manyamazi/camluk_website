@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Headphones, Globe, Code, GraduationCap, Printer, ArrowUpRight, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import serviceImg from "@/assets/service.png";
+import serviceImg from "@/assets/service.webp";
 import { Button } from "../ui/Button";
 
 const services = [

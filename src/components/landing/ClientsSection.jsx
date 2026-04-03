@@ -12,7 +12,7 @@ import {
   Truck,
   Factory,
 } from "lucide-react";
-import clientImg from "@/assets/client.jpg";
+import clientImg from "@/assets/client.webp";
 
 const clientTypes = [
   { Icon: User, label: "Individuals" },
