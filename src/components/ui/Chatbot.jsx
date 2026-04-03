@@ -313,7 +313,7 @@ export default function Chatbot() {
 
     const data = await res.json();
     const reply =
-      data.content?.[0]?.text ?? "I'm having trouble connecting right now.";
+      data.choices?.[0]?.message?.content ?? "I'm having trouble connecting.";
 
     return {
       reply,
