@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import Navbar from "@/components/landing/Navbar"; // adjust path if needed
 import Footer from "@/components/landing/Footer"; // adjust path if needed
 import teamImg from "@/assets/team.jpg"; // hero background image
