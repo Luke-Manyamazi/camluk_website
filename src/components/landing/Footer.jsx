@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "@/assets/camluk_logo.png";
+import { Button } from "../ui/Button";
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -53,13 +54,14 @@ export default function Footer() {
           {/* Links */}
           <div className="flex items-center gap-6">
             {["home", "about", "services", "contact"].map((section) => (
-              <button
+              <Button
                 key={section}
                 onClick={() => handleScroll(section)}
                 className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+                ariaLabel={`Go to ${section}`}
               >
                 {section.charAt(0).toUpperCase() + section.slice(1)}
-              </button>
+              </Button>
             ))}
           </div>
 

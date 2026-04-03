@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Headphones, Globe, Code, GraduationCap, Printer, ArrowUpRight, Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import serviceImg from "@/assets/service.png";
+import { Button } from "../ui/Button";
 
 const services = [
   {
@@ -142,12 +143,13 @@ export default function ServicesSection() {
                   <p className="text-muted-foreground leading-relaxed text-sm">{description}</p>
 
                   {button && (
-                    <button
+                    <Button
+                      ariaLabel={`Learn more about ${title}`}
                       onClick={() => handleButtonClick(button)}
                       className="mt-4 inline-block bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
                     >
                       {button.label}
-                    </button>
+                    </Button>
                   )}
                 </div>
               </div>

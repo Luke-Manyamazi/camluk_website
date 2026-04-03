@@ -27,13 +27,13 @@ export default function PageNotFound() {
           seems to have taken a coffee break ☕ or wandered off. Don’t worry — you can head back home!
         </p>
 
-        <button
+        <Button
           onClick={() => (window.location.href = '/')}
           className="mt-4 inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-primary rounded-xl hover:bg-primary/90 transition-all duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/50"
         >
           Go Home
           <ArrowRight className="w-5 h-5 ml-2 animate-bounce" />
-        </button>
+        </Button>
       </div>
 
       {/* Tailwind animation for sliding 404 */}
