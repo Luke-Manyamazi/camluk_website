@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Target, Eye, Lightbulb, Users } from "lucide-react";
-import teamImg from "@/assets/team.jpg";
+import teamImg from "@/assets/team.webp";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
