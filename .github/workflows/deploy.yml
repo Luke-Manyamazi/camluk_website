@@ -5,17 +5,21 @@ on:
     branches:
       - main
 
+env:
+  # Opt into the newer Node.js 24 runner to stop the warnings
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4 # Updated to v4
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v4 # Updated to v4
+        uses: actions/setup-node@v4
         with:
-          node-version: '20' # Vite works best with Node 20+
+          node-version: '24' # Set this to 24 to match the runner requirement
 
       - name: Install dependencies
         run: npm install
@@ -24,13 +28,13 @@ jobs:
         run: npm run build
 
       - name: Deploy via FTP
-        # CRITICAL FIX: Changed SamKirkland to samkirkland
         uses: samkirkland/FTP-Deploy-Action@v4.3.5 
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          # Since your FTP account is pointing to /home/camluxlh/public_html,
-          # use ./ so it drops the files exactly there.
           server-dir: ./
+          # Adding timeout and state-name helps with unstable FTP connections
+          timeout: 60000 
+          state-name: .ftp-deploy-sync-state.json
