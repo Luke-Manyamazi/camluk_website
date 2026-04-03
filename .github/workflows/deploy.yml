@@ -3,20 +3,23 @@ name: Deploy to Afrihost via FTP
 on:
   push:
     branches:
-      - main  # change if you want another branch
+      - main
+
+env:
+  # Opt into the newer Node.js 24 runner to stop the warnings
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '24' # Set this to 24 to match the runner requirement
 
       - name: Install dependencies
         run: npm install
@@ -25,11 +28,13 @@ jobs:
         run: npm run build
 
       - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: samkirkland/FTP-Deploy-Action@v4.3.5 
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist 
-          server-dir: /public_html/ 
-          git-ftp-args: --insecure
+          local-dir: ./dist/
+          server-dir: ./
+          # Adding timeout and state-name helps with unstable FTP connections
+          timeout: 60000 
+          state-name: .ftp-deploy-sync-state.json
