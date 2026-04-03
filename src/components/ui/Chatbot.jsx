@@ -363,7 +363,7 @@ export default function Chatbot() {
 }
 
 const styles = {
-  fab: { position: "fixed", bottom: "1.75rem", right: "1.75rem", width: 56, height: 56, borderRadius: "50%", background: "#f5a623", border: "none", cursor: "pointer", fontSize: "24px", color: "white", zIndex: 9999, transition: "0.3s" },
+  fab: { position: "fixed", bottom: "1.25rem", right: "1.90rem", width: 56, height: 56, borderRadius: "50%", background: "#f5a623", border: "none", cursor: "pointer", fontSize: "24px", color: "white", zIndex: 9999, transition: "0.3s" },
   window: { position: "fixed", bottom: "5.25rem", right: "1.75rem", width: 350, height: 500, background: "#111", border: "1px solid #222", borderRadius: 18, display: "flex", flexDirection: "column", overflow: "hidden", zIndex: 9998 },
   header: { padding: "1rem", background: "#1a1a1a", borderBottom: "1px solid #222", display: "flex", alignItems: "center", gap: "0.75rem" },
   avatar: { width: 32, height: 32, borderRadius: "50%", background: "#f5a623", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold", fontSize: "12px", color: "white" },
