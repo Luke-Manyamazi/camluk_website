@@ -289,7 +289,7 @@ export default function Chatbot() {
       setMessages([
         {
           role: "bot",
-          text: "Hey there! 👋 I'm the **Camluk Technologies** AI assistant.\n\nI can help you with:\n• Questions about our services\n• IT support and installations\n• Web & software development\n• Our Computer Academy\n• Getting a quote\n\nHow can I help you today?",
+          text: "Hey there! 👋 I'm the **Camluk Technologies** AI assistant.\n\nI can help you with:\n• Questions about our services\n• IT support and installations\n• Web & Software Development\n• Our Computer Academy\n• Getting a quote\n\nHow can I help you today?",
         },
       ]);
       setShowQuickReplies(true);
