@@ -1,8 +1,8 @@
 import React from "react";
 import { Button } from "@/components/ui/Button";
-import Navbar from "@/components/landing/Navbar"; // adjust path if needed
-import Footer from "@/components/landing/Footer"; // adjust path if needed
-import teamImg from "@/assets/team.jpg"; // hero background image
+import Navbar from "@/components/landing/Navbar";
+import Footer from "@/components/landing/Footer";
+import teamImg from "@/assets/team.webp";
 
 // Short courses
 const shortCourses = [
@@ -53,7 +53,8 @@ export default function ExploreCourses() {
             Explore Our Short Courses
           </h1>
           <p className="mt-4 text-lg text-white/90">
-            Short certificate courses designed to build practical IT and software skills. Delivered online or in-person.
+            Short certificate courses designed to build practical IT and
+            software skills. Delivered online or in-person.
           </p>
         </div>
       </section>
@@ -67,11 +68,17 @@ export default function ExploreCourses() {
               className="bg-card border border-border rounded-xl p-6 flex flex-col justify-between"
             >
               <div>
-                <h2 className="text-xl font-bold text-foreground">{course.title}</h2>
-                <p className="mt-2 text-muted-foreground">{course.description}</p>
+                <h2 className="text-xl font-bold text-foreground">
+                  {course.title}
+                </h2>
+                <p className="mt-2 text-muted-foreground">
+                  {course.description}
+                </p>
               </div>
               <div className="mt-4 flex items-center justify-between">
-                <span className="text-sm font-medium text-primary">{course.delivery}</span>
+                <span className="text-sm font-medium text-primary">
+                  {course.delivery}
+                </span>
                 <Button
                   size="sm"
                   className="bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md"
