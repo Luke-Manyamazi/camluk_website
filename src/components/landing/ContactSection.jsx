@@ -87,6 +87,7 @@ export default function ContactSection() {
               {href ? (
                 <a
                   href={href}
+                  aria-label="Contact Camluk Technologies"
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className="group block h-full p-6 border-l-2 border-border/40 hover:border-primary/60 transition-all duration-500"

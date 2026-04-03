@@ -9,6 +9,7 @@ export default function WhatsAppFloat() {
   return (
     <a
       href={url}
+      aria-label="Chat with us on WhatsApp"
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-20 right-8 z-50"

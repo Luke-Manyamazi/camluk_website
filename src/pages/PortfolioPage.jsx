@@ -95,6 +95,7 @@ export default function PortfolioPage() {
                   {project.githubLink && (
                     <a
                       href={project.githubLink}
+                      aria-label="View source code on GitHub"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-muted-foreground hover:text-white transition-colors"
@@ -105,6 +106,7 @@ export default function PortfolioPage() {
                   {project.link && (
                     <a
                       href={project.link}
+                      aria-label="Visit project website"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-muted-foreground hover:text-white transition-colors"
@@ -117,6 +119,7 @@ export default function PortfolioPage() {
 
               <a
                 href={project.link}
+                aria-label="Visit project website"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block"
@@ -157,6 +160,7 @@ export default function PortfolioPage() {
         </p>
         <a
           href="mailto:info@camluk.co.za"
+          aria-label="Contact Camluk Technologies via email"
           className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-xl font-semibold transition"
         >
           Contact Us
