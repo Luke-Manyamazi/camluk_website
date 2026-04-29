@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "@/assets/camluk_logo.png";
+import logo from "@/assets/camluk_logo.jpg";
 
 const navLinks = [
   { label: "Home", sectionId: "home" },
