@@ -197,7 +197,7 @@ export default function CoursePage() {
                     {completed.includes(currentLesson.id) ? 'Completed' : 'Mark complete'}
                   </button>
                 </div>
-                <VideoEmbed url={currentLesson.videoUrl} />
+                {'videoUrl' in currentLesson && <VideoEmbed url={currentLesson.videoUrl} />}
 
                 {currentLesson.content && (
                   <>

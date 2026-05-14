@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PlayCircle } from 'lucide-react';
+import { PlayCircle, Clock } from 'lucide-react';
 
 function getYouTubeId(url) {
   const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/);
@@ -23,10 +23,24 @@ function LoadingSkeleton() {
   );
 }
 
+function ComingSoonPlaceholder() {
+  return (
+    <div className="aspect-video rounded-xl bg-secondary/50 border border-border border-dashed flex flex-col items-center justify-center gap-3 mb-6">
+      <div className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center">
+        <Clock size={24} className="text-muted-foreground" />
+      </div>
+      <div className="text-center">
+        <p className="text-sm font-medium text-muted-foreground">Video coming soon</p>
+        <p className="text-xs text-muted-foreground/60 mt-0.5">Read the notes below in the meantime</p>
+      </div>
+    </div>
+  );
+}
+
 export default function VideoEmbed({ url }) {
   const [loaded, setLoaded] = useState(false);
 
-  if (!url) return null;
+  if (!url) return <ComingSoonPlaceholder />;
 
   const youtubeId = getYouTubeId(url);
   const vimeoId   = getVimeoId(url);
