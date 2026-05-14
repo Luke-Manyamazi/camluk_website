@@ -166,10 +166,6 @@ export default function PortfolioPage() {
           Contact Us
         </a>
       </motion.div>
-      <div>
-        <br></br>
-        <br></br>
-      </div>
       <Footer />
     </div>
   );

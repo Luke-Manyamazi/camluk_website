@@ -68,25 +68,21 @@ export default function ClientsSection() {
             className="w-full h-48 sm:h-64 object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/80" />
-          <motion.div className="absolute inset-0 overflow-hidden flex items-center">
+          <div className="absolute inset-0 overflow-hidden flex items-center">
             <motion.div
               className="flex whitespace-nowrap"
-              animate={{ x: ["100%", "-50%"] }}
-              transition={{
-                duration: 10,
-                ease: "linear",
-                repeat: Infinity,
-              }}
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ duration: 14, ease: "linear", repeat: Infinity }}
             >
-              {/* Content duplicated */}
-              <p className="text-lg sm:text-4xl font-bold px-8">
-                Serving businesses{" "}
-                <span className="text-primary">across South Africa</span> and
-                beyond.
-              </p>
-              
+              {[0, 1].map((n) => (
+                <p key={n} className="text-lg sm:text-4xl font-bold px-16 shrink-0">
+                  Serving businesses{" "}
+                  <span className="text-primary">across South Africa</span> and beyond.
+                  &nbsp;&nbsp;·&nbsp;&nbsp;
+                </p>
+              ))}
             </motion.div>
-          </motion.div>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">

@@ -136,7 +136,12 @@ export default function HeroSection() {
   const slide = slides[current];
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      onMouseEnter={() => clearInterval(timerRef.current)}
+      onMouseLeave={startTimer}
+    >
       {/* Background */}
       <div className="absolute inset-0">
         <div

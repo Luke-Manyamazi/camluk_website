@@ -113,3 +113,11 @@
 .animate-grid-pulse {
   animation: gridPulse 4s ease-in-out infinite;
 }
+
+.glass-card {
+  @apply bg-card/50 backdrop-blur-md border border-white/5 shadow-xl;
+}
+
+.section-padding {
+  @apply py-16 md:py-24;
+}

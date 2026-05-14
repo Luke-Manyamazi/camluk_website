@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "@/assets/camluk_logo.png";
 import { Button } from "../ui/Button";
+import { FaLinkedinIn, FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -63,6 +64,46 @@ export default function Footer() {
                 {section.charAt(0).toUpperCase() + section.slice(1)}
               </Button>
             ))}
+          </div>
+
+          {/* Social links */}
+          <div className="flex items-center gap-3">
+            <a
+              href="https://linkedin.com/company/camluk-technologies"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="w-8 h-8 flex items-center justify-center border border-border/40 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+            >
+              <FaLinkedinIn className="text-sm" />
+            </a>
+            <a
+              href="https://facebook.com/camluk"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="w-8 h-8 flex items-center justify-center border border-border/40 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+            >
+              <FaFacebookF className="text-sm" />
+            </a>
+            <a
+              href="https://instagram.com/camluk_tech"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="w-8 h-8 flex items-center justify-center border border-border/40 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+            >
+              <FaInstagram className="text-sm" />
+            </a>
+            <a
+              href="https://x.com/camluk_tech"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X / Twitter"
+              className="w-8 h-8 flex items-center justify-center border border-border/40 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+            >
+              <FaXTwitter className="text-sm" />
+            </a>
           </div>
 
           {/* Copyright */}

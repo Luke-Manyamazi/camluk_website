@@ -6,11 +6,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import logo from "@/assets/camluk_logo.jpg";
 
 const navLinks = [
-  { label: "Home", sectionId: "home" },
-  { label: "About", sectionId: "about" },
-  { label: "Services", sectionId: "services" },
-  { label: "Process", sectionId: "process" },
-  { label: "Contact", sectionId: "contact" },
+  { label: "Home",         sectionId: "home" },
+  { label: "About",        sectionId: "about" },
+  { label: "Services",     sectionId: "services" },
+  { label: "AI Solutions", sectionId: "ai-solutions" },
+  { label: "Courses",      href: "/courses" },
+  { label: "Contact",      sectionId: "contact" },
 ];
 
 export default function Navbar() {
@@ -28,7 +29,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (location.pathname !== "/") return;
-    const sectionIds = ["home", "about", "services", "process", "contact"];
+    const sectionIds = ["home", "about", "services", "ai-solutions", "contact"];
 
     const handleScroll = () => {
       const offset = 120;
@@ -60,11 +61,14 @@ export default function Navbar() {
     }
   };
 
-  const handleNavClick = (sectionId) => {
+  const handleNavClick = (link) => {
     setMobileOpen(false);
-
+    if (link.href) {
+      navigate(link.href);
+      return;
+    }
+    const { sectionId } = link;
     if (sectionId === "home") {
-      // Scroll to top always
       if (location.pathname === "/") {
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
@@ -72,10 +76,8 @@ export default function Navbar() {
         setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
       }
     } else {
-      // Scroll to section
       if (location.pathname === "/") {
-        const el = document.getElementById(sectionId);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
       } else {
         navigate("/", { state: { scrollTo: sectionId } });
       }
@@ -99,7 +101,7 @@ export default function Navbar() {
           <motion.div
             className="flex items-center gap-2.5 cursor-pointer"
             whileHover={{ scale: 1.02 }}
-            onClick={() => handleScroll("home")}
+            onClick={() => handleNavClick({ sectionId: "home" })}
           >
             <div className="w-9 h-9 rounded-lg overflow-hidden">
               <img
@@ -122,11 +124,11 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <button
-                key={link.sectionId}
+                key={link.href ?? link.sectionId}
                 aria-label={`Navigate to ${link.label}`}
-                onClick={() => handleNavClick(link.sectionId)}
+                onClick={() => handleNavClick(link)}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-secondary/50 ${
-                  activeSection === link.sectionId
+                  !link.href && activeSection === link.sectionId
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
@@ -142,14 +144,14 @@ export default function Navbar() {
               aria-label="Contact Us"
               variant="ghost"
               className="text-sm text-muted-foreground hover:text-foreground"
-              onClick={() => handleNavClick("contact")}
+              onClick={() => handleNavClick({ sectionId: "contact" })}
             >
               Contact Us
             </Button>
             <Button
               aria-label="Get Started"
               className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-semibold px-6"
-              onClick={() => handleNavClick("services")}
+              onClick={() => handleNavClick({ sectionId: "services" })}
             >
               Get Started
             </Button>
@@ -182,9 +184,9 @@ export default function Navbar() {
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => (
                 <Button
-                  key={link.sectionId}
+                  key={link.href ?? link.sectionId}
                   aria-label={`Navigate to ${link.label}`}
-                  onClick={() => handleNavClick(link.sectionId)}
+                  onClick={() => handleNavClick(link)}
                   className="block w-full text-left px-4 py-3 text-sm font-medium rounded-lg transition-colors text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                 >
                   {link.label}
@@ -194,7 +196,7 @@ export default function Navbar() {
                 <Button
                   aria-label="Get Started"
                   className="w-full bg-primary text-primary-foreground"
-                  onClick={() => navigate("#services")}
+                  onClick={() => handleNavClick({ sectionId: "services" })}
                 >
                   Get Started
                 </Button>
