@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from '@/contexts/AuthContext';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Landing from '@/pages/Landing';
 import Login from '@/pages/Login';
@@ -9,6 +8,8 @@ import CourseCatalog from '@/pages/CourseCatalog';
 import CoursePage from '@/pages/CoursePage';
 import QuizPage from '@/pages/QuizPage';
 import Certificate from '@/pages/Certificate';
+import PaymentSuccess from '@/pages/PaymentSuccess';
+import PaymentCancel from '@/pages/PaymentCancel';
 
 export default function App() {
   return (
@@ -16,6 +17,8 @@ export default function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/payment/success" element={<PaymentSuccess />} />
+      <Route path="/payment/cancel" element={<PaymentCancel />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/courses" element={<CourseCatalog />} />

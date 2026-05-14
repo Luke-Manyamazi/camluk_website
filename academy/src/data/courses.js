@@ -5,6 +5,7 @@ export const COURSES = [
     description: 'Learn the fundamentals of computers — hardware, software, and basic operations — from the ground up.',
     level: 'Beginner',
     duration: '3 Weeks',
+    price: 199,
     color: 'from-blue-500/20 to-transparent',
     icon: '💻',
     modules: [
@@ -334,6 +335,7 @@ Phishing emails impersonate legitimate organisations to steal login credentials.
     description: 'Hands-on training with Word, Excel, and PowerPoint — essential skills for any office environment.',
     level: 'Beginner',
     duration: '4 Weeks',
+    price: 249,
     color: 'from-green-500/20 to-transparent',
     icon: '📊',
     modules: [
@@ -664,6 +666,7 @@ Animations control how elements appear on a slide. Use Appear or Fade for bullet
     description: 'Learn to diagnose, repair, and maintain personal computers — from hardware to software issues.',
     level: 'Beginner',
     duration: '4 Weeks',
+    price: 299,
     color: 'from-orange-500/20 to-transparent',
     icon: '🔧',
     modules: [
@@ -895,6 +898,7 @@ A small CR2032 coin cell battery on the motherboard keeps BIOS settings and the 
     description: 'Get started with HTML, CSS, and JavaScript — build your first web pages from scratch.',
     level: 'Beginner',
     duration: '6 Weeks',
+    price: 349,
     color: 'from-purple-500/20 to-transparent',
     icon: '🌐',
     modules: [
