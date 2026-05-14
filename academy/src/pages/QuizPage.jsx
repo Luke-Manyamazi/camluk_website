@@ -31,7 +31,7 @@ export default function QuizPage() {
   }
 
   async function submit() {
-    const correct = quiz.questions.filter((q, i) => answers[i] === q.answer).length;
+    const correct = quiz.questions.filter((q, i) => answers[i] === q.correct).length;
     const pct = Math.round((correct / quiz.questions.length) * 100);
     setScore(pct);
     setSubmitted(true);
@@ -59,11 +59,11 @@ export default function QuizPage() {
 
           {quiz.questions.map((q, qIdx) => (
             <div key={qIdx} className="mb-6 last:mb-0">
-              <p className="font-medium mb-3 text-sm">{qIdx + 1}. {q.question}</p>
+              <p className="font-medium mb-3 text-sm">{qIdx + 1}. {q.q}</p>
               <div className="flex flex-col gap-2">
                 {q.options.map((opt, oIdx) => {
                   const selected = answers[qIdx] === oIdx;
-                  const isCorrect = oIdx === q.answer;
+                  const isCorrect = oIdx === q.correct;
                   let style = 'border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground';
                   if (submitted) {
                     if (isCorrect) style = 'border border-green-500 bg-green-500/10 text-green-400';
