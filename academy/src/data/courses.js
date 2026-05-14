@@ -17,6 +17,7 @@ export const COURSES = [
             id: 'itc-m1-l1',
             title: 'Definition & History',
             duration: '8 min',
+            videoUrl: '', // Paste a YouTube URL here e.g. https://www.youtube.com/watch?v=YOUR_ID
             content: `A computer is an electronic device that processes data according to a set of instructions called a program. Computers accept input, process it, store results, and produce output.
 
 **A Brief History**
@@ -347,6 +348,7 @@ Phishing emails impersonate legitimate organisations to steal login credentials.
             id: 'mso-m1-l1',
             title: 'Getting Started with Word',
             duration: '8 min',
+            videoUrl: '', // Paste a YouTube URL here e.g. https://www.youtube.com/watch?v=YOUR_ID
             content: `Microsoft Word is the world's most-used word processing application. It is used to create letters, reports, CVs, contracts, and virtually any text document.
 
 **The Word Interface**
@@ -678,6 +680,7 @@ Animations control how elements appear on a slide. Use Appear or Fade for bullet
             id: 'pcr-m1-l1',
             title: 'ESD & Workshop Safety',
             duration: '7 min',
+            videoUrl: '', // Paste a YouTube URL here e.g. https://www.youtube.com/watch?v=YOUR_ID
             content: `Before touching any computer component, you must understand the risks and how to protect both yourself and the equipment.
 
 **Electrostatic Discharge (ESD)**
@@ -910,6 +913,7 @@ A small CR2032 coin cell battery on the motherboard keeps BIOS settings and the 
             id: 'wd-m1-l1',
             title: 'The Internet vs the Web',
             duration: '8 min',
+            videoUrl: '', // Paste a YouTube URL here e.g. https://www.youtube.com/watch?v=YOUR_ID
             content: `Many people use "the internet" and "the web" interchangeably, but they are different things.
 
 **The Internet**

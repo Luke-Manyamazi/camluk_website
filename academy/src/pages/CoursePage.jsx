@@ -5,6 +5,7 @@ import { useProgress } from '@/hooks/useProgress';
 import Navbar from '@/components/Navbar';
 import ProgressBar from '@/components/ProgressBar';
 import PaymentModal from '@/components/PaymentModal';
+import VideoEmbed from '@/components/VideoEmbed';
 import { ChevronDown, ChevronRight, CheckCircle2, Circle, PlayCircle, FileQuestion, Award, ArrowLeft, Lock } from 'lucide-react';
 
 export default function CoursePage() {
@@ -196,11 +197,22 @@ export default function CoursePage() {
                     {completed.includes(currentLesson.id) ? 'Completed' : 'Mark complete'}
                   </button>
                 </div>
-                <div className="text-sm text-muted-foreground leading-relaxed space-y-4">
-                  {currentLesson.content.split('\n\n').map((para, i) => (
-                    <p key={i}>{para}</p>
-                  ))}
-                </div>
+                <VideoEmbed url={currentLesson.videoUrl} />
+
+                {currentLesson.content && (
+                  <>
+                    {currentLesson.videoUrl && (
+                      <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                        Notes &amp; Transcript
+                      </p>
+                    )}
+                    <div className="text-sm text-muted-foreground leading-relaxed space-y-4">
+                      {currentLesson.content.split('\n\n').map((para, i) => (
+                        <p key={i}>{para}</p>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             ) : (
               <div className="text-center text-muted-foreground py-16">Select a lesson to begin</div>
