@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background -->
+  <rect width="64" height="64" rx="14" fill="#0f1929"/>
+
+  <!-- Graduation cap — top diamond -->
+  <path d="M32 10 L56 23 L32 36 L8 23 Z" fill="#ff6600"/>
+
+  <!-- Cap highlight — right face for depth -->
+  <path d="M32 10 L56 23 L44 29.5 L32 23 Z" fill="#ff8c3a"/>
+
+  <!-- Cap body -->
+  <path d="M16 26 L16 38 Q32 48 48 38 L48 26 L32 36 Z" fill="#cc4d00"/>
+
+  <!-- Tassel string -->
+  <line x1="56" y1="23" x2="56" y2="35" stroke="#ff6600" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Tassel knot -->
+  <circle cx="56" cy="37.5" r="3.5" fill="#ff6600"/>
+
+  <!-- Tassel fringe -->
+  <line x1="53" y1="41" x2="51.5" y2="47" stroke="#ff6600" stroke-width="2" stroke-linecap="round"/>
+  <line x1="56" y1="41" x2="56"   y2="47" stroke="#ff6600" stroke-width="2" stroke-linecap="round"/>
+  <line x1="59" y1="41" x2="60.5" y2="47" stroke="#ff6600" stroke-width="2" stroke-linecap="round"/>
+</svg>

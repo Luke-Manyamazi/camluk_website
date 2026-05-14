@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-import { GraduationCap, LogOut, LayoutDashboard, BookOpen } from 'lucide-react';
+import AcademyLogo from '@/components/AcademyLogo';
+import { LogOut, LayoutDashboard, BookOpen } from 'lucide-react';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -14,9 +15,8 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur border-b border-border">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/dashboard" className="flex items-center gap-2 font-bold text-lg">
-          <GraduationCap className="text-primary" size={24} />
-          <span>Camluk <span className="text-primary">Academy</span></span>
+        <Link to="/dashboard">
+          <AcademyLogo iconSize={32} />
         </Link>
 
         {user && (

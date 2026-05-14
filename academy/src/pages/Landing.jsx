@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { GraduationCap, BookOpen, Award, BarChart2, ArrowRight } from 'lucide-react';
+import { BookOpen, Award, BarChart2, ArrowRight } from 'lucide-react';
+import AcademyLogo from '@/components/AcademyLogo';
 import { COURSES as courses } from '@/data/courses';
 
 const features = [
@@ -12,10 +13,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border px-4 py-4 flex items-center justify-between max-w-6xl mx-auto">
-        <div className="flex items-center gap-2 font-bold text-lg">
-          <GraduationCap className="text-primary" size={24} />
-          <span>Camluk <span className="text-primary">Academy</span></span>
-        </div>
+        <AcademyLogo iconSize={32} />
         <div className="flex items-center gap-2">
           <Link to="/login" className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
             Sign in
