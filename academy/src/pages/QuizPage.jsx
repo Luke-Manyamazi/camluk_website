@@ -49,7 +49,7 @@ export default function QuizPage() {
         </button>
 
         <div className="glass-card rounded-2xl p-6">
-          <h1 className="text-xl font-bold mb-1">{quiz.title}</h1>
+          <h1 className="text-xl font-bold mb-1">{quiz.title || `${mod.title} — Quiz`}</h1>
           <p className="text-sm text-muted-foreground mb-6">
             {quiz.questions.length} questions · {mod.title}
             {previousScore !== undefined && (

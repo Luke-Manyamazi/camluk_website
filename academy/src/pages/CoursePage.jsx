@@ -135,7 +135,7 @@ export default function CoursePage() {
                         className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                       >
                         <FileQuestion size={15} className="shrink-0 text-primary/70" />
-                        <span>{mod.quiz.title}</span>
+                        <span>{mod.quiz.title || 'Quiz'}</span>
                         {progress?.quizScores?.[mod.id] !== undefined && (
                           <span className="ml-auto text-xs text-green-400">{progress.quizScores[mod.id]}%</span>
                         )}
