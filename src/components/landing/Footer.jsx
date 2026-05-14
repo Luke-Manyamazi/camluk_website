@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "@/assets/camluk_logo.png";
 import { Button } from "../ui/Button";
-import { FaLinkedinIn, FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa6";
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ export default function Footer() {
           {/* Social links */}
           <div className="flex items-center gap-3">
             <a
-              href="https://linkedin.com/company/camluk-technologies"
+              href="https://www.linkedin.com/company/camluk/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -78,7 +78,7 @@ export default function Footer() {
               <FaLinkedinIn className="text-sm" />
             </a>
             <a
-              href="https://facebook.com/camluk"
+              href="https://www.facebook.com/camluktech/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -87,22 +87,13 @@ export default function Footer() {
               <FaFacebookF className="text-sm" />
             </a>
             <a
-              href="https://instagram.com/camluk_tech"
+              href="https://www.instagram.com/camluktechnologies/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
               className="w-8 h-8 flex items-center justify-center border border-border/40 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
             >
               <FaInstagram className="text-sm" />
-            </a>
-            <a
-              href="https://x.com/camluk_tech"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="X / Twitter"
-              className="w-8 h-8 flex items-center justify-center border border-border/40 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
-            >
-              <FaXTwitter className="text-sm" />
             </a>
           </div>
 
