@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 14%;
+    --card-foreground: 210 40% 98%;
+    --primary: 25 100% 50%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 217 33% 17%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 55%;
+    --border: 217 33% 20%;
+    --destructive: 0 84% 60%;
+    --radius: 0.5rem;
+  }
+
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { @apply bg-background; }
+::-webkit-scrollbar-thumb { @apply bg-secondary rounded-full; }
+::-webkit-scrollbar-thumb:hover { background: hsl(25 100% 50% / 0.5); }
+
+.glass-card {
+  @apply bg-card/60 backdrop-blur-md border border-white/5 shadow-xl;
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: white !important; color: black !important; }
+}
