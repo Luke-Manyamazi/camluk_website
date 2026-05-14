@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { ArrowRight, ChevronDown, Zap, Shield, Code2 } from "lucide-react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Zap, Shield, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import hero1 from "@/assets/hero1.webp";
@@ -82,76 +82,61 @@ const textAnimations = [
   "animate-zoom-in",
 ];
 
+const randomAnim = () => textAnimations[Math.floor(Math.random() * textAnimations.length)];
+
 export default function HeroSection() {
   const [current, setCurrent] = useState(0);
-  const [headlineAnim, setHeadlineAnim] = useState("");
-  const [subtextAnim, setSubtextAnim] = useState("");
+  const [headlineAnim, setHeadlineAnim] = useState(randomAnim);
+  const [subtextAnim, setSubtextAnim] = useState(randomAnim);
+  const timerRef = useRef(null);
   const navigate = useNavigate();
 
-  // Scroll function
   const scrollTo = (id) => {
     const el = document.querySelector(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  // CTA handler
   const handleCTA = (text) => {
     switch (text) {
-      case "View Portfolio":
-        navigate("/portfolio");
-        break;
-      case "Learn More":
-        scrollTo("#services");
-        break;
-      case "Enroll Now":
-        window.open("https://forms.gle/syunzNAKYmkMo1Yd7", "_blank");
-        break;
-      case "Explore Courses":
-        navigate("/courses");
-        break;
-      case "Contact Us":
-        scrollTo("#contact");
-        break;
+      case "View Portfolio":   navigate("/portfolio"); break;
+      case "Learn More":       scrollTo("#services"); break;
+      case "Enroll Now":       window.open("https://forms.gle/syunzNAKYmkMo1Yd7", "_blank"); break;
+      case "Explore Courses":  navigate("/courses"); break;
+      case "Contact Us":       scrollTo("#contact"); break;
       case "Get Started":
-      case "Our Services":
-        scrollTo("#services");
-        break;
-      default:
-        break;
+      case "Our Services":     scrollTo("#services"); break;
+      default: break;
     }
   };
 
-  // Auto-slide with random text animations
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => {
-        const next = (prev + 1) % slides.length;
-        // Random animations for headline & subtext
-        setHeadlineAnim(
-          textAnimations[Math.floor(Math.random() * textAnimations.length)]
-        );
-        setSubtextAnim(
-          textAnimations[Math.floor(Math.random() * textAnimations.length)]
-        );
-        return next;
-      });
+  const startTimer = useCallback(() => {
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+      setHeadlineAnim(randomAnim());
+      setSubtextAnim(randomAnim());
     }, 6000);
-
-    // Set initial random animations
-    setHeadlineAnim(
-      textAnimations[Math.floor(Math.random() * textAnimations.length)]
-    );
-    setSubtextAnim(
-      textAnimations[Math.floor(Math.random() * textAnimations.length)]
-    );
-
-    return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    startTimer();
+    return () => clearInterval(timerRef.current);
+  }, [startTimer]);
+
+  const goTo = (idx) => {
+    setCurrent(idx);
+    setHeadlineAnim(randomAnim());
+    setSubtextAnim(randomAnim());
+    startTimer();
+  };
+
+  const goPrev = () => goTo((current - 1 + slides.length) % slides.length);
+  const goNext = () => goTo((current + 1) % slides.length);
 
   const slide = slides[current];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <div
@@ -194,7 +179,7 @@ export default function HeroSection() {
         </span>
 
         {/* Headline */}
-        <h1 className={`text-4xl md:text-6xl font-bold ${headlineAnim}`}>
+        <h1 key={`headline-${current}`} className={`text-4xl md:text-6xl font-bold ${headlineAnim}`}>
           {slide.headline.map((part, idx) => (
             <span key={idx} className={part.className || ""}>
               {part.text}
@@ -203,7 +188,7 @@ export default function HeroSection() {
         </h1>
 
         {/* Subtext */}
-        <p className={`mt-6 text-muted-foreground max-w-2xl mx-auto ${subtextAnim}`}>
+        <p key={`subtext-${current}`} className={`mt-6 text-muted-foreground max-w-2xl mx-auto ${subtextAnim}`}>
           {slide.subtext}
         </p>
 
@@ -225,6 +210,38 @@ export default function HeroSection() {
             </Button>
           ))}
         </div>
+      </div>
+
+      {/* Prev / Next arrows */}
+      <button
+        onClick={goPrev}
+        aria-label="Previous slide"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-background/40 border border-border/50 backdrop-blur-sm text-foreground hover:bg-primary/20 hover:border-primary/40 transition-all duration-300"
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+      <button
+        onClick={goNext}
+        aria-label="Next slide"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-background/40 border border-border/50 backdrop-blur-sm text-foreground hover:bg-primary/20 hover:border-primary/40 transition-all duration-300"
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
+
+      {/* Slide indicators */}
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            className={`transition-all duration-300 rounded-full ${
+              i === current
+                ? "w-6 h-2 bg-primary"
+                : "w-2 h-2 bg-white/30 hover:bg-white/60"
+            }`}
+          />
+        ))}
       </div>
 
       {/* Scroll Indicator */}

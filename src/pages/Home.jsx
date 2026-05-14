@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/landing/Navbar";
 import HeroSection from "../components/landing/HeroSection";
 import AboutSection from "../components/landing/AboutSection";
+import StatsSection from "../components/landing/StatsSection";
 import ServicesSection from "../components/landing/ServicesSection";
 import ProcessSection from "../components/landing/ProcessSection";
 import ClientsSection from "../components/landing/ClientsSection";
@@ -11,10 +12,11 @@ import Footer from "../components/landing/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background text-foreground font-inter px-4 sm:px-8 lg:px-16">
+    <div className="min-h-screen bg-background text-foreground font-inter">
       <Navbar />
       <HeroSection />
       <AboutSection />
+      <StatsSection />
       <ServicesSection />
       <ProcessSection />
       <ClientsSection />

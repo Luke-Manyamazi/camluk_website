@@ -16,6 +16,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,6 +25,27 @@ export default function Navbar() {
     window.addEventListener("scroll", onWindowScroll);
     return () => window.removeEventListener("scroll", onWindowScroll);
   }, []);
+
+  useEffect(() => {
+    if (location.pathname !== "/") return;
+    const sectionIds = ["home", "about", "services", "process", "contact"];
+
+    const handleScroll = () => {
+      const offset = 120;
+      let current = "home";
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= window.scrollY + offset) {
+          current = id;
+        }
+      }
+      setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [location.pathname]);
 
   const handleScroll = (sectionId) => {
     if (location.pathname === "/") {
@@ -103,7 +125,11 @@ export default function Navbar() {
                 key={link.sectionId}
                 aria-label={`Navigate to ${link.label}`}
                 onClick={() => handleNavClick(link.sectionId)}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors text-muted-foreground hover:text-foreground hover:bg-secondary/50`}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-secondary/50 ${
+                  activeSection === link.sectionId
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
               >
                 {link.label}
               </button>
@@ -116,14 +142,14 @@ export default function Navbar() {
               aria-label="Contact Us"
               variant="ghost"
               className="text-sm text-muted-foreground hover:text-foreground"
-              onClick={() => navigate("contact")}
+              onClick={() => handleNavClick("contact")}
             >
               Contact Us
             </Button>
             <Button
               aria-label="Get Started"
               className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-semibold px-6"
-              onClick={() => navigate("services")}
+              onClick={() => handleNavClick("services")}
             >
               Get Started
             </Button>
