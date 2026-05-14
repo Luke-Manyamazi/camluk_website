@@ -10,6 +10,7 @@ import QuizPage from '@/pages/QuizPage';
 import Certificate from '@/pages/Certificate';
 import PaymentSuccess from '@/pages/PaymentSuccess';
 import PaymentCancel from '@/pages/PaymentCancel';
+import NotFound from '@/pages/NotFound';
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/courses/:courseId/quiz/:moduleId" element={<QuizPage />} />
         <Route path="/courses/:courseId/certificate" element={<Certificate />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
