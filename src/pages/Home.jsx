@@ -5,7 +5,6 @@ import HeroSection from "../components/landing/HeroSection";
 import AboutSection from "../components/landing/AboutSection";
 import StatsSection from "../components/landing/StatsSection";
 import ServicesSection from "../components/landing/ServicesSection";
-import NuSiteSection from "../components/landing/NuSiteSection";
 import ProcessSection from "../components/landing/ProcessSection";
 import ClientsSection from "../components/landing/ClientsSection";
 import WhyChooseSection from "../components/landing/WhyChooseSection";
@@ -30,7 +29,6 @@ export default function Home() {
       <AboutSection />
       <StatsSection />
       <ServicesSection />
-      <NuSiteSection />
       <ProcessSection />
       <ClientsSection />
       <WhyChooseSection />
