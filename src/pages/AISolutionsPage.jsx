@@ -40,7 +40,6 @@ function EnquiryModal({ open, onClose, subject }) {
           from_email: form.email,
           subject:    subject,
           message:    `Enquiry: ${subject}\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "Not provided"}\n\nMessage:\n${form.message || "No message provided"}`,
-          to_email:   "info@camluk.co.za",
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );

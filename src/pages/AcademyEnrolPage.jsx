@@ -66,7 +66,6 @@ export default function AcademyEnrolPage() {
           from_email: form.email,
           subject:    `Academy Enrolment — ${selectedCourse?.label}`,
           message:    `New academy enrolment received.\n\nStudent: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "Not provided"}\n\nCourse: ${selectedCourse?.label}\nPrice: ${selectedCourse?.price}\nMode: ${modeLabel}\n\nAdditional notes:\n${form.message || "None"}`,
-          to_email:   "info@camluk.co.za",
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
