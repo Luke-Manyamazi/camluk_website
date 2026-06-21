@@ -62,18 +62,19 @@ function EnquiryModal({ open, onClose, subject }) {
   return (
     <AnimatePresence>
       {open && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50"
-            onClick={handleClose}
-          />
+        /* Backdrop doubles as the centering container so the panel
+           is always anchored to the viewport, not a transformed ancestor */
+        <motion.div
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
+          onClick={handleClose}
+        >
           {/* Panel */}
           <motion.div
-            initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 32 }}
+            initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed inset-x-4 bottom-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-lg bg-background border border-border/60 z-50 p-8 max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+            className="w-full sm:max-w-lg bg-background border border-border/60 z-50 p-8 max-h-[92vh] overflow-y-auto"
           >
             <div className="flex items-start justify-between mb-6">
               <div>
@@ -125,7 +126,7 @@ function EnquiryModal({ open, onClose, subject }) {
               )}
             </AnimatePresence>
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   );
