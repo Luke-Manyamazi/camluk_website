@@ -1,0 +1,191 @@
+<!--
+  EmailJS Template: Academy Enrolment Confirmation
+  ─────────────────────────────────────────────────
+  Template settings in EmailJS dashboard:
+    To Email  : {{from_email}}
+    From Name : Camluk Academy
+    Subject   : Your enrolment is confirmed — {{course_name}}
+    Reply-To  : info@camluk.co.za
+-->
+
+<div style="margin:0;padding:0;background-color:#f5f5f5;font-family:system-ui,-apple-system,Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f5f5;padding:32px 16px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background-color:#ffffff;">
+
+          <!-- Header bar -->
+          <tr>
+            <td style="background-color:#FF6A00;padding:24px 32px;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <span style="font-size:20px;font-weight:900;color:#ffffff;letter-spacing:-0.5px;">
+                      CAMLUK ACADEMY
+                    </span>
+                    <br/>
+                    <span style="font-size:11px;color:rgba(255,255,255,0.75);font-family:monospace;letter-spacing:2px;text-transform:uppercase;">
+                      camluk.co.za/academy
+                    </span>
+                  </td>
+                  <td align="right">
+                    <span style="display:inline-block;background-color:rgba(255,255,255,0.2);color:#ffffff;font-size:10px;font-family:monospace;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;">
+                      Enrolment Confirmed
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Hero block -->
+          <tr>
+            <td style="padding:40px 32px 32px;border-bottom:1px solid #e8e8e8;">
+              <p style="margin:0 0 8px;font-size:12px;font-family:monospace;color:#FF6A00;letter-spacing:2px;text-transform:uppercase;">
+                Welcome aboard
+              </p>
+              <h1 style="margin:0 0 16px;font-size:28px;font-weight:900;color:#111111;letter-spacing:-0.5px;line-height:1.2;">
+                Hi {{from_name}},<br/>you're enrolled!
+              </h1>
+              <p style="margin:0;font-size:16px;color:#555555;line-height:1.6;">
+                Your enrolment for <strong style="color:#111111;">{{course_name}}</strong> has been received. We'll reach out within <strong style="color:#111111;">24 hours</strong> to confirm your start date and send you everything you need to get going.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Enrolment summary box -->
+          <tr>
+            <td style="padding:32px;">
+              <p style="margin:0 0 16px;font-size:11px;font-family:monospace;color:#999999;letter-spacing:2px;text-transform:uppercase;">
+                Your Enrolment Summary
+              </p>
+              <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e8e8;">
+
+                <tr>
+                  <td style="padding:14px 16px;border-bottom:1px solid #f0f0f0;background-color:#fafafa;">
+                    <span style="font-size:11px;font-family:monospace;color:#999999;text-transform:uppercase;letter-spacing:1px;">Course</span>
+                  </td>
+                  <td style="padding:14px 16px;border-bottom:1px solid #f0f0f0;">
+                    <strong style="font-size:14px;color:#111111;">{{course_name}}</strong>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:14px 16px;border-bottom:1px solid #f0f0f0;background-color:#fafafa;">
+                    <span style="font-size:11px;font-family:monospace;color:#999999;text-transform:uppercase;letter-spacing:1px;">Price</span>
+                  </td>
+                  <td style="padding:14px 16px;border-bottom:1px solid #f0f0f0;">
+                    <strong style="font-size:16px;color:#FF6A00;">{{course_price}}</strong>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:14px 16px;border-bottom:1px solid #f0f0f0;background-color:#fafafa;">
+                    <span style="font-size:11px;font-family:monospace;color:#999999;text-transform:uppercase;letter-spacing:1px;">Mode</span>
+                  </td>
+                  <td style="padding:14px 16px;border-bottom:1px solid #f0f0f0;">
+                    <span style="font-size:14px;color:#333333;">{{course_mode}}</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="padding:14px 16px;background-color:#fafafa;">
+                    <span style="font-size:11px;font-family:monospace;color:#999999;text-transform:uppercase;letter-spacing:1px;">Student</span>
+                  </td>
+                  <td style="padding:14px 16px;">
+                    <span style="font-size:14px;color:#333333;">{{from_name}}</span><br/>
+                    <span style="font-size:12px;color:#999999;">{{from_email}}</span>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+
+          <!-- Next steps -->
+          <tr>
+            <td style="padding:0 32px 32px;">
+              <p style="margin:0 0 16px;font-size:11px;font-family:monospace;color:#999999;letter-spacing:2px;text-transform:uppercase;">
+                What Happens Next
+              </p>
+              <table width="100%" cellpadding="0" cellspacing="0">
+
+                <tr>
+                  <td width="32" valign="top" style="padding-bottom:16px;">
+                    <span style="display:inline-block;width:24px;height:24px;background-color:#FF6A00;color:#ffffff;font-size:11px;font-weight:900;font-family:monospace;text-align:center;line-height:24px;">1</span>
+                  </td>
+                  <td style="padding-bottom:16px;padding-left:12px;">
+                    <strong style="font-size:14px;color:#111111;">We confirm your place</strong><br/>
+                    <span style="font-size:13px;color:#777777;">Our team will contact you within 24 hours to confirm your start date and send your joining details.</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td width="32" valign="top" style="padding-bottom:16px;">
+                    <span style="display:inline-block;width:24px;height:24px;background-color:#FF6A00;color:#ffffff;font-size:11px;font-weight:900;font-family:monospace;text-align:center;line-height:24px;">2</span>
+                  </td>
+                  <td style="padding-bottom:16px;padding-left:12px;">
+                    <strong style="font-size:14px;color:#111111;">Payment &amp; materials</strong><br/>
+                    <span style="font-size:13px;color:#777777;">We'll walk you through payment and share any study materials or software you need before day one.</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td width="32" valign="top">
+                    <span style="display:inline-block;width:24px;height:24px;background-color:#FF6A00;color:#ffffff;font-size:11px;font-weight:900;font-family:monospace;text-align:center;line-height:24px;">3</span>
+                  </td>
+                  <td style="padding-left:12px;">
+                    <strong style="font-size:14px;color:#111111;">Start learning</strong><br/>
+                    <span style="font-size:13px;color:#777777;">Attend your first session and begin your journey to a new skill — and a new career.</span>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+
+          <!-- CTA button -->
+          <tr>
+            <td style="padding:0 32px 40px;">
+              <a href="https://camluk.co.za/academy"
+                 target="_blank"
+                 style="display:inline-block;text-decoration:none;background-color:#FF6A00;color:#ffffff;font-size:14px;font-weight:700;padding:14px 28px;letter-spacing:0.5px;">
+                View Academy Courses →
+              </a>
+            </td>
+          </tr>
+
+          <!-- Support line -->
+          <tr>
+            <td style="padding:24px 32px;border-top:1px solid #e8e8e8;background-color:#fafafa;">
+              <p style="margin:0;font-size:13px;color:#777777;line-height:1.6;">
+                Questions? Reply to this email or reach us at
+                <a href="mailto:info@camluk.co.za" style="color:#FF6A00;text-decoration:none;font-weight:600;">info@camluk.co.za</a>
+                or call <a href="tel:+27621071140" style="color:#FF6A00;text-decoration:none;font-weight:600;">+27 62 107 1140</a>.
+                We're here to help.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:20px 32px;background-color:#111111;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <span style="font-size:13px;font-weight:900;color:#ffffff;letter-spacing:-0.3px;">CAMLUK TECHNOLOGIES</span><br/>
+                    <span style="font-size:11px;color:#777777;">11th Street, Kensington, Cape Town, 7405</span>
+                  </td>
+                  <td align="right">
+                    <span style="font-size:11px;color:#555555;font-family:monospace;">camluk.co.za</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
