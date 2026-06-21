@@ -1,12 +1,14 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  Globe, Brain, Cpu, GraduationCap,
   Workflow, Bot, Database, BarChart3, Code2, Shield,
-  ArrowRight, Check, Zap, Layers, ClipboardList,
-  AlertCircle, Server, ChevronRight
+  ArrowRight, Check, Zap, Layers, AlertCircle, Server,
+  GraduationCap, ChevronRight, X, Loader2, Send,
+  User, Mail, Phone, MessageSquare
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 
@@ -17,7 +19,119 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.5, ease: "easeOut", delay },
 });
 
-/* ── AI Products ─────────────────────────────────────────── */
+/* ── Enquiry Modal ───────────────────────────────────────── */
+function EnquiryModal({ open, onClose, subject }) {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const [sending, setSending] = useState(false);
+  const [done, setDone] = useState(false);
+
+  const handle = (e) => setForm(p => ({ ...p, [e.target.name]: e.target.value }));
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (!form.name || !form.email) return;
+    setSending(true);
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name:  form.name,
+          from_email: form.email,
+          subject:    subject,
+          message:    `Enquiry: ${subject}\n\nName: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "Not provided"}\n\nMessage:\n${form.message || "No message provided"}`,
+          to_email:   "info@camluk.co.za",
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      setDone(true);
+    } catch {
+      toast.error("Failed to send. Please email info@camluk.co.za directly.");
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const handleClose = () => {
+    onClose();
+    setTimeout(() => { setDone(false); setForm({ name: "", email: "", phone: "", message: "" }); }, 300);
+  };
+
+  const inputCls = "w-full bg-card/40 border border-border/60 focus:border-primary/60 text-foreground placeholder:text-muted-foreground/40 text-sm px-4 py-3 outline-none transition-colors";
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50"
+            onClick={handleClose}
+          />
+          {/* Panel */}
+          <motion.div
+            initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 32 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed inset-x-4 bottom-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-lg bg-background border border-border/60 z-50 p-8 max-h-[90vh] overflow-y-auto"
+          >
+            <div className="flex items-start justify-between mb-6">
+              <div>
+                <span className="text-xs font-mono text-primary uppercase tracking-widest block mb-1">Camluk Technologies</span>
+                <h3 className="text-xl font-black tracking-tight text-foreground">{subject}</h3>
+              </div>
+              <button onClick={handleClose} className="w-8 h-8 border border-border/60 flex items-center justify-center hover:border-primary/40 transition-colors shrink-0 ml-4">
+                <X className="w-4 h-4 text-muted-foreground" />
+              </button>
+            </div>
+
+            <AnimatePresence mode="wait">
+              {done ? (
+                <motion.div key="done" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-8">
+                  <div className="w-14 h-14 border border-primary/30 bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <Check className="w-6 h-6 text-primary" />
+                  </div>
+                  <h4 className="text-lg font-black text-foreground mb-2">Message sent!</h4>
+                  <p className="text-sm text-muted-foreground mb-6">We'll get back to you within 24 hours.</p>
+                  <button onClick={handleClose} className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-bold px-6 py-3 text-sm hover:bg-primary/90 transition-colors">
+                    Close
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.form key="form" onSubmit={submit} className="space-y-4">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Full Name <span className="text-primary">*</span></label>
+                      <input name="name" value={form.name} onChange={handle} placeholder="Your name" required className={inputCls} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Email <span className="text-primary">*</span></label>
+                      <input name="email" type="email" value={form.email} onChange={handle} placeholder="you@company.com" required className={inputCls} />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Phone</label>
+                    <input name="phone" value={form.phone} onChange={handle} placeholder="+27 XX XXX XXXX" className={inputCls} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Message</label>
+                    <textarea name="message" value={form.message} onChange={handle} rows={4} placeholder="Tell us about your business and what you're looking for..." className={`${inputCls} resize-none`} />
+                  </div>
+                  <button type="submit" disabled={sending} className="group w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-bold px-6 py-4 text-sm hover:bg-primary/90 hover:gap-3 disabled:opacity-60 disabled:cursor-not-allowed transition-all">
+                    {sending ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending…</> : <><Send className="w-4 h-4" /> Send Enquiry</>}
+                  </button>
+                  <p className="text-xs text-center text-muted-foreground font-mono">We reply within 24 hours · info@camluk.co.za</p>
+                </motion.form>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
+/* ── Data ────────────────────────────────────────────────── */
 const products = [
   {
     id: "nusite",
@@ -43,7 +157,9 @@ const products = [
       "Custom AI transform prompt",
       "Deployment guide included",
     ],
-    cta: { label: "Join Waitlist", href: "https://nusitereimagined.netlify.app/", external: true },
+    ctaLabel: "Join Waitlist",
+    ctaHref: "https://nusitereimagined.netlify.app/",
+    ctaExternal: true,
   },
   {
     id: "chenesa",
@@ -69,11 +185,12 @@ const products = [
       "Batch processing for large inboxes",
       "Multi-account support",
     ],
-    cta: { label: "Join Waitlist", href: null, external: false },
+    ctaLabel: "Join Waitlist",
+    ctaHref: null,
+    ctaExternal: false,
   },
 ];
 
-/* ── Industry Solutions ──────────────────────────────────── */
 const solutions = [
   {
     icon: Layers,
@@ -90,7 +207,6 @@ const solutions = [
       "Shift and daily summary reports",
       "Role-based views for floor staff and managers",
     ],
-    cta: "Request Demo",
   },
   {
     icon: AlertCircle,
@@ -107,25 +223,24 @@ const solutions = [
       "Daily late job reports via email",
       "Integration with existing lab management systems",
     ],
-    cta: "Request Demo",
   },
   {
     icon: Server,
-    name: "AI Machine Platform",
-    tag: "Platform",
-    badge: "Live",
+    name: "AI Maintenance Platform",
+    tag: "Manufacturing / Industrial",
+    badge: "Available Now",
     description:
-      "A unified platform to deploy, monitor and manage AI models across your infrastructure. Connect data sources, run models, track outputs and manage users — from a single operational dashboard.",
+      "An on-premise AI platform for industrial equipment maintenance. Track machine health, log faults, run AI-powered diagnostics from a local LLM, monitor IoT sensors and manage spare parts — all on your own hardware, with no data leaving your premises.",
     details: [
-      "Model deployment and version management",
-      "Real-time monitoring and health checks",
-      "Data source connections and pipeline triggers",
-      "User and role management",
-      "API endpoints for external integrations",
-      "Audit logs and usage analytics",
+      "Equipment register with real-time health scores",
+      "AI fault diagnosis with confidence scoring and root cause ranking",
+      "Local LLM inference — no cloud, no API costs, no data exposure",
+      "IoT sensor monitoring via MQTT (temperature, vibration, vacuum, pressure)",
+      "Knowledge base with semantic search (RAG over manuals, fault reports, emails)",
+      "Laser alignment diagnostics and drift trend tracking",
+      "Spare parts inventory with low-stock alerts",
+      "Fault trend analytics and MTTR reporting",
     ],
-    cta: "View Demo",
-    demoHref: "https://torga-hub.netlify.app/",
   },
   {
     icon: GraduationCap,
@@ -142,13 +257,11 @@ const solutions = [
       "Staff payroll tracking based on hours worked",
       "Monthly attendance reports — export to Excel or CSV",
       "Full child and parent profile management",
-      "Offline-first Windows desktop app — runs without internet",
+      "Offline-first Windows desktop app",
     ],
-    cta: "Request Demo",
   },
 ];
 
-/* ── Services ────────────────────────────────────────────── */
 const services = [
   { n: "01", icon: Workflow,  title: "Process Automation",        body: "Replace manual, repetitive tasks with AI — from invoice processing to customer onboarding flows." },
   { n: "02", icon: Bot,       title: "Custom AI Assistants",      body: "Chatbots and virtual assistants trained on your business data, integrated into your existing systems." },
@@ -158,28 +271,25 @@ const services = [
   { n: "06", icon: Shield,    title: "AI Strategy Consulting",    body: "We audit your processes, find high-ROI automation opportunities, and build your AI roadmap." },
 ];
 
+/* ── Page ────────────────────────────────────────────────── */
 export default function AISolutionsPage() {
-  const navigate = useNavigate();
+  const [modal, setModal] = useState({ open: false, subject: "" });
 
-  const handleProductCTA = (cta) => {
-    if (cta.external && cta.href) {
-      window.open(cta.href, "_blank", "noopener noreferrer");
-    } else {
-      document.getElementById("contact-ai")?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const openModal = (subject) => setModal({ open: true, subject });
+  const closeModal = () => setModal(m => ({ ...m, open: false }));
 
-  const handleSolutionCTA = (sol) => {
-    if (sol.demoHref) {
-      window.open(sol.demoHref, "_blank", "noopener noreferrer");
+  const handleProductCTA = (p) => {
+    if (p.ctaExternal && p.ctaHref) {
+      window.open(p.ctaHref, "_blank", "noopener noreferrer");
     } else {
-      document.getElementById("contact-ai")?.scrollIntoView({ behavior: "smooth" });
+      openModal(`Waitlist — ${p.name}`);
     }
   };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
+      <EnquiryModal open={modal.open} onClose={closeModal} subject={modal.subject} />
 
       {/* ════════════ HERO ════════════ */}
       <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden pt-24 pb-16">
@@ -195,8 +305,8 @@ export default function AISolutionsPage() {
           </motion.div>
 
           <motion.h1 {...fadeUp(0.06)} className="text-[clamp(3rem,8vw,6rem)] font-black tracking-tighter leading-[0.95] mb-8">
-            <span className="block text-foreground">Automate</span>
-            <span className="block text-foreground">your business</span>
+            <span className="block">Automate</span>
+            <span className="block">your business</span>
             <span className="block text-primary">with AI.</span>
           </motion.h1>
 
@@ -208,9 +318,12 @@ export default function AISolutionsPage() {
             <a href="#products" className="group inline-flex items-center gap-2 bg-primary text-primary-foreground font-bold px-8 py-4 text-base hover:bg-primary/90 hover:gap-3 transition-all">
               Explore Products <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
-            <a href="#contact-ai" className="inline-flex items-center gap-2 border-2 border-border text-foreground font-semibold px-8 py-4 text-base hover:border-primary hover:text-primary transition-all">
+            <button
+              onClick={() => openModal("Free Consultation Request")}
+              className="inline-flex items-center gap-2 border-2 border-border text-foreground font-semibold px-8 py-4 text-base hover:border-primary hover:text-primary transition-all"
+            >
               Free Consultation
-            </a>
+            </button>
           </motion.div>
         </div>
       </section>
@@ -224,15 +337,12 @@ export default function AISolutionsPage() {
             <div className="max-w-6xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
               <div className="grid lg:grid-cols-2 gap-16 lg:gap-20">
 
-                {/* Left */}
                 <motion.div {...fadeUp(0)}>
                   <div className="flex items-center gap-4 mb-8">
                     <span className="text-[80px] font-black font-mono text-primary/10 leading-none select-none">{product.number}</span>
                     <div>
                       <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">{product.tag}</p>
-                      <span className="inline-block mt-1 text-xs font-mono font-semibold px-3 py-1 border border-primary/30 bg-primary/10 text-primary">
-                        {product.status}
-                      </span>
+                      <span className="inline-block mt-1 text-xs font-mono font-semibold px-3 py-1 border border-primary/30 bg-primary/10 text-primary">{product.status}</span>
                     </div>
                   </div>
 
@@ -252,15 +362,14 @@ export default function AISolutionsPage() {
                   </div>
 
                   <button
-                    onClick={() => handleProductCTA(product.cta)}
+                    onClick={() => handleProductCTA(product)}
                     className="group inline-flex items-center gap-2 bg-primary text-primary-foreground font-bold px-8 py-4 text-base hover:bg-primary/90 hover:gap-3 transition-all"
                   >
-                    {product.cta.label}
+                    {product.ctaLabel}
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </button>
                 </motion.div>
 
-                {/* Right */}
                 <motion.div {...fadeUp(0.1)} className="lg:border-l lg:border-border/40 lg:pl-20">
                   <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-8">What's included</p>
                   <ul className="space-y-4">
@@ -285,7 +394,6 @@ export default function AISolutionsPage() {
         <div className="h-1 w-24 bg-primary ml-6 lg:ml-10" />
 
         <div className="max-w-6xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
-
           <motion.div {...fadeUp(0)} className="grid lg:grid-cols-3 gap-8 mb-16">
             <div>
               <span className="text-xs font-mono text-primary uppercase tracking-widest block mb-4">Industry Solutions</span>
@@ -307,14 +415,13 @@ export default function AISolutionsPage() {
                 {...fadeUp(i * 0.07)}
                 className="group bg-background hover:bg-card/30 p-8 lg:p-10 transition-colors flex flex-col"
               >
-                {/* Header */}
                 <div className="flex items-start justify-between gap-4 mb-6">
                   <div className="w-10 h-10 border border-border/60 group-hover:border-primary/40 flex items-center justify-center shrink-0 transition-colors">
                     <sol.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   </div>
-                  <div className="flex items-center gap-2 ml-auto">
+                  <div className="flex items-center gap-2 ml-auto flex-wrap justify-end">
                     <span className="text-[10px] font-mono px-2 py-0.5 border border-border/60 text-muted-foreground">{sol.tag}</span>
-                    <span className={`text-[10px] font-mono px-2 py-0.5 border ${sol.badge === "Live" || sol.badge === "Available Now" ? "border-primary/30 bg-primary/10 text-primary" : "border-border/60 text-muted-foreground"}`}>
+                    <span className={`text-[10px] font-mono px-2 py-0.5 border ${sol.badge === "Available Now" ? "border-primary/30 bg-primary/10 text-primary" : "border-border/60 text-muted-foreground"}`}>
                       {sol.badge}
                     </span>
                   </div>
@@ -323,7 +430,6 @@ export default function AISolutionsPage() {
                 <h3 className="text-xl font-black tracking-tight text-foreground mb-3">{sol.name}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6">{sol.description}</p>
 
-                {/* Details */}
                 <ul className="space-y-2 mb-8 flex-1">
                   {sol.details.map((d) => (
                     <li key={d} className="flex items-start gap-2.5 text-sm">
@@ -335,12 +441,11 @@ export default function AISolutionsPage() {
                   ))}
                 </ul>
 
-                {/* CTA */}
                 <button
-                  onClick={() => handleSolutionCTA(sol)}
+                  onClick={() => openModal(`Demo Request — ${sol.name}`)}
                   className="group/btn self-start inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:gap-2.5 transition-all"
                 >
-                  {sol.cta}
+                  Request Demo
                   <ChevronRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                 </button>
               </motion.div>
@@ -352,7 +457,6 @@ export default function AISolutionsPage() {
       {/* ════════════ SERVICES ════════════ */}
       <section id="ai-services" className="relative border-t border-border/60">
         <div className="max-w-6xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
-
           <motion.div {...fadeUp(0)} className="grid lg:grid-cols-3 gap-10 mb-16">
             <div>
               <span className="text-xs font-mono text-primary uppercase tracking-widest block mb-4">Services</span>
@@ -362,7 +466,7 @@ export default function AISolutionsPage() {
             </div>
             <div className="lg:col-span-2 lg:pt-14">
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Custom AI services delivered end-to-end — strategy, development, integration and ongoing support. Built for businesses that want results, not complexity.
+                Custom AI services delivered end-to-end — strategy, development, integration and ongoing support.
               </p>
             </div>
           </motion.div>
@@ -403,13 +507,13 @@ export default function AISolutionsPage() {
               </p>
             </motion.div>
             <motion.div {...fadeUp(0.1)} className="flex flex-col gap-4 lg:items-end">
-              <a
-                href="mailto:info@camluk.co.za?subject=AI Solutions Consultation"
+              <button
+                onClick={() => openModal("Free Consultation Request")}
                 className="group inline-flex items-center gap-2 bg-primary-foreground text-primary font-black px-10 py-5 text-base hover:bg-primary-foreground/90 hover:gap-3 transition-all w-full sm:w-auto justify-center"
               >
                 Book Free Consultation
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              </button>
               <a
                 href={`https://wa.me/27621071140?text=${encodeURIComponent("Hi! I'm interested in AI automation services.")}`}
                 target="_blank" rel="noopener noreferrer"
