@@ -11,10 +11,10 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 
 const courses = [
-  { id: "intro-to-computers",  label: "Introduction to Computers",         price: "R199" },
-  { id: "ms-office-basics",    label: "Microsoft Office Basics",            price: "R249" },
-  { id: "pc-repairs-basics",   label: "PC Repairs Basics",                  price: "R299" },
-  { id: "intro-to-webdev",     label: "Introduction to Web Development",    price: "R349" },
+  { id: "intro-computers", label: "Introduction to Computers",      price: "R199" },
+  { id: "ms-office",       label: "Microsoft Office Suite",         price: "R249" },
+  { id: "pc-repairs",      label: "PC Repairs & Maintenance",       price: "R299" },
+  { id: "web-dev",         label: "Web Development Fundamentals",   price: "R349" },
 ];
 
 const modes = [
