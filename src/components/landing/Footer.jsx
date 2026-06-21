@@ -4,12 +4,48 @@ import logo from "@/assets/camluk_logo.png";
 import { Button } from "../ui/Button";
 import { FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa6";
 
+const footerSections = [
+  {
+    heading: "Company",
+    links: [
+      { label: "Home",      action: "scroll", target: "home" },
+      { label: "About Us",  action: "scroll", target: "about" },
+      { label: "Services",  action: "scroll", target: "services" },
+      { label: "Contact",   action: "scroll", target: "contact" },
+    ],
+  },
+  {
+    heading: "Solutions",
+    links: [
+      { label: "AI Solutions", action: "route", target: "/ai-solutions" },
+      { label: "Academy",      action: "route", target: "/academy" },
+      { label: "Portfolio",    action: "route", target: "/portfolio" },
+    ],
+  },
+  {
+    heading: "AI Products",
+    links: [
+      { label: "NuSite",              action: "external", target: "https://nusitereimagined.netlify.app/" },
+      { label: "Chenesa",             action: "route",    target: "/ai-solutions#ai-products" },
+      { label: "Torga Lab Dashboard", action: "route",    target: "/ai-solutions#ai-products" },
+    ],
+  },
+];
+
 export default function Footer() {
   const navigate = useNavigate();
 
-  const handleScroll = (section) => {
-    if (section === "home") {
-      // Always go to top of page
+  const handleLink = (action, target) => {
+    if (action === "external") {
+      window.open(target, "_blank", "noopener noreferrer");
+      return;
+    }
+    if (action === "route") {
+      navigate(target);
+      return;
+    }
+    // scroll
+    if (target === "home") {
       if (window.location.pathname !== "/") {
         navigate("/");
         setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
@@ -17,90 +53,98 @@ export default function Footer() {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } else {
-      const el = document.querySelector(`#${section}`);
+      const el = document.querySelector(`#${target}`);
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
       } else {
-        // Navigate to home first, then scroll
         navigate("/");
         setTimeout(() => {
-          const target = document.querySelector(`#${section}`);
-          if (target) target.scrollIntoView({ behavior: "smooth" });
+          document.querySelector(`#${target}`)?.scrollIntoView({ behavior: "smooth" });
         }, 200);
       }
     }
   };
 
   return (
-    <footer className="relative border-t border-border/50 py-12">
+    <footer className="relative border-t border-border/50 pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Footer Logo + Text */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleScroll("home")}>
-            <div className="w-9 h-9 rounded-lg overflow-hidden">
-              <img
-                src={logo}
-                alt="Camluk Technologies Logo"
-                className="w-full h-full object-cover"
-              />
+
+        {/* Top row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
+          {/* Brand column */}
+          <div className="col-span-2 md:col-span-1">
+            <div
+              className="flex items-center gap-2 cursor-pointer mb-4"
+              onClick={() => handleLink("scroll", "home")}
+            >
+              <div className="w-9 h-9 rounded-lg overflow-hidden">
+                <img src={logo} alt="Camluk Technologies Logo" className="w-full h-full object-cover" />
+              </div>
+              <div className="flex items-baseline gap-0.5">
+                <span className="text-lg font-bold tracking-tight text-foreground">Camluk</span>
+                <span className="text-lg font-light text-primary">Tech</span>
+              </div>
             </div>
-            <div className="flex items-baseline gap-0.5">
-              <span className="text-lg font-bold tracking-tight text-foreground">
-                Camluk
-              </span>
-              <span className="text-lg font-light text-primary">Tech</span>
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-[220px]">
+              Forward-thinking IT solutions and AI products. Based in Cape Town, South Africa.
+            </p>
+            {/* Social */}
+            <div className="flex items-center gap-2.5 mt-5">
+              {[
+                { href: "https://www.linkedin.com/company/camluk/", label: "LinkedIn", Icon: FaLinkedinIn },
+                { href: "https://www.facebook.com/camluktech/", label: "Facebook", Icon: FaFacebookF },
+                { href: "https://www.instagram.com/camluktechnologies/", label: "Instagram", Icon: FaInstagram },
+              ].map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-8 h-8 flex items-center justify-center border border-border/40 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
+                >
+                  <Icon className="text-sm" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Links */}
-          <div className="flex items-center gap-6">
-            {["home", "about", "services", "contact"].map((section) => (
-              <Button
-                key={section}
-                onClick={() => handleScroll(section)}
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                ariaLabel={`Go to ${section}`}
-              >
-                {section.charAt(0).toUpperCase() + section.slice(1)}
-              </Button>
-            ))}
-          </div>
+          {/* Link columns */}
+          {footerSections.map(({ heading, links }) => (
+            <div key={heading}>
+              <h4 className="text-xs font-mono font-semibold text-foreground uppercase tracking-wider mb-4">
+                {heading}
+              </h4>
+              <ul className="space-y-2.5">
+                {links.map(({ label, action, target }) => (
+                  <li key={label}>
+                    <button
+                      onClick={() => handleLink(action, target)}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left"
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
 
-          {/* Social links */}
-          <div className="flex items-center gap-3">
-            <a
-              href="https://www.linkedin.com/company/camluk/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="w-8 h-8 flex items-center justify-center border border-border/40 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
-            >
-              <FaLinkedinIn className="text-sm" />
-            </a>
-            <a
-              href="https://www.facebook.com/camluktech/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="w-8 h-8 flex items-center justify-center border border-border/40 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
-            >
-              <FaFacebookF className="text-sm" />
-            </a>
-            <a
-              href="https://www.instagram.com/camluktechnologies/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="w-8 h-8 flex items-center justify-center border border-border/40 text-muted-foreground hover:text-primary hover:border-primary/40 transition-colors"
-            >
-              <FaInstagram className="text-sm" />
-            </a>
-          </div>
-
-          {/* Copyright */}
-          <p className="text-xs text-muted-foreground text-center md:text-right">
+        {/* Bottom row */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-border/40">
+          <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} Camluk Technologies. All rights reserved.
           </p>
+          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+            <a href="mailto:info@camluk.co.za" className="hover:text-foreground transition-colors">
+              info@camluk.co.za
+            </a>
+            <span className="text-border">|</span>
+            <a href="tel:+27621071140" className="hover:text-foreground transition-colors">
+              +27 62 107 1140
+            </a>
+          </div>
         </div>
       </div>
     </footer>

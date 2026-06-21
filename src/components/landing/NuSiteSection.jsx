@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Code2, Link, Archive, Zap, Sparkles } from "lucide-react";
+import { ArrowRight, Code2, Link, Archive, Zap, Sparkles, Brain, Github } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const LAUNCH_DATE = new Date("2026-06-01T00:00:00");
+const LAUNCH_DATE = new Date("2026-10-01T00:00:00");
 
 function getTimeLeft() {
   const diff = LAUNCH_DATE - Date.now();
@@ -31,6 +32,11 @@ const inputMethods = [
     label: "Upload a ZIP",
     description: "Upload your existing project folder and get a fully modern rebuild in seconds.",
   },
+  {
+    Icon: Github,
+    label: "GitHub Repo",
+    description: "Connect your GitHub repository and transform the entire codebase — Premium feature.",
+  },
 ];
 
 const features = [
@@ -42,11 +48,14 @@ const features = [
   "Accessibility Audit",
   "Convert to Tailwind",
   "Add CSS Motion",
+  "GitHub Repo Input",
+  "Deployment Guide",
 ];
 
 const pad = (n) => String(n).padStart(2, "0");
 
 export default function NuSiteSection() {
+  const navigate = useNavigate();
   const [timeLeft, setTimeLeft] = useState(getTimeLeft);
 
   useEffect(() => {
@@ -84,7 +93,7 @@ export default function NuSiteSection() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-xs font-mono font-semibold text-primary tracking-widest uppercase">
             <Sparkles className="w-3.5 h-3.5" />
-            New AI Product — Launching June 1, 2026
+            New AI Product — Launching Q4 2026
           </span>
         </motion.div>
 
@@ -114,11 +123,11 @@ export default function NuSiteSection() {
           Paste old code. Drop a URL. Upload a ZIP.{" "}
           <span className="text-foreground font-semibold">NuSite</span> transforms
           any website into something modern, responsive and ready to ship —{" "}
-          <span className="text-primary font-medium">in seconds.</span>
+          <span className="text-primary font-medium">seconds, not days.</span>
         </motion.p>
 
         {/* Input method cards */}
-        <div className="grid md:grid-cols-3 gap-px bg-border/30 border border-border/30 mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border/30 border border-border/30 mb-12">
           {inputMethods.map(({ Icon, label, description }, i) => (
             <motion.div
               key={label}
@@ -201,18 +210,27 @@ export default function NuSiteSection() {
           </div>
 
           {/* CTA */}
-          <a
-            href="https://nusitereimagined.netlify.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold text-sm px-10 py-4 hover:bg-primary/90 transition-colors"
-          >
-            <Zap className="w-4 h-4" />
-            Join the Waitlist
-            <ArrowRight className="w-4 h-4" />
-          </a>
-          <p className="mt-4 text-xs text-muted-foreground font-mono">
-            Free tier available. Plans from $10/month. Launching June 1, 2026.
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="https://nusitereimagined.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold text-sm px-10 py-4 hover:bg-primary/90 transition-colors"
+            >
+              <Zap className="w-4 h-4" />
+              Join the Waitlist
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <button
+              onClick={() => navigate("/ai-solutions")}
+              className="inline-flex items-center gap-2 border border-border text-foreground font-medium text-sm px-8 py-4 hover:border-primary/40 hover:bg-primary/5 transition-all"
+            >
+              <Brain className="w-4 h-4" />
+              View All AI Solutions
+            </button>
+          </div>
+          <p className="mt-6 text-xs text-muted-foreground font-mono">
+            Starter free · Pro $10/mo · Premium $20/mo · Launching Q4 2026
           </p>
         </motion.div>
       </div>

@@ -9,30 +9,10 @@ import toast from "react-hot-toast";
 import capeTownImg from "@/assets/cpt.webp";
 
 const contactItems = [
-  {
-    Icon: MapPin,
-    label: "Address",
-    value: "11th Street, Kensington\nCape Town, South Africa, 7405",
-    href: null,
-  },
-  {
-    Icon: Phone,
-    label: "Phone",
-    value: "+27 62 107 1140",
-    href: "tel:+27621071140",
-  },
-  {
-    Icon: Mail,
-    label: "Email",
-    value: "support@camluk.co.za",
-    href: "mailto:support@camluk.co.za",
-  },
-  {
-    Icon: Globe,
-    label: "Website",
-    value: "www.camluk.co.za",
-    href: "https://www.camluk.co.za",
-  },
+  { Icon: MapPin, label: "Address", value: "11th Street, Kensington\nCape Town, South Africa, 7405", href: null },
+  { Icon: Phone,  label: "Phone",   value: "+27 62 107 1140",    href: "tel:+27621071140" },
+  { Icon: Mail,   label: "Email",   value: "support@camluk.co.za", href: "mailto:support@camluk.co.za" },
+  { Icon: Globe,  label: "Website", value: "www.camluk.co.za",   href: "https://www.camluk.co.za" },
 ];
 
 const schema = z.object({
@@ -42,15 +22,19 @@ const schema = z.object({
   message: z.string().min(20, "Message must be at least 20 characters"),
 });
 
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-40px" },
+  transition: { duration: 0.5, ease: "easeOut", delay },
+});
+
+const inputCls = "w-full bg-card/40 border border-border/60 focus:border-primary/60 text-foreground placeholder:text-muted-foreground/40 text-sm px-4 py-3 outline-none transition-colors";
+
 export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
@@ -58,13 +42,7 @@ export default function ContactSection() {
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          from_name:  data.name,
-          from_email: data.email,
-          subject:    data.subject,
-          message:    data.message,
-          to_email:   "info@camluk.co.za",
-        },
+        { from_name: data.name, from_email: data.email, subject: data.subject, message: data.message, to_email: "info@camluk.co.za" },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
       toast.success("Message sent! We'll get back to you soon.");
@@ -77,184 +55,120 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-24 lg:py-32">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      </div>
+    <section id="contact" className="relative border-t border-border/60">
+      <div className="h-1 w-24 bg-primary ml-6 lg:ml-10" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-mono font-medium text-primary tracking-wider uppercase mb-4">
-            Contact Us
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-            Let's Build Something Great
-          </h2>
-          <p className="mt-4 max-w-xl mx-auto text-muted-foreground text-base sm:text-lg">
-            Ready to transform your business? Get in touch with us today.
-          </p>
-        </motion.div>
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
 
-        {/* Cape Town image */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="relative overflow-hidden mb-12 border border-border/30"
-        >
-          <img
-            src={capeTownImg}
-            alt="Cape Town South Africa"
-            className="w-full h-56 sm:h-72 object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
-          <div className="absolute bottom-6 left-0 right-0 text-center">
-            <p className="text-xs font-mono text-primary uppercase tracking-widest">📍 Cape Town, South Africa</p>
+        {/* Header */}
+        <motion.div {...fadeUp(0)} className="grid lg:grid-cols-3 gap-8 mb-14">
+          <div>
+            <span className="text-xs font-mono text-primary uppercase tracking-widest block mb-4">Contact Us</span>
+            <h2 className="text-4xl sm:text-5xl font-black tracking-tighter leading-tight">
+              Let's build something great.
+            </h2>
+          </div>
+          <div className="lg:col-span-2 lg:pt-14">
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              Ready to transform your business? Reach out and we'll get back to you within 24 hours.
+            </p>
           </div>
         </motion.div>
 
-        {/* Contact info + form */}
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Left — contact info cards */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="grid sm:grid-cols-2 gap-6 content-start"
-          >
-            {contactItems.map(({ Icon, label, value, href }, i) => (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-              >
-                {href ? (
+        {/* Cape Town image */}
+        <motion.div {...fadeUp(0.05)} className="relative overflow-hidden border border-border/40 mb-12 h-44 sm:h-60">
+          <img src={capeTownImg} alt="Cape Town, South Africa" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 bg-primary px-5 py-3">
+            <p className="text-xs font-mono font-semibold text-primary-foreground uppercase tracking-widest">
+              📍 Cape Town, South Africa
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Two columns */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+
+          {/* Left — contact info */}
+          <motion.div {...fadeUp(0.05)}>
+            <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-6">Get in Touch</p>
+            <div className="divide-y divide-border/40 border-t border-border/40">
+              {contactItems.map(({ Icon, label, value, href }, i) => {
+                const inner = (
+                  <>
+                    <div className="w-9 h-9 border border-border/60 group-hover:border-primary/40 flex items-center justify-center shrink-0 transition-colors">
+                      <Icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-0.5">{label}</p>
+                      <p className="text-sm font-medium text-foreground whitespace-pre-line">{value}</p>
+                    </div>
+                    {href && <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />}
+                  </>
+                );
+                return href ? (
                   <a
+                    key={label}
                     href={href}
-                    aria-label={`Contact via ${label}`}
                     target={href.startsWith("http") ? "_blank" : undefined}
                     rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="group block h-full p-6 border-l-2 border-border/40 hover:border-primary/60 transition-all duration-500"
+                    className="group flex items-center gap-4 py-5 hover:bg-card/20 -mx-2 px-2 transition-colors"
                   >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <Icon className="w-5 h-5 text-primary" />
-                      </div>
-                      <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                    <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1">{label}</p>
-                    <p className="text-sm font-medium text-foreground whitespace-pre-line">{value}</p>
+                    {inner}
                   </a>
                 ) : (
-                  <div className="h-full p-6 border-l-2 border-border/40">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4">
-                      <Icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1">{label}</p>
-                    <p className="text-sm font-medium text-foreground whitespace-pre-line">{value}</p>
+                  <div key={label} className="group flex items-center gap-4 py-5">
+                    {inner}
                   </div>
-                )}
-              </motion.div>
-            ))}
+                );
+              })}
+            </div>
           </motion.div>
 
-          {/* Right — contact form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-              <div className="grid sm:grid-cols-2 gap-5">
-                {/* Name */}
-                <div>
-                  <label className="block text-xs font-mono text-muted-foreground uppercase tracking-wider mb-2">
-                    Your Name
-                  </label>
-                  <input
-                    {...register("name")}
-                    placeholder="John Smith"
-                    className="w-full bg-secondary/50 border border-border/60 focus:border-primary/60 text-foreground placeholder:text-muted-foreground/50 text-sm px-4 py-3 outline-none transition-colors"
-                  />
-                  {errors.name && (
-                    <p className="mt-1 text-xs text-destructive">{errors.name.message}</p>
-                  )}
-                </div>
+          {/* Right — form */}
+          <motion.div {...fadeUp(0.1)}>
+            <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-6">Send a Message</p>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-                {/* Email */}
+              <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono text-muted-foreground uppercase tracking-wider mb-2">
-                    Email Address
-                  </label>
-                  <input
-                    {...register("email")}
-                    type="email"
-                    placeholder="you@company.com"
-                    className="w-full bg-secondary/50 border border-border/60 focus:border-primary/60 text-foreground placeholder:text-muted-foreground/50 text-sm px-4 py-3 outline-none transition-colors"
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-xs text-destructive">{errors.email.message}</p>
-                  )}
+                  <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Your Name</label>
+                  <input {...register("name")} placeholder="John Smith" className={inputCls} />
+                  {errors.name && <p className="mt-1 text-xs text-destructive">{errors.name.message}</p>}
+                </div>
+                <div>
+                  <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Email Address</label>
+                  <input {...register("email")} type="email" placeholder="you@company.com" className={inputCls} />
+                  {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email.message}</p>}
                 </div>
               </div>
 
-              {/* Subject */}
               <div>
-                <label className="block text-xs font-mono text-muted-foreground uppercase tracking-wider mb-2">
-                  Subject
-                </label>
-                <input
-                  {...register("subject")}
-                  placeholder="I need a website for my business"
-                  className="w-full bg-secondary/50 border border-border/60 focus:border-primary/60 text-foreground placeholder:text-muted-foreground/50 text-sm px-4 py-3 outline-none transition-colors"
-                />
-                {errors.subject && (
-                  <p className="mt-1 text-xs text-destructive">{errors.subject.message}</p>
-                )}
+                <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Subject</label>
+                <input {...register("subject")} placeholder="I need a website for my business" className={inputCls} />
+                {errors.subject && <p className="mt-1 text-xs text-destructive">{errors.subject.message}</p>}
               </div>
 
-              {/* Message */}
               <div>
-                <label className="block text-xs font-mono text-muted-foreground uppercase tracking-wider mb-2">
-                  Message
-                </label>
+                <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Message</label>
                 <textarea
                   {...register("message")}
                   rows={6}
                   placeholder="Tell us about your project or how we can help..."
-                  className="w-full bg-secondary/50 border border-border/60 focus:border-primary/60 text-foreground placeholder:text-muted-foreground/50 text-sm px-4 py-3 outline-none transition-colors resize-none"
+                  className={`${inputCls} resize-none`}
                 />
-                {errors.message && (
-                  <p className="mt-1 text-xs text-destructive">{errors.message.message}</p>
-                )}
+                {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message.message}</p>}
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground font-semibold text-sm px-8 py-4 hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+                className="group w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-bold text-sm px-8 py-4 hover:bg-primary/90 hover:gap-3 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
               >
                 {isSubmitting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Sending…
-                  </>
+                  <><Loader2 className="w-4 h-4 animate-spin" /> Sending…</>
                 ) : (
-                  <>
-                    <Send className="w-4 h-4" />
-                    Send Message
-                  </>
+                  <><Send className="w-4 h-4" /> Send Message</>
                 )}
               </button>
             </form>

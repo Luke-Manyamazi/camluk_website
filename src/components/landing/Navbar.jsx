@@ -9,8 +9,8 @@ const navLinks = [
   { label: "Home",         sectionId: "home" },
   { label: "About",        sectionId: "about" },
   { label: "Services",     sectionId: "services" },
-  { label: "AI Solutions", sectionId: "ai-solutions" },
-  { label: "Courses",      href: "/courses" },
+  { label: "AI Solutions", href: "/ai-solutions" },
+  { label: "Academy",      href: "/academy" },
   { label: "Contact",      sectionId: "contact" },
 ];
 
@@ -29,7 +29,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (location.pathname !== "/") return;
-    const sectionIds = ["home", "about", "services", "ai-solutions", "contact"];
+    const sectionIds = ["home", "about", "services", "contact"];
 
     const handleScroll = () => {
       const offset = 120;
@@ -128,7 +128,8 @@ export default function Navbar() {
                 aria-label={`Navigate to ${link.label}`}
                 onClick={() => handleNavClick(link)}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-secondary/50 ${
-                  !link.href && activeSection === link.sectionId
+                  (link.href && location.pathname.startsWith(link.href)) ||
+                  (!link.href && activeSection === link.sectionId)
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
                 }`}

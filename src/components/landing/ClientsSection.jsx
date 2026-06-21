@@ -1,135 +1,82 @@
 import React from "react";
 import { motion } from "framer-motion";
 import {
-  User,
-  Rocket,
-  Building,
-  Building2,
-  ShoppingBag,
-  HeartPulse,
-  BookOpen,
-  Landmark,
-  Truck,
-  Factory,
+  User, Rocket, Building, Building2,
+  ShoppingBag, HeartPulse, BookOpen, Landmark, Truck, Factory,
 } from "lucide-react";
-import clientImg from "@/assets/client.webp";
 
 const clientTypes = [
-  { Icon: User, label: "Individuals" },
-  { Icon: Rocket, label: "Startups" },
-  { Icon: Building, label: "SMBs" },
+  { Icon: User,      label: "Individuals" },
+  { Icon: Rocket,    label: "Startups" },
+  { Icon: Building,  label: "SMBs" },
   { Icon: Building2, label: "Enterprises" },
 ];
 
 const industries = [
   { Icon: ShoppingBag, label: "Retail" },
-  { Icon: HeartPulse, label: "Healthcare" },
-  { Icon: BookOpen, label: "Education" },
-  { Icon: Landmark, label: "Finance" },
-  { Icon: Truck, label: "Logistics" },
-  { Icon: Factory, label: "Manufacturing" },
+  { Icon: HeartPulse,  label: "Healthcare" },
+  { Icon: BookOpen,    label: "Education" },
+  { Icon: Landmark,    label: "Finance" },
+  { Icon: Truck,       label: "Logistics" },
+  { Icon: Factory,     label: "Manufacturing" },
 ];
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.4, delay },
+});
 
 export default function ClientsSection() {
   return (
-    <section className="relative py-24 lg:py-32">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      </div>
+    <section className="relative border-t border-border/60 bg-card/10">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-20 lg:py-24">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-xs font-mono font-medium text-accent tracking-wider uppercase mb-4">
-            Our Clients
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
-            Who We Serve
-          </h2>
-        </motion.div>
-
-        {/* Client Types */}
-        {/* Network globe image */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="relative overflow-hidden mb-12 border border-border/30"
-        >
-          <img
-            src={clientImg}
-            alt="Global network"
-            className="w-full h-48 sm:h-64 object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background/80" />
-          <div className="absolute inset-0 overflow-hidden flex items-center">
-            <motion.div
-              className="flex whitespace-nowrap"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{ duration: 14, ease: "linear", repeat: Infinity }}
-            >
-              {[0, 1].map((n) => (
-                <p key={n} className="text-lg sm:text-4xl font-bold px-16 shrink-0">
-                  Serving businesses{" "}
-                  <span className="text-primary">across South Africa</span> and beyond.
-                  &nbsp;&nbsp;·&nbsp;&nbsp;
-                </p>
-              ))}
-            </motion.div>
+        <motion.div {...fadeUp(0)} className="grid lg:grid-cols-3 gap-8 mb-14">
+          <div>
+            <span className="text-xs font-mono text-primary uppercase tracking-widest block mb-4">Our Clients</span>
+            <h2 className="text-4xl sm:text-5xl font-black tracking-tighter leading-tight">
+              Who we serve.
+            </h2>
+          </div>
+          <div className="lg:col-span-2 lg:pt-14">
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              Serving businesses of every size across South Africa and beyond — from solo entrepreneurs to large enterprises.
+            </p>
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        {/* Client types */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border/40 border border-border/40 mb-10">
           {clientTypes.map(({ Icon, label }, i) => (
             <motion.div
               key={label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="group p-6 border border-border/40 hover:border-primary/40 text-center transition-all duration-300"
+              {...fadeUp(i * 0.06)}
+              className="group bg-background hover:bg-card/40 px-8 py-8 flex flex-col items-center gap-3 transition-colors"
             >
-              <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Icon className="w-6 h-6 text-primary" />
+              <div className="w-10 h-10 border border-border/60 group-hover:border-primary/40 flex items-center justify-center transition-colors">
+                <Icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
               </div>
-              <p className="text-sm font-medium text-foreground">{label}</p>
+              <span className="text-sm font-semibold text-foreground">{label}</span>
             </motion.div>
           ))}
         </div>
 
         {/* Industries */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-8"
-        >
-          <h3 className="text-lg font-semibold text-foreground">
-            Industries We Serve
-          </h3>
+        <motion.div {...fadeUp(0.1)} className="mb-5">
+          <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest">Industries We Serve</p>
         </motion.div>
 
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+        <div className="flex flex-wrap gap-2">
           {industries.map(({ Icon, label }, i) => (
             <motion.div
               key={label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group p-4 border border-border/40 hover:border-primary/40 text-center transition-all duration-300"
+              {...fadeUp(i * 0.05)}
+              className="group inline-flex items-center gap-2 px-4 py-2.5 border border-border/60 hover:border-primary/40 hover:bg-primary/5 transition-all"
             >
-              <Icon className="w-5 h-5 mx-auto mb-2 text-muted-foreground group-hover:text-primary transition-colors" />
-              <p className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">
-                {label}
-              </p>
+              <Icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+              <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors font-medium">{label}</span>
             </motion.div>
           ))}
         </div>
