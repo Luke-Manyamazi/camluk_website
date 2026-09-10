@@ -64,10 +64,10 @@ export default function AboutSection() {
             <motion.div {...fadeUp(0)}>
               <span className="text-xs font-mono text-primary uppercase tracking-widest block mb-4">About Us</span>
               <h2 className="text-4xl sm:text-5xl font-black tracking-tighter leading-tight mb-6">
-                Who we are.
+                Practical digital expertise with business outcomes in mind.
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-10">
-                Camluk Technologies is a Cape Town-based IT company delivering end-to-end digital solutions — from on-site support and custom software to AI products and hands-on tech training.
+                Camluk Technologies helps businesses simplify complex systems through websites, software, AI, automation, and dependable digital support. We turn operational friction into streamlined growth.
               </p>
             </motion.div>
 

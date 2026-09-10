@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "@/assets/camluk_logo.jpg";
 
 const navLinks = [
-  { label: "Home",         sectionId: "home" },
-  { label: "About",        sectionId: "about" },
-  { label: "Services",     sectionId: "services" },
-  { label: "AI Solutions", href: "/ai-solutions" },
-  { label: "Academy",      href: "/academy" },
-  { label: "Contact",      sectionId: "contact" },
+  { label: "Home", sectionId: "home" },
+  { label: "Services", sectionId: "services" },
+  { label: "About", sectionId: "about" },
+  { label: "Clients", sectionId: "clients" },
+  { label: "Contact", sectionId: "contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onNavigate, currentSection }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,46 +25,14 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onWindowScroll);
   }, []);
 
-  useEffect(() => {
-    if (location.pathname !== "/") return;
-    const sectionIds = ["home", "about", "services", "contact"];
-
-    const handleScroll = () => {
-      const offset = 120;
-      let current = "home";
-      for (const id of sectionIds) {
-        const el = document.getElementById(id);
-        if (el && el.offsetTop <= window.scrollY + offset) {
-          current = id;
-        }
-      }
-      setActiveSection(current);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]);
-
-  const handleScroll = (sectionId) => {
-    if (location.pathname === "/") {
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    } else {
-      navigate("/", { state: { scrollTo: sectionId } });
-    }
-  };
-
   const handleNavClick = (link) => {
     setMobileOpen(false);
-    if (link.href) {
-      navigate(link.href);
+
+    if (onNavigate) {
+      onNavigate(link.sectionId || "home");
       return;
     }
+
     const { sectionId } = link;
     if (sectionId === "home") {
       if (location.pathname === "/") {
@@ -90,117 +56,74 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-primary/5"
-          : "bg-transparent"
+        scrolled ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg shadow-primary/5" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
           <motion.div
             className="flex items-center gap-2.5 cursor-pointer"
             whileHover={{ scale: 1.02 }}
             onClick={() => handleNavClick({ sectionId: "home" })}
           >
             <div className="w-9 h-9 rounded-lg overflow-hidden">
-              <img
-                src={logo}
-                alt="Camluk Technologies Logo"
-                className="w-full h-full object-cover"
-              />
+              <img src={logo} alt="Camluk Technologies Logo" className="w-full h-full object-cover" />
             </div>
             <div>
-              <span className="text-lg font-bold tracking-tight text-foreground">
-                Camluk
-              </span>
-              <span className="text-lg font-light text-primary ml-0.5">
-                Tech
-              </span>
+              <span className="text-lg font-bold tracking-tight text-foreground">Camluk</span>
+              <span className="text-lg font-light text-primary ml-0.5">Tech</span>
             </div>
           </motion.div>
 
-          {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <button
-                key={link.href ?? link.sectionId}
-                aria-label={`Navigate to ${link.label}`}
-                onClick={() => handleNavClick(link)}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors hover:bg-secondary/50 ${
-                  (link.href && location.pathname.startsWith(link.href)) ||
-                  (!link.href && activeSection === link.sectionId)
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="absolute left-1/2 -translate-x-1/2">
             <Button
-              aria-label="Contact Us"
-              variant="ghost"
-              className="text-sm text-muted-foreground hover:text-foreground"
-              onClick={() => handleNavClick({ sectionId: "contact" })}
+              aria-label="Open navigation menu"
+              className="bg-white/5 text-white border border-white/10 px-5 py-2 rounded-full text-[10px] font-semibold uppercase tracking-[0.24em] hover:bg-white/10"
+              onClick={() => setMobileOpen(!mobileOpen)}
             >
-              Contact Us
-            </Button>
-            <Button
-              aria-label="Get Started"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 text-sm font-semibold px-6"
-              onClick={() => handleNavClick({ sectionId: "services" })}
-            >
-              Get Started
+              Navigate
             </Button>
           </div>
 
-          {/* Mobile toggle */}
-          <Button
-            aria-label="Toggle Menu"
-            className="lg:hidden p-2 text-muted-foreground hover:text-foreground"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </Button>
+          <div className="w-[140px]" />
         </div>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-border"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] bg-[#0a0a0a]/95 backdrop-blur-md"
           >
-            <div className="px-4 py-4 space-y-1">
-              {navLinks.map((link) => (
-                <Button
-                  key={link.href ?? link.sectionId}
-                  aria-label={`Navigate to ${link.label}`}
-                  onClick={() => handleNavClick(link)}
-                  className="block w-full text-left px-4 py-3 text-sm font-medium rounded-lg transition-colors text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                >
-                  {link.label}
-                </Button>
-              ))}
-              <div className="pt-3 border-t border-border mt-3">
-                <Button
-                  aria-label="Get Started"
-                  className="w-full bg-primary text-primary-foreground"
-                  onClick={() => handleNavClick({ sectionId: "services" })}
-                >
-                  Get Started
-                </Button>
+            <div className="absolute right-5 top-5 z-10">
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="w-11 h-11 rounded-full border border-white/10 text-white/80 hover:text-white hover:border-white/25 transition-colors flex items-center justify-center"
+                aria-label="Close navigation"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="flex h-full w-full items-center justify-center px-6">
+              <div className="space-y-4 text-center">
+                {navLinks.map((link, index) => (
+                  <motion.button
+                    key={link.sectionId}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.06 }}
+                    onClick={() => {
+                      handleNavClick(link);
+                      setMobileOpen(false);
+                    }}
+                    className="block w-full text-3xl sm:text-5xl font-black uppercase tracking-[-0.05em] text-white/80 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </motion.button>
+                ))}
               </div>
             </div>
           </motion.div>

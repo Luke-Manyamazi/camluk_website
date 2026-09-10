@@ -10,11 +10,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 
 import Home from './pages/Home';
-import Portfolio from './pages/PortfolioPage';
-import Courses from './pages/ExploreCourses';
-import AISolutions from './pages/AISolutionsPage';
-import Academy from './pages/AcademyPage';
-import AcademyEnrol from './pages/AcademyEnrolPage';
 import PageNotFound from './lib/PageNotFound';
 import WhatsAppFloat from './components/ui/FloatingWhatsApp';
 import Chatbot from './components/ui/Chatbot';
@@ -27,13 +22,8 @@ function App() {
       <Router>
         <ScrollToTop />
         <Routes>
-          <Route path="/"                element={<Home />} />
-          <Route path="/portfolio"       element={<Portfolio />} />
-          <Route path="/courses"         element={<Courses />} />
-          <Route path="/ai-solutions"    element={<AISolutions />} />
-          <Route path="/academy"         element={<Academy />} />
-          <Route path="/academy/enrol"   element={<AcademyEnrol />} />
-          <Route path="*"                element={<PageNotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
       <Toaster />

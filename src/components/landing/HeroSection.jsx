@@ -10,52 +10,52 @@ import hero5 from "@/assets/hero5.webp";
 const slides = [
   {
     image: hero1,
-    eyebrow: "IT Solutions",
-    title: "Empowering businesses with smart tech.",
+    eyebrow: "Simply Automated",
+    title: "We simplify the way businesses work.",
     ctas: [
-      { label: "Get Started",   action: "contact" },
-      { label: "Our Services",  action: "services" },
+      { label: "Book a Strategy Call", action: "contact" },
+      { label: "See Our Services", action: "services" },
     ],
   },
   {
     image: hero2,
-    eyebrow: "Software Development",
-    title: "Custom software built to perform.",
+    eyebrow: "Web • Software • AI",
+    title: "Digital systems that help you move faster and sell smarter.",
     ctas: [
-      { label: "View Portfolio", action: "portfolio" },
-      { label: "Learn More",     action: "services" },
+      { label: "Talk to Camluk", action: "contact" },
+      { label: "Explore Solutions", action: "services" },
     ],
   },
   {
     image: hero3,
-    eyebrow: "IT Installations",
-    title: "Seamless networks. Reliable infrastructure.",
+    eyebrow: "Automation That Works",
+    title: "From messy processes to practical, profitable operations.",
     ctas: [
-      { label: "Contact Us",  action: "contact" },
-      { label: "Learn More",  action: "services" },
+      { label: "Start Your Project", action: "contact" },
+      { label: "Learn More", action: "services" },
     ],
   },
   {
     image: hero4,
-    eyebrow: "Camluk Academy",
-    title: "Learn IT. Upskill. Get hired.",
+    eyebrow: "Business Growth",
+    title: "Websites, software, AI, and systems built for growth.",
     ctas: [
-      { label: "Enrol Now",       action: "academy" },
-      { label: "Explore Courses", action: "courses" },
+      { label: "Get Started", action: "contact" },
+      { label: "View Services", action: "services" },
     ],
   },
   {
     image: hero5,
-    eyebrow: "Quick Office Services",
-    title: "Fast, reliable office support when you need it.",
+    eyebrow: "Built for Results",
+    title: "Practical digital solutions that remove friction and boost performance.",
     ctas: [
-      { label: "Get Started",  action: "contact" },
-      { label: "Our Services", action: "services" },
+      { label: "Book a Call", action: "contact" },
+      { label: "Our Approach", action: "services" },
     ],
   },
 ];
 
-export default function HeroSection() {
+export default function HeroSection({ onNavigate, nextSection }) {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [paused, setPaused]   = useState(false);
@@ -70,6 +70,11 @@ export default function HeroSection() {
   }, [paused, next]);
 
   const handleCTA = (action) => {
+    if (onNavigate && (action === "contact" || action === "services")) {
+      onNavigate(action);
+      return;
+    }
+
     switch (action) {
       case "contact":   document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }); break;
       case "services":  document.getElementById("services")?.scrollIntoView({ behavior: "smooth" }); break;

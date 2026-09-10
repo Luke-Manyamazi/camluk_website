@@ -8,26 +8,27 @@ const footerSections = [
   {
     heading: "Company",
     links: [
-      { label: "Home",      action: "scroll", target: "home" },
-      { label: "About Us",  action: "scroll", target: "about" },
-      { label: "Services",  action: "scroll", target: "services" },
-      { label: "Contact",   action: "scroll", target: "contact" },
+      { label: "Home", action: "scroll", target: "home" },
+      { label: "About Us", action: "scroll", target: "about" },
+      { label: "Services", action: "scroll", target: "services" },
+      { label: "Contact", action: "scroll", target: "contact" },
     ],
   },
   {
-    heading: "Solutions",
+    heading: "Services",
     links: [
-      { label: "AI Solutions", action: "route", target: "/ai-solutions" },
-      { label: "Academy",      action: "route", target: "/academy" },
-      { label: "Portfolio",    action: "route", target: "/portfolio" },
+      { label: "Web Development", action: "scroll", target: "services" },
+      { label: "Business Software", action: "scroll", target: "services" },
+      { label: "AI & Automation", action: "scroll", target: "services" },
+      { label: "Cloud & Deployment", action: "scroll", target: "services" },
     ],
   },
   {
-    heading: "AI Products",
+    heading: "Get Started",
     links: [
-      { label: "NuSite",              action: "external", target: "https://nusitereimagined.netlify.app/" },
-      { label: "Chenesa",             action: "route",    target: "/ai-solutions#ai-products" },
-      { label: "Torga Lab Dashboard", action: "route",    target: "/ai-solutions#ai-products" },
+      { label: "Book a Call", action: "scroll", target: "contact" },
+      { label: "Tell us your goals", action: "scroll", target: "contact" },
+      { label: "Discuss your project", action: "scroll", target: "contact" },
     ],
   },
 ];

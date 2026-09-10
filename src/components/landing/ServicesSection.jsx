@@ -14,109 +14,75 @@ const fadeUp = (delay = 0) => ({
 const services = [
   {
     n: "01",
-    Icon: Headphones,
-    title: "IT Support",
-    tag: "On-Site & Remote",
+    Icon: Globe,
+    title: "Web Development",
+    tag: "Modern websites and web applications",
     description:
-      "Fast, reliable IT support for businesses and individuals. Whether it's a crashed system, a network problem or a slow PC — we fix it remotely or come to you.",
+      "We design and build websites and web apps that help businesses look credible, convert more leads, and operate more professionally online. From landing pages to full business platforms, we build for clarity, speed, and trust.",
     details: [
-      "Remote desktop support — same-day response",
-      "On-site visits for hardware and network issues",
-      "Virus, malware and ransomware removal",
-      "System setup, configuration and optimisation",
-      "Monthly and annual support contracts available",
-      "Support for Windows, Mac and Linux",
+      "High-converting business websites built to sell and inform",
+      "Responsive web apps designed for modern business workflows",
+      "Clear messaging, polished design, and better user experience",
+      "Fast performance, mobile-first layouts, and easy-to-manage content",
+      "SEO-conscious structure to improve visibility and discovery",
+      "Support for growth, upgrades, and future feature expansion",
     ],
     cta: null,
   },
   {
     n: "02",
-    Icon: Globe,
-    title: "Web Development",
-    tag: "Modern & Responsive",
-    description:
-      "We build fast, professional websites that look great on every device. From simple business sites to full e-commerce platforms — designed to convert visitors into customers.",
-    details: [
-      "Custom design — no templates, built for your brand",
-      "React, Next.js and WordPress development",
-      "Mobile-first, fully responsive layouts",
-      "SEO-optimised for Google visibility",
-      "E-commerce, booking and contact form integration",
-      "Hosting setup and ongoing maintenance",
-    ],
-    cta: { label: "View Portfolio", route: "/portfolio" },
-  },
-  {
-    n: "03",
     Icon: Code,
-    title: "Software Development",
-    tag: "Custom Solutions",
+    title: "Business Software",
+    tag: "Custom systems for daily operations",
     description:
-      "Bespoke software built around your exact business processes. We turn complex workflows into clean, reliable applications — web-based, desktop or integrated with your existing systems.",
+      "We build practical software that helps businesses manage operations, sales, stock, customers, and reporting without unnecessary complexity. The result is better visibility, less admin, and smoother daily execution.",
     details: [
-      "Web applications and internal dashboards",
-      "Business process automation tools",
-      "REST API design, development and integration",
-      "Database architecture and management",
-      "Third-party system integrations (CRM, ERP, POS)",
-      "Ongoing maintenance, updates and support",
-    ],
-    cta: { label: "View Portfolio", route: "/portfolio" },
-  },
-  {
-    n: "04",
-    Icon: GraduationCap,
-    title: "Computer Academy",
-    tag: "Training Programs",
-    description:
-      "Practical IT training for beginners and professionals. Four hands-on courses taught in-person in Cape Town or online — with a certificate on completion.",
-    details: [
-      "Introduction to Computers — R199",
-      "Microsoft Office Suite — R249",
-      "PC Repairs & Maintenance — R299",
-      "Web Development Fundamentals — R349",
-      "Online (live sessions) and in-person delivery",
-      "Certificate issued on successful completion",
-    ],
-    cta: { label: "View Courses", route: "/academy" },
-  },
-  {
-    n: "05",
-    Icon: Settings,
-    title: "IT Installations",
-    tag: "Setup & Deployment",
-    description:
-      "Professional IT infrastructure setup for homes and businesses. From network cabling to full office deployments — we install it right the first time.",
-    details: [
-      "Network cabling, Wi-Fi and router configuration",
-      "Server and workstation installation",
-      "CCTV and access control system setup",
-      "Printer, scanner and peripheral deployment",
-      "Full office IT infrastructure rollouts",
-      "Post-installation support and handover",
+      "Workflow tools built around how your business actually works",
+      "Customer, order, stock, and reporting dashboards",
+      "Back-office systems that reduce manual admin and errors",
+      "Streamlined processes for sales, operations, and team coordination",
+      "Integrations with your current tools and business systems",
+      "Scalable software that grows with your business",
     ],
     cta: null,
   },
   {
-    n: "06",
-    Icon: Printer,
-    title: "Quick Office & Digital Services",
-    tag: "Walk-in Services",
+    n: "03",
+    Icon: Settings,
+    title: "AI & Automation",
+    tag: "Smarter operations with less repetitive work",
     description:
-      "Fast walk-in digital services at our Kensington office. Printing, scanning, document help and more — no appointment needed.",
+      "We help businesses use AI and automation to remove repetitive work, speed up decision-making, and free up teams to focus on higher-value tasks. Our approach stays practical, useful, and aligned with your real business goals.",
     details: [
-      "Black & white and colour printing",
-      "Scanning, photocopying and laminating",
-      "Document binding and finishing",
-      "CV typing and document formatting",
-      "Email setup and digital form assistance",
-      "Flash drive and file transfer services",
+      "Automated workflows that reduce manual admin and follow-ups",
+      "AI tools for content, support, lead handling, and internal productivity",
+      "Smarter processing for repetitive business tasks",
+      "Workflow improvements that reduce delays and human error",
+      "Simple, useful automation that fits your operations",
+      "Solutions designed to save time and improve consistency",
+    ],
+    cta: null,
+  },
+  {
+    n: "04",
+    Icon: Headphones,
+    title: "Cloud & Deployment",
+    tag: "Reliable hosting and secure delivery",
+    description:
+      "We handle the technical side of getting your systems online and keeping them running reliably. From cloud hosting to deployment and ongoing support, we make sure your digital tools are stable, secure, and ready for use.",
+    details: [
+      "Cloud hosting and deployment for websites and business apps",
+      "Reliable setup designed for uptime, performance, and security",
+      "Environment configuration and launch support",
+      "Maintenance planning for long-term business continuity",
+      "Smooth deployment with minimal business disruption",
+      "Technical support to keep operations moving without friction",
     ],
     cta: null,
   },
 ];
 
-export default function ServicesSection() {
+export default function ServicesSection({ onNavigate }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(null);
 
@@ -133,12 +99,12 @@ export default function ServicesSection() {
           <div>
             <span className="text-xs font-mono text-primary uppercase tracking-widest block mb-4">Services</span>
             <h2 className="text-4xl sm:text-5xl font-black tracking-tighter leading-tight">
-              What we offer.
+              Business systems, simplified.
             </h2>
           </div>
           <div className="lg:col-span-2 lg:pt-14">
             <p className="text-xl text-muted-foreground leading-relaxed">
-              End-to-end IT services for individuals, small businesses and enterprises across South Africa. Click any service to see what's included.
+              We build digital solutions that remove bottlenecks, automate routine work, and help businesses run smoother, faster, and smarter.
             </p>
           </div>
         </motion.div>
