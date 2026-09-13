@@ -43,7 +43,7 @@ export default function PageNotFound() {
           </div>
         </div>
       </main>
-      <div className="fixed bottom-0 inset-x-0 z-30 border-t border-border/40 bg-background/90 backdrop-blur-md px-4 py-2.5"><div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-1.5 text-[10px] sm:text-xs text-muted-foreground"><span>© 2026 Camluk Technologies. All rights reserved.</span><div className="flex items-center gap-3"><a href="mailto:support@camluk.co.za" className="hover:text-foreground transition-colors">support@camluk.co.za</a><span className="text-border">|</span><a href="tel:+27621071140" className="hover:text-foreground transition-colors">+27 62 107 1140</a></div></div></div>
+      <div className="fixed bottom-0 inset-x-0 z-30 border-t border-border/40 bg-background/90 backdrop-blur-md px-4 py-2.5"><div className="max-w-7xl mx-auto flex items-center justify-center gap-3 text-[10px] sm:text-xs text-muted-foreground"><span>© 2026 Camluk Technologies. All rights reserved.</span><span className="text-border">|</span><a href="mailto:support@camluk.co.za" className="hover:text-foreground transition-colors">support@camluk.co.za</a></div></div>
     </div>
   );
 }
