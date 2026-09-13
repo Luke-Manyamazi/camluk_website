@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import hero1 from "@/assets/hero1.webp";
-import hero2 from "@/assets/hero2.webp";
-import hero3 from "@/assets/hero3.webp";
-import hero4 from "@/assets/hero4.webp";
-import hero5 from "@/assets/hero5.webp";
+
+const STOCK_IMAGES = {
+  business: "https://images.unsplash.com/photo-1758876202980-0a28b744fb24?auto=format&fit=crop&fm=jpg&q=75&w=2200",
+  software: "https://images.unsplash.com/photo-1758873267964-66a045a75e25?auto=format&fit=crop&fm=jpg&q=75&w=2200",
+  whatsapp: "https://images.unsplash.com/photo-1776797391265-01a0490d4c99?auto=format&fit=crop&fm=jpg&q=75&w=1800",
+  retail: "https://images.unsplash.com/photo-1753161029695-f1d1e6881257?auto=format&fit=crop&fm=jpg&q=75&w=2200",
+};
 
 const slides = [
-  { image: hero1, eyebrow: "Simply Automated", title: "Technology that works around your business — not the other way around.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Explore Services", action: "services" }] },
-  { image: hero2, eyebrow: "Business Software", title: "Run customers, sales, stock and operations from one clear system.", ctas: [{ label: "Enquire", action: "contact" }, { label: "See Business Software", action: "services" }] },
-  { image: hero3, eyebrow: "WhatsApp Commerce", title: "Turn everyday customer conversations into structured business workflows.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Explore Services", action: "services" }] },
-  { image: hero4, eyebrow: "AI • Automation • Cloud", title: "Remove repetitive work and give your team better information.", ctas: [{ label: "Enquire", action: "contact" }, { label: "How We Work", action: "process" }] },
-  { image: hero5, eyebrow: "Web Development", title: "Build a digital presence that earns trust and creates opportunities.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Why Camluk", action: "why-us" }] },
+  { image: STOCK_IMAGES.business, alt: "Business team reviewing digital performance data", eyebrow: "Simply Automated", title: "Technology that works around your business — not the other way around.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Explore Services", action: "services" }] },
+  { image: STOCK_IMAGES.software, alt: "Professional working with technology in a modern workspace", eyebrow: "Business Software", title: "Run customers, sales, stock and operations from one clear system.", ctas: [{ label: "Enquire", action: "contact" }, { label: "See Business Software", action: "services" }] },
+  { image: STOCK_IMAGES.whatsapp, alt: "Smartphone showing a business text conversation", eyebrow: "WhatsApp Commerce", title: "Turn everyday customer conversations into structured business workflows.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Explore Services", action: "services" }] },
+  { image: STOCK_IMAGES.retail, alt: "Business owner using a tablet in a retail store", eyebrow: "AI • Automation • Cloud", title: "Remove repetitive work and give your team better information.", ctas: [{ label: "Enquire", action: "contact" }, { label: "How We Work", action: "process" }] },
+  { image: STOCK_IMAGES.business, alt: "Business professionals collaborating around digital information", eyebrow: "Web Development", title: "Build a digital presence that earns trust and creates opportunities.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Why Camluk", action: "why-us" }] },
 ];
 
 export default function HeroSection({ onNavigate }) {
@@ -40,7 +42,7 @@ export default function HeroSection({ onNavigate }) {
     <section id="home" className="relative min-h-screen flex flex-col overflow-hidden" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       {slides.map((s, i) => (
         <div key={i} className="absolute inset-0 transition-opacity duration-1000" style={{ opacity: i === current ? 1 : 0 }}>
-          <img src={s.image} alt="" className="w-full h-full object-cover" loading={i === 0 ? "eager" : "lazy"} />
+          <img src={s.image} alt={s.alt} className="w-full h-full object-cover" loading={i === 0 ? "eager" : "lazy"} />
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-background/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
         </div>
