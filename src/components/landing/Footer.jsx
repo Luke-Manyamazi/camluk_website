@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import logo from "@/assets/camluk_logo.png";
 import { FaLinkedinIn, FaFacebookF, FaInstagram } from "react-icons/fa6";
 
@@ -9,13 +8,13 @@ const footerSections = [
   { heading: "Get Started", links: [{ label: "Request a Quote", target: "contact" }, { label: "Start on WhatsApp", target: "contact" }, { label: "How We Work", target: "process" }] },
 ];
 
-export default function Footer() {
-  const navigate = useNavigate();
+export default function Footer({ onNavigate }) {
   const handleLink = (target) => {
-    if (target === "home") { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
-    const el = document.querySelector(`#${target}`);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-    else { navigate("/"); setTimeout(() => document.querySelector(`#${target}`)?.scrollIntoView({ behavior: "smooth" }), 200); }
+    if (onNavigate) {
+      onNavigate(target);
+      return;
+    }
+    if (target === "home") window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
