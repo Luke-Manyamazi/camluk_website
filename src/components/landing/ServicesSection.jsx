@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Code, MessageCircle, Settings, Headphones, ChevronRight, Check, Plus, Minus } from "lucide-react";
 
 const WHATSAPP_NUMBER = "263718604286";
-const SERVICE_IMAGE = "https://images.unsplash.com/photo-1758876202980-0a28b744fb24?auto=format&fit=crop&fm=jpg&q=75&w=2200";
+const SERVICE_IMAGE = "https://images.pexels.com/photos/30677714/pexels-photo-30677714.jpeg?auto=compress&cs=tinysrgb&w=2200";
 
 const fadeUp = (delay = 0) => ({ initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-40px" }, transition: { duration: 0.5, ease: "easeOut", delay } });
 
@@ -30,7 +30,7 @@ export default function ServicesSection({ onNavigate }) {
         </motion.div>
 
         <motion.div {...fadeUp(0.05)} className="relative overflow-hidden border border-border/40 mb-10 h-52 sm:h-64 lg:h-72 shadow-2xl">
-          <img src={SERVICE_IMAGE} alt="Business team reviewing digital performance data" className="w-full h-full object-cover object-[65%_center]" loading="lazy" />
+          <img src={SERVICE_IMAGE} alt="African business team collaborating in a modern office" className="w-full h-full object-cover object-[62%_center]" loading="lazy" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/45 to-background/15" />
           <div className="absolute inset-y-0 left-0 flex items-center px-8 lg:px-12 max-w-xl"><div><p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Camluk Technologies</p><p className="text-2xl sm:text-3xl font-black tracking-tighter text-foreground leading-tight">Simply Automated.<br />Built for Business.</p></div></div>
         </motion.div>
