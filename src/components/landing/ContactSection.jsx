@@ -7,7 +7,7 @@ import { z } from "zod";
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 
-const CONTACT_IMAGE = "https://images.unsplash.com/photo-1783061044343-69dc0c78ad87?auto=format&fit=crop&fm=jpg&q=75&w=2000";
+const CONTACT_IMAGE = "https://images.pexels.com/photos/30677719/pexels-photo-30677719.jpeg?auto=compress&cs=tinysrgb&w=2000";
 const WHATSAPP_NUMBER = "263718604286";
 
 const contactItems = [
@@ -60,7 +60,7 @@ export default function ContactSection() {
         </motion.div>
 
         <motion.div {...fadeUp(0.05)} className="relative overflow-hidden border border-border/40 mb-12 min-h-[300px] sm:min-h-[340px] lg:min-h-[380px] shadow-2xl">
-          <img src={CONTACT_IMAGE} alt="Business colleagues discussing a project and planning a solution" className="absolute inset-0 w-full h-full object-cover object-[58%_48%]" loading="lazy" />
+          <img src={CONTACT_IMAGE} alt="African business colleagues collaborating on a laptop" className="absolute inset-0 w-full h-full object-cover object-[58%_48%]" loading="lazy" />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/15" />
           <div className="absolute inset-0 flex items-center">
             <div className="px-7 sm:px-10 lg:px-14 max-w-2xl">
