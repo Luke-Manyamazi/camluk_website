@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Target, Eye, Lightbulb, Users, ArrowUpRight } from "lucide-react";
 
-const ABOUT_IMAGE = "https://images.unsplash.com/photo-1758873272000-d3763373f863?auto=format&fit=crop&fm=jpg&q=75&w=2000";
+const ABOUT_IMAGE = "https://images.pexels.com/photos/12911253/pexels-photo-12911253.jpeg?auto=compress&cs=tinysrgb&w=2000";
 
 const fadeUp = (delay = 0) => ({ initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-40px" }, transition: { duration: 0.5, ease: "easeOut", delay } });
 
@@ -21,7 +21,7 @@ export default function AboutSection({ onNavigate, nextSection }) {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <motion.div {...fadeUp(0)} className="relative order-2 lg:order-1 lg:-translate-y-2">
             <div className="relative overflow-hidden border border-border/40 bg-card/20 shadow-2xl aspect-[4/3] lg:aspect-[5/6]">
-              <img src={ABOUT_IMAGE} alt="Business team working with technology in a modern workplace" className="w-full h-full object-cover object-[48%_42%]" loading="lazy" />
+              <img src={ABOUT_IMAGE} alt="African businesswoman working on a laptop in a modern office" className="w-full h-full object-cover object-[48%_42%]" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
               <div className="absolute top-5 left-5 px-3 py-1.5 border border-primary/40 bg-background/75 backdrop-blur-sm">
                 <p className="text-[10px] font-mono font-semibold text-primary uppercase tracking-[0.2em]">Business-first technology</p>
