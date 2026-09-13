@@ -19,7 +19,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24' # Set this to 24 to match the runner requirement
+          node-version: '24'
 
       - name: Install dependencies
         run: npm install
@@ -33,16 +33,15 @@ jobs:
           VITE_EMAILJS_ENROL_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_ENROL_TEMPLATE_ID }}
 
       - name: Deploy via FTP
-        uses: samkirkland/FTP-Deploy-Action@v4.3.5 
+        uses: samkirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: ./
-          # Adding timeout and state-name helps with unstable FTP connections
-          timeout: 60000 
+          # Keep deployment resilient to slower FTP connections.
+          timeout: 60000
           state-name: .ftp-deploy-sync-state.json
-
           exclude: |
             **/chat-proxy.php
