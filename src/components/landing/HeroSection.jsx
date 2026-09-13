@@ -2,18 +2,18 @@ import React, { useState, useEffect, useCallback } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 const STOCK_IMAGES = {
-  business: "https://images.unsplash.com/photo-1758876202980-0a28b744fb24?auto=format&fit=crop&fm=jpg&q=75&w=2200",
-  software: "https://images.unsplash.com/photo-1758873267964-66a045a75e25?auto=format&fit=crop&fm=jpg&q=75&w=2200",
-  whatsapp: "https://images.unsplash.com/photo-1776797391265-01a0490d4c99?auto=format&fit=crop&fm=jpg&q=75&w=1800",
-  retail: "https://images.unsplash.com/photo-1753161029695-f1d1e6881257?auto=format&fit=crop&fm=jpg&q=75&w=2200",
+  business: "https://images.pexels.com/photos/30677714/pexels-photo-30677714.jpeg?auto=compress&cs=tinysrgb&w=2200",
+  software: "https://images.pexels.com/photos/12911253/pexels-photo-12911253.jpeg?auto=compress&cs=tinysrgb&w=2200",
+  whatsapp: "https://images.pexels.com/photos/7163436/pexels-photo-7163436.jpeg?auto=compress&cs=tinysrgb&w=2200",
+  retail: "https://images.pexels.com/photos/7550429/pexels-photo-7550429.jpeg?auto=compress&cs=tinysrgb&w=2200",
 };
 
 const slides = [
-  { image: STOCK_IMAGES.business, position: "65% center", alt: "Business team reviewing digital performance data", eyebrow: "Simply Automated", title: "Technology that works around your business — not the other way around.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Explore Services", action: "services" }] },
-  { image: STOCK_IMAGES.software, position: "68% center", alt: "Professional working with technology in a modern workspace", eyebrow: "Business Software", title: "Run customers, sales, stock and operations from one clear system.", ctas: [{ label: "Enquire", action: "contact" }, { label: "See Business Software", action: "services" }] },
-  { image: STOCK_IMAGES.whatsapp, position: "72% center", alt: "Smartphone showing a business text conversation", eyebrow: "WhatsApp Commerce", title: "Turn everyday customer conversations into structured business workflows.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Explore Services", action: "services" }] },
-  { image: STOCK_IMAGES.retail, position: "65% center", alt: "Business owner using a tablet in a retail store", eyebrow: "AI • Automation • Cloud", title: "Remove repetitive work and give your team better information.", ctas: [{ label: "Enquire", action: "contact" }, { label: "How We Work", action: "process" }] },
-  { image: STOCK_IMAGES.business, position: "35% center", alt: "Business professionals collaborating around digital information", eyebrow: "Web Development", title: "Build a digital presence that earns trust and creates opportunities.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Why Camluk", action: "why-us" }] },
+  { image: STOCK_IMAGES.business, position: "62% center", alt: "African business team collaborating in a modern office", eyebrow: "Simply Automated", title: "Technology that works around your business — not the other way around.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Explore Services", action: "services" }] },
+  { image: STOCK_IMAGES.software, position: "70% center", alt: "African businesswoman working on a laptop in a modern office", eyebrow: "Business Software", title: "Run customers, sales, stock and operations from one clear system.", ctas: [{ label: "Enquire", action: "contact" }, { label: "See Business Software", action: "services" }] },
+  { image: STOCK_IMAGES.whatsapp, position: "65% center", alt: "African business professional using a smartphone in a modern office", eyebrow: "WhatsApp Commerce", title: "Turn everyday customer conversations into structured business workflows.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Explore Services", action: "services" }] },
+  { image: STOCK_IMAGES.retail, position: "65% center", alt: "Young African entrepreneur planning business strategy on a tablet", eyebrow: "AI • Automation • Cloud", title: "Remove repetitive work and give your team better information.", ctas: [{ label: "Enquire", action: "contact" }, { label: "How We Work", action: "process" }] },
+  { image: STOCK_IMAGES.business, position: "35% center", alt: "African business professionals collaborating around technology", eyebrow: "Web Development", title: "Build a digital presence that earns trust and creates opportunities.", ctas: [{ label: "Enquire", action: "contact" }, { label: "Why Camluk", action: "why-us" }] },
 ];
 
 export default function HeroSection({ onNavigate }) {
