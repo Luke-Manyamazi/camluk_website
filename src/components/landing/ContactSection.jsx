@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Globe, ArrowUpRight, Loader2, Send, MessageCircle } from "lucide-react";
+import { MapPin, Mail, Globe, ArrowUpRight, Loader2, Send, MessageCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -11,8 +11,8 @@ const CONTACT_IMAGE = "https://images.unsplash.com/photo-1783061044343-69dc0c78a
 const WHATSAPP_NUMBER = "27621071140";
 
 const contactItems = [
-  { Icon: MapPin, label: "Base", value: "Cape Town, South Africa\nServing Southern Africa & remote clients", href: null },
-  { Icon: Phone, label: "Phone", value: "+27 62 107 1140", href: "tel:+27621071140" },
+  { Icon: MapPin, label: "Zimbabwe", value: "Serving businesses across Zimbabwe", href: null },
+  { Icon: MapPin, label: "South Africa", value: "Serving businesses across South Africa", href: null },
   { Icon: Mail, label: "Email", value: "support@camluk.co.za", href: "mailto:support@camluk.co.za" },
   { Icon: Globe, label: "Website", value: "www.camluk.co.za", href: "https://www.camluk.co.za" },
 ];
@@ -69,7 +69,7 @@ export default function ContactSection() {
               <p className="mt-5 text-sm sm:text-base text-muted-foreground max-w-lg leading-relaxed">Business software, WhatsApp Commerce, automation, websites, cloud, or dependable IT support — start with a conversation.</p>
             </div>
           </div>
-          <div className="absolute bottom-0 right-0 bg-primary px-5 py-3"><p className="text-xs font-mono font-semibold text-primary-foreground uppercase tracking-widest">Southern Africa • Remote</p></div>
+          <div className="absolute bottom-0 right-0 bg-primary px-5 py-3"><p className="text-xs font-mono font-semibold text-primary-foreground uppercase tracking-widest">Zimbabwe • South Africa • Remote</p></div>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
@@ -81,7 +81,10 @@ export default function ContactSection() {
                 return href ? <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} className="group flex items-center gap-4 py-5 hover:bg-card/20 -mx-2 px-2 transition-colors">{inner}</a> : <div key={label} className="group flex items-center gap-4 py-5">{inner}</div>;
               })}
             </div>
-            <button type="button" onClick={() => openWhatsApp()} className="mt-8 inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-primary text-primary-foreground font-bold text-sm px-7 py-4 hover:bg-primary/90 transition-all"><MessageCircle className="w-4 h-4" />Start on WhatsApp<ArrowUpRight className="w-4 h-4" /></button>
+            <div className="mt-8 rounded-none border border-border/60 bg-card/20 p-5">
+              <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">One team. One contact point.</p>
+              <p className="text-sm text-foreground leading-relaxed">Camluk serves Zimbabwe, South Africa, the wider Southern African market, and remote clients through one shared contact channel.</p>
+            </div>
           </motion.div>
 
           <motion.div {...fadeUp(0.1)}>
@@ -94,7 +97,7 @@ export default function ContactSection() {
               <div><label htmlFor="contact-subject" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">What do you need?</label><input id="contact-subject" {...register("subject")} placeholder="Business software, WhatsApp Commerce, website, automation..." className={inputCls} aria-invalid={Boolean(errors.subject)} aria-describedby={errors.subject ? "contact-subject-error" : undefined} />{errors.subject && <p id="contact-subject-error" role="alert" className="mt-1 text-xs text-destructive">{errors.subject.message}</p>}</div>
               <div><label htmlFor="contact-message" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Tell us about it</label><textarea id="contact-message" {...register("message")} rows={6} placeholder="What is the problem, and what would a better solution look like?" className={`${inputCls} resize-none`} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "contact-message-error" : undefined} />{errors.message && <p id="contact-message-error" role="alert" className="mt-1 text-xs text-destructive">{errors.message.message}</p>}</div>
               <button type="submit" disabled={isSubmitting} className="group w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-bold text-sm px-8 py-4 hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed transition-all" aria-busy={isSubmitting}>{isSubmitting ? <><Loader2 className="w-4 h-4 animate-spin" />Sending…</> : <><Send className="w-4 h-4" />Request a Quote</>}</button>
-              <button type="button" onClick={() => openWhatsApp()} className="w-full inline-flex items-center justify-center gap-2 border border-border/60 text-foreground font-semibold text-sm px-8 py-3 hover:border-primary/50 hover:text-primary transition-colors"><MessageCircle className="w-4 h-4" />Prefer WhatsApp?</button>
+              <button type="button" onClick={() => openWhatsApp()} className="w-full inline-flex items-center justify-center gap-2 border border-border/60 text-foreground font-semibold text-sm px-8 py-3 hover:border-primary/50 hover:text-primary transition-colors"><MessageCircle className="w-4 h-4" />Chat with Camluk</button>
             </form>
           </motion.div>
         </div>
