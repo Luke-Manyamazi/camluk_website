@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Code, MessageCircle, Settings, Headphones, ChevronRight, Check, Plus, Minus } from "lucide-react";
 
-const WHATSAPP_NUMBER = "27621071140";
+const WHATSAPP_NUMBER = "263718604286";
 const SERVICE_IMAGE = "https://images.unsplash.com/photo-1758876202980-0a28b744fb24?auto=format&fit=crop&fm=jpg&q=75&w=2200";
 
 const fadeUp = (delay = 0) => ({ initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-40px" }, transition: { duration: 0.5, ease: "easeOut", delay } });
