@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Headphones, Globe, Code, GraduationCap, Printer, Settings, ChevronRight, Check, Plus, Minus } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import serviceImg from "@/assets/service.webp";
+import { Headphones, Globe, Code, MessageCircle, Settings, ChevronRight, Check, Plus, Minus } from "lucide-react";
+
+const WHATSAPP_NUMBER = "27621071140";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -14,123 +14,137 @@ const fadeUp = (delay = 0) => ({
 const services = [
   {
     n: "01",
-    Icon: Globe,
-    title: "Web Development",
-    tag: "Modern websites and web applications",
+    Icon: Headphones,
+    title: "IT Support & Systems",
+    tag: "Keep your business running",
     description:
-      "We design and build websites and web apps that help businesses look credible, convert more leads, and operate more professionally online. From landing pages to full business platforms, we build for clarity, speed, and trust.",
+      "Reliable remote and on-site technical support for businesses that depend on their systems every day. We troubleshoot users, devices, applications, networks, Microsoft 365, backups, security, and business systems so your team can keep working.",
     details: [
-      "High-converting business websites built to sell and inform",
-      "Responsive web apps designed for modern business workflows",
-      "Clear messaging, polished design, and better user experience",
-      "Fast performance, mobile-first layouts, and easy-to-manage content",
-      "SEO-conscious structure to improve visibility and discovery",
-      "Support for growth, upgrades, and future feature expansion",
+      "Remote troubleshooting and day-to-day technical support",
+      "Microsoft 365, user accounts, devices, printers, and connectivity",
+      "Business application and systems support",
+      "Backup, security, maintenance, and continuity checks",
+      "Deployment, upgrades, and technical problem resolution",
+      "Project-based IT support without the cost of a full-time specialist",
     ],
-    cta: null,
+    message: "Hello, I'm interested in Camluk IT Support & Systems services.",
   },
   {
     n: "02",
-    Icon: Code,
-    title: "Business Software",
-    tag: "Custom systems for daily operations",
+    Icon: Globe,
+    title: "Web Development",
+    tag: "Websites that build trust and generate leads",
     description:
-      "We build practical software that helps businesses manage operations, sales, stock, customers, and reporting without unnecessary complexity. The result is better visibility, less admin, and smoother daily execution.",
+      "We design and build fast, professional websites and web applications that help businesses look credible, capture enquiries, and turn online attention into real conversations and sales.",
     details: [
-      "Workflow tools built around how your business actually works",
-      "Customer, order, stock, and reporting dashboards",
-      "Back-office systems that reduce manual admin and errors",
-      "Streamlined processes for sales, operations, and team coordination",
-      "Integrations with your current tools and business systems",
-      "Scalable software that grows with your business",
+      "Business websites and landing pages built around clear goals",
+      "Responsive web applications for modern workflows",
+      "Mobile-first design and strong user experience",
+      "SEO-conscious structure and technical foundations",
+      "Performance-focused builds and reliable deployment",
+      "Ongoing improvements, maintenance, and feature expansion",
     ],
-    cta: null,
+    message: "Hello, I'm interested in a Camluk website or web application.",
   },
   {
     n: "03",
-    Icon: Settings,
-    title: "AI & Automation",
-    tag: "Smarter operations with less repetitive work",
+    Icon: Code,
+    title: "Business Software",
+    tag: "Replace paper and scattered spreadsheets",
     description:
-      "We help businesses use AI and automation to remove repetitive work, speed up decision-making, and free up teams to focus on higher-value tasks. Our approach stays practical, useful, and aligned with your real business goals.",
+      "We build practical business software around the way your team actually works. Manage customers, orders, stock, balances, operations, and reporting in one system instead of relying on paper, spreadsheets, and disconnected WhatsApp messages.",
     details: [
-      "Automated workflows that reduce manual admin and follow-ups",
-      "AI tools for content, support, lead handling, and internal productivity",
-      "Smarter processing for repetitive business tasks",
-      "Workflow improvements that reduce delays and human error",
-      "Simple, useful automation that fits your operations",
-      "Solutions designed to save time and improve consistency",
+      "Customer, sales, order, stock, and reporting systems",
+      "Dashboards for owners and managers",
+      "Workflow tools that reduce manual administration",
+      "Role-based access and business process controls",
+      "Integrations with existing tools and services",
+      "Scalable systems that can grow with your business",
     ],
-    cta: null,
+    message: "Hello, I want to discuss custom business software for my business.",
   },
   {
     n: "04",
-    Icon: Headphones,
-    title: "Cloud & Deployment",
-    tag: "Reliable hosting and secure delivery",
+    Icon: MessageCircle,
+    title: "WhatsApp Commerce",
+    tag: "Turn WhatsApp into a business system",
     description:
-      "We handle the technical side of getting your systems online and keeping them running reliably. From cloud hosting to deployment and ongoing support, we make sure your digital tools are stable, secure, and ready for use.",
+      "Go beyond chatting with customers. Camluk is building WhatsApp-connected business tools that help businesses manage enquiries, orders, customer conversations, follow-ups, and sales from a more structured workflow.",
     details: [
-      "Cloud hosting and deployment for websites and business apps",
-      "Reliable setup designed for uptime, performance, and security",
-      "Environment configuration and launch support",
-      "Maintenance planning for long-term business continuity",
-      "Smooth deployment with minimal business disruption",
-      "Technical support to keep operations moving without friction",
+      "Business enquiries and lead capture through WhatsApp",
+      "Structured customer conversations and follow-ups",
+      "Order and sales workflows connected to WhatsApp",
+      "Automation for repetitive customer interactions",
+      "Business dashboards and visibility beyond the chat window",
+      "Designed for businesses already using WhatsApp every day",
     ],
-    cta: null,
+    message: "Hello, I'd like to learn about Camluk WhatsApp Commerce.",
+  },
+  {
+    n: "05",
+    Icon: Settings,
+    title: "AI, Automation & Cloud",
+    tag: "Save time and run smarter",
+    description:
+      "We combine AI, automation, and cloud technology to remove repetitive work and make digital systems easier to operate. The focus is practical: save time, reduce errors, and give your team better information.",
+    details: [
+      "AI-assisted business workflows and internal tools",
+      "Automated notifications, reports, and repetitive tasks",
+      "Cloud hosting, deployment, and environment setup",
+      "Secure integrations and API-based workflows",
+      "Monitoring, maintenance, and technical improvements",
+      "Practical automation selected around measurable business value",
+    ],
+    message: "Hello, I'd like to discuss AI, automation, or cloud services from Camluk.",
   },
 ];
 
-export default function ServicesSection({ onNavigate }) {
-  const navigate = useNavigate();
-  const [open, setOpen] = useState(null);
-
+export default function ServicesSection() {
+  const [open, setOpen] = useState("01");
   const toggle = (n) => setOpen(prev => prev === n ? null : n);
+
+  const openWhatsApp = (message) => {
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <section id="services" className="relative border-t border-border/60">
       <div className="h-1 w-24 bg-primary ml-6 lg:ml-10" />
 
       <div className="max-w-6xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
-
-        {/* Header */}
         <motion.div {...fadeUp(0)} className="grid lg:grid-cols-3 gap-8 mb-14">
           <div>
-            <span className="text-xs font-mono text-primary uppercase tracking-widest block mb-4">Services</span>
+            <span className="text-xs font-mono text-primary uppercase tracking-widest block mb-4">What We Do</span>
             <h2 className="text-4xl sm:text-5xl font-black tracking-tighter leading-tight">
-              Business systems, simplified.
+              Technology that solves real business problems.
             </h2>
           </div>
           <div className="lg:col-span-2 lg:pt-14">
             <p className="text-xl text-muted-foreground leading-relaxed">
-              We build digital solutions that remove bottlenecks, automate routine work, and help businesses run smoother, faster, and smarter.
+              From IT support to custom software and WhatsApp commerce, we help businesses replace manual processes with practical systems that save time and make work easier.
             </p>
           </div>
         </motion.div>
 
-        {/* Banner image */}
         <motion.div {...fadeUp(0.05)} className="relative overflow-hidden border border-border/40 mb-10 h-44 sm:h-56">
-          <img src={serviceImg} alt="Camluk services" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/85 to-background/20" />
+          <img src={new URL("../../assets/service.webp", import.meta.url).href} alt="Digital business services from Camluk Technologies" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/90 to-background/20" />
           <div className="absolute inset-0 flex items-center px-8 lg:px-12">
             <div>
               <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Camluk Technologies</p>
               <p className="text-2xl sm:text-3xl font-black tracking-tighter text-foreground leading-tight">
-                End-to-End<br />Digital Services
+                Simply Automated.<br />Built for Business.
               </p>
             </div>
           </div>
         </motion.div>
 
-        {/* Services accordion */}
         <div className="divide-y divide-border/40 border-t border-border/40">
-          {services.map(({ n, Icon, title, tag, description, details, cta }, i) => (
+          {services.map(({ n, Icon, title, tag, description, details, message }, i) => (
             <motion.div key={n} {...fadeUp(i * 0.04)}>
-
-              {/* Row header — always visible */}
               <button
                 onClick={() => toggle(n)}
+                aria-expanded={open === n}
                 className="group w-full grid sm:grid-cols-[60px_1fr_auto] gap-4 sm:gap-8 items-center py-6 hover:bg-card/30 -mx-2 px-2 transition-colors text-left"
               >
                 <span className="text-xs font-mono text-muted-foreground group-hover:text-primary transition-colors">{n}</span>
@@ -144,14 +158,10 @@ export default function ServicesSection({ onNavigate }) {
                   </div>
                 </div>
                 <div className="w-7 h-7 border border-border/60 group-hover:border-primary/40 flex items-center justify-center shrink-0 transition-colors ml-auto">
-                  {open === n
-                    ? <Minus className="w-3.5 h-3.5 text-primary" />
-                    : <Plus className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
-                  }
+                  {open === n ? <Minus className="w-3.5 h-3.5 text-primary" /> : <Plus className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />}
                 </div>
               </button>
 
-              {/* Expanded content */}
               <AnimatePresence initial={false}>
                 {open === n && (
                   <motion.div
@@ -163,22 +173,16 @@ export default function ServicesSection({ onNavigate }) {
                     className="overflow-hidden"
                   >
                     <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 pb-8 pt-2 pl-2 sm:pl-[88px]">
-
-                      {/* Description */}
                       <div>
                         <p className="text-base text-muted-foreground leading-relaxed mb-6">{description}</p>
-                        {cta && (
-                          <button
-                            onClick={() => navigate(cta.route)}
-                            className="group/btn inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:gap-2.5 transition-all"
-                          >
-                            {cta.label}
-                            <ChevronRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                          </button>
-                        )}
+                        <button
+                          onClick={() => openWhatsApp(message)}
+                          className="group/btn inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-3 text-sm font-bold hover:bg-primary/90 transition-all"
+                        >
+                          Discuss this service on WhatsApp
+                          <ChevronRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                        </button>
                       </div>
-
-                      {/* Details list */}
                       <ul className="space-y-3">
                         {details.map((item) => (
                           <li key={item} className="flex items-start gap-3 text-sm">
