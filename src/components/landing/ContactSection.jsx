@@ -18,10 +18,10 @@ const contactItems = [
 ];
 
 const schema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  subject: z.string().min(3, "Subject is required"),
-  message: z.string().min(20, "Message must be at least 20 characters"),
+  name: z.string().trim().min(2, "Name must be at least 2 characters"),
+  email: z.string().trim().email("Please enter a valid email address"),
+  subject: z.string().trim().min(3, "Subject is required"),
+  message: z.string().trim().min(20, "Message must be at least 20 characters"),
 });
 
 const fadeUp = (delay = 0) => ({
@@ -35,26 +35,40 @@ const inputCls = "w-full bg-card/40 border border-border/60 focus:border-primary
 
 export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: { name: "", email: "", subject: "", message: "" },
+  });
 
-  const openWhatsApp = () => {
-    const message = "Hello, I'm interested in Camluk Technologies services. I'd like to discuss a project.";
+  const openWhatsApp = (data) => {
+    const message = data
+      ? `Hello Camluk, I'm ${data.name}.\n\nService: ${data.subject}\nEmail: ${data.email}\n\n${data.message}`
+      : "Hello, I'm interested in Camluk Technologies services. I'd like to discuss a project.";
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
   };
 
   const onSubmit = async (data) => {
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      toast.error("Online email is temporarily unavailable. Please use WhatsApp or email us directly.");
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        serviceId,
+        templateId,
         { from_name: data.name, from_email: data.email, subject: data.subject, message: data.message },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        publicKey
       );
       toast.success("Message sent! We'll get back to you soon.");
       reset();
     } catch {
-      toast.error("Failed to send. Please email us directly at support@camluk.co.za");
+      toast.error("Email could not be sent. Please use WhatsApp or email us directly.");
     } finally {
       setIsSubmitting(false);
     }
@@ -116,7 +130,7 @@ export default function ContactSection() {
               })}
             </div>
 
-            <button onClick={openWhatsApp} className="mt-8 inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-primary text-primary-foreground font-bold text-sm px-7 py-4 hover:bg-primary/90 transition-all">
+            <button type="button" onClick={() => openWhatsApp()} className="mt-8 inline-flex w-full sm:w-auto items-center justify-center gap-2 bg-primary text-primary-foreground font-bold text-sm px-7 py-4 hover:bg-primary/90 transition-all">
               <MessageCircle className="w-4 h-4" />
               Start on WhatsApp
               <ArrowUpRight className="w-4 h-4" />
@@ -125,31 +139,34 @@ export default function ContactSection() {
 
           <motion.div {...fadeUp(0.1)}>
             <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-6">Request a Quote</p>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Your Name</label>
-                  <input {...register("name")} placeholder="Your name" className={inputCls} />
-                  {errors.name && <p className="mt-1 text-xs text-destructive">{errors.name.message}</p>}
+                  <label htmlFor="contact-name" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Your Name</label>
+                  <input id="contact-name" {...register("name")} autoComplete="name" placeholder="Your name" className={inputCls} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "contact-name-error" : undefined} />
+                  {errors.name && <p id="contact-name-error" role="alert" className="mt-1 text-xs text-destructive">{errors.name.message}</p>}
                 </div>
                 <div>
-                  <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Email Address</label>
-                  <input {...register("email")} type="email" placeholder="you@company.com" className={inputCls} />
-                  {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email.message}</p>}
+                  <label htmlFor="contact-email" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Email Address</label>
+                  <input id="contact-email" {...register("email")} type="email" autoComplete="email" placeholder="you@company.com" className={inputCls} aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? "contact-email-error" : undefined} />
+                  {errors.email && <p id="contact-email-error" role="alert" className="mt-1 text-xs text-destructive">{errors.email.message}</p>}
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">What do you need?</label>
-                <input {...register("subject")} placeholder="IT support, website, software, WhatsApp Commerce..." className={inputCls} />
-                {errors.subject && <p className="mt-1 text-xs text-destructive">{errors.subject.message}</p>}
+                <label htmlFor="contact-subject" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">What do you need?</label>
+                <input id="contact-subject" {...register("subject")} placeholder="IT support, website, software, WhatsApp Commerce..." className={inputCls} aria-invalid={Boolean(errors.subject)} aria-describedby={errors.subject ? "contact-subject-error" : undefined} />
+                {errors.subject && <p id="contact-subject-error" role="alert" className="mt-1 text-xs text-destructive">{errors.subject.message}</p>}
               </div>
               <div>
-                <label className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Tell us about it</label>
-                <textarea {...register("message")} rows={6} placeholder="What is the problem, and what would a better solution look like?" className={`${inputCls} resize-none`} />
-                {errors.message && <p className="mt-1 text-xs text-destructive">{errors.message.message}</p>}
+                <label htmlFor="contact-message" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Tell us about it</label>
+                <textarea id="contact-message" {...register("message")} rows={6} placeholder="What is the problem, and what would a better solution look like?" className={`${inputCls} resize-none`} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "contact-message-error" : undefined} />
+                {errors.message && <p id="contact-message-error" role="alert" className="mt-1 text-xs text-destructive">{errors.message.message}</p>}
               </div>
-              <button type="submit" disabled={isSubmitting} className="group w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-bold text-sm px-8 py-4 hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed transition-all">
+              <button type="submit" disabled={isSubmitting} className="group w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-bold text-sm px-8 py-4 hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed transition-all" aria-busy={isSubmitting}>
                 {isSubmitting ? <><Loader2 className="w-4 h-4 animate-spin" /> Sending…</> : <><Send className="w-4 h-4" /> Request a Quote</>}
+              </button>
+              <button type="button" onClick={() => openWhatsApp()} className="w-full inline-flex items-center justify-center gap-2 border border-border/60 text-foreground font-semibold text-sm px-8 py-3 hover:border-primary/50 hover:text-primary transition-colors">
+                <MessageCircle className="w-4 h-4" /> Prefer WhatsApp?
               </button>
             </form>
           </motion.div>
