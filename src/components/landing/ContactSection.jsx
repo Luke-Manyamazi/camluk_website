@@ -8,7 +8,7 @@ import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 
 const CONTACT_IMAGE = "https://images.unsplash.com/photo-1783061044343-69dc0c78ad87?auto=format&fit=crop&fm=jpg&q=75&w=2000";
-const WHATSAPP_NUMBER = "27621071140";
+const WHATSAPP_NUMBER = "263718604286";
 
 const contactItems = [
   { Icon: MapPin, label: "Zimbabwe", value: "Serving businesses across Zimbabwe", href: null },
