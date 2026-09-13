@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "../components/landing/Navbar";
-import Footer from "../components/landing/Footer";
 import HeroSection from "../components/landing/HeroSection";
 import AboutSection from "../components/landing/AboutSection";
 import ServicesSection from "../components/landing/ServicesSection";
@@ -51,6 +51,7 @@ export default function Home() {
   }, [currentIndex, handleNavigate]);
 
   const currentSection = SECTIONS[currentIndex];
+  const previousSection = SECTIONS[currentIndex - 1] || null;
   const nextSection = SECTIONS[currentIndex + 1] || null;
 
   const renderSection = (sectionId) => {
@@ -70,11 +71,37 @@ export default function Home() {
     <div className="fixed inset-0 bg-[#0d0d0d] text-foreground font-inter overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
       <Navbar onNavigate={handleNavigate} currentSection={currentSection} />
       <AnimatePresence mode="wait" custom={direction}>
-        <motion.div key={currentSection} custom={direction} variants={sectionVariants} initial="enter" animate="center" exit="exit" className="absolute inset-0 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+        <motion.div key={currentSection} custom={direction} variants={sectionVariants} initial="enter" animate="center" exit="exit" className="absolute inset-0 overflow-y-auto pb-16" style={{ scrollbarWidth: "none" }}>
           {renderSection(currentSection)}
-          {currentSection === "contact" && <Footer onNavigate={handleNavigate} />}
         </motion.div>
       </AnimatePresence>
+
+      <div className="fixed left-4 right-4 bottom-16 z-40 flex items-center justify-between pointer-events-none">
+        {previousSection ? (
+          <button onClick={() => handleNavigate(currentIndex - 1)} className="pointer-events-auto inline-flex items-center gap-1.5 px-3 py-2 border border-border/60 bg-background/70 backdrop-blur-md text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all" aria-label={`Go to previous section: ${previousSection.replace("-", " ")}`}>
+            <ChevronLeft className="w-4 h-4" />
+            <span className="hidden sm:inline text-[10px] font-mono uppercase tracking-wider">Previous</span>
+          </button>
+        ) : <span />}
+        {nextSection ? (
+          <button onClick={() => handleNavigate(currentIndex + 1)} className="pointer-events-auto inline-flex items-center gap-1.5 px-3 py-2 border border-border/60 bg-background/70 backdrop-blur-md text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all" aria-label={`Go to next section: ${nextSection.replace("-", " ")}`}>
+            <span className="hidden sm:inline text-[10px] font-mono uppercase tracking-wider">Next</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        ) : <span />}
+      </div>
+
+      <div className="fixed bottom-0 inset-x-0 z-30 border-t border-border/40 bg-background/90 backdrop-blur-md px-4 py-2.5">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-1.5 text-[10px] sm:text-xs text-muted-foreground">
+          <span>© 2026 Camluk Technologies. All rights reserved.</span>
+          <div className="flex items-center gap-3">
+            <a href="mailto:support@camluk.co.za" className="hover:text-foreground transition-colors">support@camluk.co.za</a>
+            <span className="text-border">|</span>
+            <a href="tel:+27621071140" className="hover:text-foreground transition-colors">+27 62 107 1140</a>
+          </div>
+        </div>
+      </div>
+
       <div className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2" aria-label="Section navigation">
         {SECTIONS.map((section, index) => (
           <button key={section} onClick={() => handleNavigate(index)} title={section.replace("-", " ")} className={`w-1.5 transition-all duration-300 ${index === currentIndex ? "h-8 bg-primary" : "h-2 bg-white/20 hover:bg-white/50"}`} aria-label={`Go to ${section.replace("-", " ")} section`} />
