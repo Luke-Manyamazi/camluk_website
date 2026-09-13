@@ -8,26 +8,14 @@ import ServicesSection from "../components/landing/ServicesSection";
 import ProcessSection from "../components/landing/ProcessSection";
 import ClientsSection from "../components/landing/ClientsSection";
 import WhyChooseSection from "../components/landing/WhyChooseSection";
-import TestimonialsSection from "../components/landing/TestimonialsSection";
 import ContactSection from "../components/landing/ContactSection";
 
-const SECTIONS = ["home", "services", "about", "clients", "contact"];
+const SECTIONS = ["home", "services", "process", "about", "clients", "why-us", "contact"];
 
 const sectionVariants = {
-  enter: (direction) => ({
-    y: direction > 0 ? "100%" : "-100%",
-    opacity: 0,
-  }),
-  center: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] },
-  },
-  exit: (direction) => ({
-    y: direction > 0 ? "-100%" : "100%",
-    opacity: 0,
-    transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] },
-  }),
+  enter: (direction) => ({ y: direction > 0 ? "100%" : "-100%", opacity: 0 }),
+  center: { y: 0, opacity: 1, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } },
+  exit: (direction) => ({ y: direction > 0 ? "-100%" : "100%", opacity: 0, transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] } }),
 };
 
 export default function Home() {
@@ -50,9 +38,7 @@ export default function Home() {
     setTimeout(() => { isAnimating.current = false; }, 850);
   }, [navigateTo]);
 
-  const handleTouchStart = useCallback((event) => {
-    touchStartY.current = event.touches[0].clientY;
-  }, []);
+  const handleTouchStart = useCallback((event) => { touchStartY.current = event.touches[0].clientY; }, []);
 
   const handleTouchEnd = useCallback((event) => {
     if (touchStartY.current === null) return;
@@ -69,54 +55,29 @@ export default function Home() {
 
   const renderSection = (sectionId) => {
     switch (sectionId) {
-      case "home":
-        return <HeroSection onNavigate={handleNavigate} nextSection={nextSection} />;
-      case "services":
-        return <ServicesSection onNavigate={handleNavigate} nextSection={nextSection} />;
-      case "about":
-        return <AboutSection onNavigate={handleNavigate} nextSection={nextSection} />;
-      case "clients":
-        return <ClientsSection onNavigate={handleNavigate} nextSection={nextSection} />;
-      case "contact":
-        return <ContactSection onNavigate={handleNavigate} nextSection={nextSection} />;
-      default:
-        return null;
+      case "home": return <HeroSection onNavigate={handleNavigate} nextSection={nextSection} />;
+      case "services": return <ServicesSection onNavigate={handleNavigate} nextSection={nextSection} />;
+      case "process": return <ProcessSection onNavigate={handleNavigate} nextSection={nextSection} />;
+      case "about": return <AboutSection onNavigate={handleNavigate} nextSection={nextSection} />;
+      case "clients": return <ClientsSection onNavigate={handleNavigate} nextSection={nextSection} />;
+      case "why-us": return <WhyChooseSection onNavigate={handleNavigate} nextSection={nextSection} />;
+      case "contact": return <ContactSection onNavigate={handleNavigate} nextSection={nextSection} />;
+      default: return null;
     }
   };
 
   return (
-    <div
-      className="fixed inset-0 bg-[#0d0d0d] text-foreground font-inter overflow-hidden"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
+    <div className="fixed inset-0 bg-[#0d0d0d] text-foreground font-inter overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
       <Navbar onNavigate={handleNavigate} currentSection={currentSection} />
-
       <AnimatePresence mode="wait" custom={direction}>
-        <motion.div
-          key={currentSection}
-          custom={direction}
-          variants={sectionVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          className="absolute inset-0 overflow-y-auto"
-          style={{ scrollbarWidth: "none" }}
-        >
+        <motion.div key={currentSection} custom={direction} variants={sectionVariants} initial="enter" animate="center" exit="exit" className="absolute inset-0 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
           {renderSection(currentSection)}
           {currentSection === "contact" && <Footer onNavigate={handleNavigate} />}
         </motion.div>
       </AnimatePresence>
-
-      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2">
+      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2" aria-label="Section navigation">
         {SECTIONS.map((section, index) => (
-          <button
-            key={section}
-            onClick={() => handleNavigate(index)}
-            title={section}
-            className={`w-1.5 transition-all duration-300 ${index === currentIndex ? "h-8 bg-primary" : "h-2 bg-white/20 hover:bg-white/50"}`}
-            aria-label={`Go to ${section} section`}
-          />
+          <button key={section} onClick={() => handleNavigate(index)} title={section.replace("-", " ")} className={`w-1.5 transition-all duration-300 ${index === currentIndex ? "h-8 bg-primary" : "h-2 bg-white/20 hover:bg-white/50"}`} aria-label={`Go to ${section.replace("-", " ")} section`} />
         ))}
       </div>
     </div>
