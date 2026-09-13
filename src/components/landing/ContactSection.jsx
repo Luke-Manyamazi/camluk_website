@@ -7,7 +7,7 @@ import { z } from "zod";
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 
-const CONTACT_IMAGE = "https://images.unsplash.com/photo-1758518729711-1cbacd55efdb?auto=format&fit=crop&fm=jpg&q=75&w=1800";
+const CONTACT_IMAGE = "https://images.unsplash.com/photo-1783061044343-69dc0c78ad87?auto=format&fit=crop&fm=jpg&q=75&w=2000";
 const WHATSAPP_NUMBER = "27621071140";
 
 const contactItems = [
@@ -53,19 +53,26 @@ export default function ContactSection() {
   return (
     <section id="contact" className="relative border-t border-border/60">
       <div className="h-1 w-24 bg-primary ml-6 lg:ml-10" />
-      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
-        <motion.div {...fadeUp(0)} className="grid lg:grid-cols-3 gap-8 mb-14">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 py-16 sm:py-20 lg:py-24">
+        <motion.div {...fadeUp(0)} className="grid lg:grid-cols-3 gap-8 mb-10 lg:mb-12">
           <div><span className="text-xs font-mono text-primary uppercase tracking-widest block mb-4">Start a Project</span><h2 className="text-4xl sm:text-5xl font-black tracking-tighter leading-tight">Tell us what needs fixing.</h2></div>
-          <div className="lg:col-span-2 lg:pt-14"><p className="text-xl text-muted-foreground leading-relaxed">Whether you need reliable IT support, a business system, a better website, or WhatsApp automation, tell us what is slowing your business down.</p></div>
+          <div className="lg:col-span-2 lg:pt-10"><p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">Have a business problem, a manual process, or a system that is holding your team back? Tell us what is happening. We will help you work out the right solution.</p></div>
         </motion.div>
 
-        <motion.div {...fadeUp(0.05)} className="relative overflow-hidden border border-border/40 mb-12 h-52 sm:h-64 lg:h-72 shadow-2xl">
-          <img src={CONTACT_IMAGE} alt="Business professionals discussing a project together" className="w-full h-full object-cover object-center" loading="lazy" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/35 to-background/10" />
-          <div className="absolute inset-y-0 left-0 flex items-center px-7 sm:px-10 lg:px-12 max-w-xl"><div><p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Let's build something useful</p><p className="text-2xl sm:text-3xl font-black tracking-tighter text-foreground leading-tight">Bring the problem.<br />We'll work out the right system.</p></div></div>
+        <motion.div {...fadeUp(0.05)} className="relative overflow-hidden border border-border/40 mb-12 min-h-[300px] sm:min-h-[340px] lg:min-h-[380px] shadow-2xl">
+          <img src={CONTACT_IMAGE} alt="Business colleagues discussing a project and planning a solution" className="absolute inset-0 w-full h-full object-cover object-[58%_48%]" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 to-background/15" />
+          <div className="absolute inset-0 flex items-center">
+            <div className="px-7 sm:px-10 lg:px-14 max-w-2xl">
+              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-4">Let's build something useful</p>
+              <p className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tighter text-foreground leading-[1.05]">Bring the problem.<br /><span className="text-primary">We'll work out the system.</span></p>
+              <p className="mt-5 text-sm sm:text-base text-muted-foreground max-w-lg leading-relaxed">Business software, WhatsApp Commerce, automation, websites, cloud, or dependable IT support — start with a conversation.</p>
+            </div>
+          </div>
+          <div className="absolute bottom-0 right-0 bg-primary px-5 py-3"><p className="text-xs font-mono font-semibold text-primary-foreground uppercase tracking-widest">Southern Africa • Remote</p></div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
           <motion.div {...fadeUp(0.05)}>
             <p className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-6">Talk to Camluk</p>
             <div className="divide-y divide-border/40 border-t border-border/40">
@@ -84,7 +91,7 @@ export default function ContactSection() {
                 <div><label htmlFor="contact-name" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Your Name</label><input id="contact-name" {...register("name")} autoComplete="name" placeholder="Your name" className={inputCls} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? "contact-name-error" : undefined} />{errors.name && <p id="contact-name-error" role="alert" className="mt-1 text-xs text-destructive">{errors.name.message}</p>}</div>
                 <div><label htmlFor="contact-email" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Email Address</label><input id="contact-email" {...register("email")} type="email" autoComplete="email" placeholder="you@company.com" className={inputCls} aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? "contact-email-error" : undefined} />{errors.email && <p id="contact-email-error" role="alert" className="mt-1 text-xs text-destructive">{errors.email.message}</p>}</div>
               </div>
-              <div><label htmlFor="contact-subject" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">What do you need?</label><input id="contact-subject" {...register("subject")} placeholder="IT support, website, software, WhatsApp Commerce..." className={inputCls} aria-invalid={Boolean(errors.subject)} aria-describedby={errors.subject ? "contact-subject-error" : undefined} />{errors.subject && <p id="contact-subject-error" role="alert" className="mt-1 text-xs text-destructive">{errors.subject.message}</p>}</div>
+              <div><label htmlFor="contact-subject" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">What do you need?</label><input id="contact-subject" {...register("subject")} placeholder="Business software, WhatsApp Commerce, website, automation..." className={inputCls} aria-invalid={Boolean(errors.subject)} aria-describedby={errors.subject ? "contact-subject-error" : undefined} />{errors.subject && <p id="contact-subject-error" role="alert" className="mt-1 text-xs text-destructive">{errors.subject.message}</p>}</div>
               <div><label htmlFor="contact-message" className="block text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2">Tell us about it</label><textarea id="contact-message" {...register("message")} rows={6} placeholder="What is the problem, and what would a better solution look like?" className={`${inputCls} resize-none`} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "contact-message-error" : undefined} />{errors.message && <p id="contact-message-error" role="alert" className="mt-1 text-xs text-destructive">{errors.message.message}</p>}</div>
               <button type="submit" disabled={isSubmitting} className="group w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-bold text-sm px-8 py-4 hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed transition-all" aria-busy={isSubmitting}>{isSubmitting ? <><Loader2 className="w-4 h-4 animate-spin" />Sending…</> : <><Send className="w-4 h-4" />Request a Quote</>}</button>
               <button type="button" onClick={() => openWhatsApp()} className="w-full inline-flex items-center justify-center gap-2 border border-border/60 text-foreground font-semibold text-sm px-8 py-3 hover:border-primary/50 hover:text-primary transition-colors"><MessageCircle className="w-4 h-4" />Prefer WhatsApp?</button>
