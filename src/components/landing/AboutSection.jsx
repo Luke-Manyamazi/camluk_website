@@ -42,7 +42,7 @@ export default function AboutSection({ onNavigate, nextSection }) {
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">Camluk Technologies helps businesses replace manual work and disconnected tools with practical digital systems. From reliable IT support to custom software, WhatsApp Commerce, automation, and cloud deployment, we focus on solutions that improve the way your business actually operates.</p>
               {nextSection && (
                 <button type="button" onClick={() => onNavigate?.(nextSection)} className="inline-flex items-center gap-2 text-sm font-bold text-foreground hover:text-primary transition-colors mb-8">
-                  See how we work <ArrowUpRight className="w-4 h-4" />
+                  See who we serve <ArrowUpRight className="w-4 h-4" />
                 </button>
               )}
             </motion.div>
