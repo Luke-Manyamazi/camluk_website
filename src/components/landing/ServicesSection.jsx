@@ -5,12 +5,7 @@ import { Globe, Code, MessageCircle, Settings, Headphones, ChevronRight, Check, 
 const WHATSAPP_NUMBER = "27621071140";
 const SERVICE_IMAGE = "https://images.unsplash.com/photo-1758876202980-0a28b744fb24?auto=format&fit=crop&fm=jpg&q=75&w=2200";
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-40px" },
-  transition: { duration: 0.5, ease: "easeOut", delay },
-});
+const fadeUp = (delay = 0) => ({ initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-40px" }, transition: { duration: 0.5, ease: "easeOut", delay } });
 
 const services = [
   { n: "01", Icon: Code, title: "Business Software", tag: "Run the business from one system", description: "We build practical business software around the way your team actually works. Manage customers, orders, stock, balances, operations, and reporting in one system instead of relying on paper, spreadsheets, and disconnected WhatsApp messages.", details: ["Customer, sales, order, stock, and reporting systems", "Dashboards for owners and managers", "Workflow tools that reduce manual administration", "Role-based access and business process controls", "Integrations with existing tools and services", "Scalable systems that can grow with your business"], message: "Hello, I want to enquire about custom business software for my business." },
@@ -34,10 +29,10 @@ export default function ServicesSection({ onNavigate }) {
           <div className="lg:col-span-2 lg:pt-14"><p className="text-xl text-muted-foreground leading-relaxed">From business software and automation to WhatsApp commerce, web development and IT support, we help businesses replace manual processes with practical systems that save time and make work easier.</p></div>
         </motion.div>
 
-        <motion.div {...fadeUp(0.05)} className="relative overflow-hidden border border-border/40 mb-10 h-44 sm:h-56">
-          <img src={SERVICE_IMAGE} alt="Business team reviewing digital performance data" className="w-full h-full object-cover" loading="lazy" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 to-background/20" />
-          <div className="absolute inset-0 flex items-center px-8 lg:px-12"><div><p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Camluk Technologies</p><p className="text-2xl sm:text-3xl font-black tracking-tighter text-foreground leading-tight">Simply Automated.<br />Built for Business.</p></div></div>
+        <motion.div {...fadeUp(0.05)} className="relative overflow-hidden border border-border/40 mb-10 h-52 sm:h-64 lg:h-72 shadow-2xl">
+          <img src={SERVICE_IMAGE} alt="Business team reviewing digital performance data" className="w-full h-full object-cover object-[65%_center]" loading="lazy" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/45 to-background/15" />
+          <div className="absolute inset-y-0 left-0 flex items-center px-8 lg:px-12 max-w-xl"><div><p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Camluk Technologies</p><p className="text-2xl sm:text-3xl font-black tracking-tighter text-foreground leading-tight">Simply Automated.<br />Built for Business.</p></div></div>
         </motion.div>
 
         <div className="divide-y divide-border/40 border-t border-border/40">
